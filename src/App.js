@@ -1,50 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store';
+import Layout from './components/layout/Layout';
+import Home from './pages/Home';
+import OurStory from './pages/OurStory';
+import Venue from './pages/Venue';
+import RSVP from './pages/RSVP';
+import StyleGuide from './pages/StyleGuide';
+import NotFound from './pages/NotFound';
 import './App.css';
 
 function App() {
-	const [message, setMessage] = useState("Loading...");
-	const [connected, setConnected] = useState(false);
-
-	useEffect(() => {
-		// testing connection to backend api
-		const apiUrl = process.env.REACT_APP_API_URL || '';
-		console.log(apiUrl);
-		console.log("hello world");
-		fetch(`${apiUrl}/v1/api/health/isAlive`)
-			.then(response => {
-				if (response.ok) return response.json();
-				throw new Error('Network response was not ok');
-			})
-			.then(data => {
-				console.log(data);
-				setMessage(data.message);
-				setConnected(true);
-			})
-			.catch(error => {
-				console.error('Error fetching data: ', error);
-				setMessage("Could not connect to server. Backend may not be running yet.");
-				setConnected(false);
-			})
-	}, []);
-
-
-
-
-	return (
-		<div className="App">
-		<header className="App-header">
-			<h1>Casey and Yasmim's Wedding</h1>
-			<p>We're getting married! More details coming soon.</p>
-			<div className="connection-status">
-				<h3>Backend Connection Status:</h3>
-				<p style={{color: connected ? 'green' : 'red'}}>
-					{connected ? 'Connected to backend ✓' : 'Not connected to backend ✗'}
-				</p>
-				<p>{message}</p>
-			</div>
-		</header>
-		</div>
-	);
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="our-story" element={<OurStory />} />
+            <Route path="venue" element={<Venue />} />
+            <Route path="rsvp" element={<RSVP />} />
+            <Route path="style-guide" element={<StyleGuide />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
+  );
 }
 
 export default App;

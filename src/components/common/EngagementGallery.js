@@ -114,13 +114,26 @@ const EngagementGallery = () => {
       {/* Gallery Section */}
       <section className="py-16 bg-white dark:bg-dark-primary transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+        <div className="text-center mb-12">
             <h2 className="font-script text-4xl text-primary-dark dark:text-primary-light mb-4">
               Our Engagement
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-4">
               Celebrating our love story through these special moments
             </p>
+            
+            {/* Mobile hint - only shows on mobile */}
+            <div className="sm:hidden bg-accent-light dark:bg-dark-card rounded-lg p-4 mx-4 mb-6 border-l-4 border-primary dark:border-primary-light">
+              <div className="flex items-center justify-center">
+                <svg className="w-5 h-5 text-primary dark:text-primary-light mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+                <p className="text-sm text-gray-700 dark:text-gray-300 text-center">
+                  <span className="font-medium">Tap any photo</span> to view high-quality slideshow
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Masonry Grid */}

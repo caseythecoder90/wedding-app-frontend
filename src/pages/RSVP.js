@@ -72,10 +72,10 @@ function RSVP() {
 
   // Hero section - styled consistently with OurStory
   const rsvpHero = (
-    <section className="relative py-24 bg-primary-light/30 dark:bg-primary-dark/20">
+    <section className="relative py-24 bg-gradient-to-br from-primary-light/30 to-secondary-light/30 dark:from-primary-dark/20 dark:to-secondary-dark/20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h1 className="font-script text-5xl text-primary dark:text-primary-light mb-6">RSVP</h1>
+          <h1 className="font-script text-6xl text-primary dark:text-primary-light mb-6">RSVP</h1>
           <p className="text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
             We would be honored to have you join us for our special day.
           </p>

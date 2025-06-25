@@ -2,151 +2,245 @@ import React from 'react';
 
 function Venue() {
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="relative bg-cover bg-center h-96" style={{
-        backgroundImage: "url('https://images.unsplash.com/photo-1578439231583-9eca0a363860?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80')"
-      }}>
-        <div className="absolute inset-0 bg-primary/30 dark:bg-primary-dark/40"></div>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center px-4">
-            <h1 className="font-script text-5xl text-white mb-6 text-shadow">
-              Our Destination
+    <div className="min-h-screen bg-white dark:bg-dark-primary transition-colors duration-200">
+      {/* Hero Section with Ocean/Beach */}
+      <section className="relative h-screen overflow-hidden">
+        {/* Beautiful ocean/beach background image */}
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2073&q=80"
+            alt="Beautiful tropical ocean beach"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-primary/20 dark:bg-primary-dark/30 transition-colors duration-200"></div>
+        </div>
+        
+        {/* Animated effects overlay */}
+        <div className="absolute inset-0">
+          {/* Animated wave overlay */}
+          <div className="absolute bottom-0 left-0 w-full overflow-hidden">
+            <svg
+              viewBox="0 0 1200 120"
+              preserveAspectRatio="none"
+              className="relative block w-full h-24"
+              style={{ animation: 'wave 10s ease-in-out infinite' }}
+            >
+              <path
+                d="M0,60 C150,90 350,30 600,60 C850,90 1050,30 1200,60 L1200,120 L0,120 Z"
+                fill="rgba(255,255,255,0.3)"
+              />
+            </svg>
+          </div>
+          
+          {/* Floating particles */}
+          <div className="absolute inset-0">
+            {[...Array(15)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-2 h-2 bg-white rounded-full opacity-60 animate-float"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 10}s`,
+                  animationDuration: `${3 + Math.random() * 4}s`
+                }}
+              />
+            ))}
+          </div>
+        </div>
+        
+        <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
+          <div className="text-center px-4 z-10">
+            <h1 className="font-script text-6xl md:text-8xl text-white mb-6 text-shadow animate-fade-in">
+              Our Paradise
             </h1>
-            <p className="text-2xl text-white font-light max-w-2xl mx-auto text-shadow">
-              Join us in beautiful Punta Cana for our celebration of love
+            <p className="text-xl md:text-3xl text-white font-light max-w-3xl mx-auto text-shadow animate-fade-in-delayed">
+              Join us in beautiful Punta Cana, Dominican Republic
             </p>
+            <div className="mt-8 animate-fade-in-delayed-2">
+              <div className="inline-block bg-white bg-opacity-20 backdrop-blur-sm rounded-lg px-8 py-4">
+                <p className="text-white text-lg font-medium">April 10th, 2026</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
       
-      {/* Venue Details */}
-      <section className="py-16 bg-white dark:bg-dark-primary transition-colors duration-200">
+      {/* Resort Information */}
+      <section className="py-20 bg-gray-50 dark:bg-dark-secondary transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-start md:space-x-8">
-            {/* Image Column */}
-            <div className="md:w-1/2 mb-8 md:mb-0">
-              <div className="rounded-lg overflow-hidden shadow-lg">
+          <div className="text-center mb-16">
+            <h2 className="font-script text-5xl text-gray-800 dark:text-gray-100 mb-6 transition-colors duration-200">
+              Grand Bavaro Princess
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed transition-colors duration-200">
+              A luxurious all-inclusive resort nestled on the pristine shores of Bavaro Beach, 
+              offering world-class amenities and breathtaking ocean views for our special celebration.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Resort Image */}
+            <div className="order-2 lg:order-1">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
                 <img 
-                  src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" 
-                  alt="Wedding resort in Punta Cana" 
-                  className="w-full h-auto"
+                  src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                  alt="Grand Bavaro Princess Resort" 
+                  className="w-full h-96 object-cover group-hover:scale-105 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
             </div>
             
-            {/* Content Column */}
-            <div className="md:w-1/2">
-              <h2 className="font-display text-3xl text-primary dark:text-primary-light mb-6">
-                The Resort
-              </h2>
-              <p className="text-gray-700 dark:text-gray-300 mb-6">
-                We're thrilled to be celebrating our special day at the beautiful 
-                [Resort Name] in Punta Cana, Dominican Republic. This tropical paradise 
-                offers pristine beaches, crystal-clear waters, and amazing amenities 
-                that will make our wedding weekend unforgettable.
-              </p>
-              <div className="bg-primary-light dark:bg-dark-card rounded-lg p-6 shadow-md transition-colors duration-200">
-                <h3 className="font-medium text-primary-dark dark:text-primary-light text-lg mb-3">
-                  Resort Address
+            {/* Resort Details */}
+            <div className="order-1 lg:order-2">
+              <div className="bg-white dark:bg-dark-card rounded-2xl shadow-xl p-8 transition-colors duration-200">
+                <h3 className="font-display text-2xl text-gray-800 dark:text-gray-100 mb-6 transition-colors duration-200">
+                  About Our Resort
                 </h3>
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  [Resort Name]<br />
-                  Punta Cana, Dominican Republic
+                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed transition-colors duration-200">
+                  Located on the world-renowned Bavaro Beach, the Grand Bavaro Princess boasts 
+                  <span className="font-semibold text-primary dark:text-primary-light"> 1,290 spacious suites</span>, 
+                  <span className="font-semibold text-primary dark:text-primary-light"> 11 themed restaurants</span>, 
+                  and <span className="font-semibold text-primary dark:text-primary-light"> 15 bars</span> set within 
+                  an ecological complex that respects the native vegetation and wildlife.
                 </p>
-                <a 
-                  href="https://maps.google.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-primary dark:text-primary-light hover:text-primary-dark dark:hover:text-white transition-colors"
-                >
-                  <span>View on Google Maps</span>
-                  <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                  </svg>
-                </a>
+                
+                <div className="space-y-4">
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-primary-light dark:bg-primary-dark rounded-full flex items-center justify-center mr-4 transition-colors duration-200">
+                      <svg className="w-5 h-5 text-primary-dark dark:text-primary-light transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-800 dark:text-gray-100 transition-colors duration-200">Prime Location</p>
+                      <p className="text-gray-600 dark:text-gray-300 text-sm transition-colors duration-200">25 minutes from Punta Cana Airport</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-accent-light dark:bg-accent-dark rounded-full flex items-center justify-center mr-4 transition-colors duration-200">
+                      <svg className="w-5 h-5 text-accent-dark dark:text-accent-light transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-800 dark:text-gray-100 transition-colors duration-200">All-Inclusive Experience</p>
+                      <p className="text-gray-600 dark:text-gray-300 text-sm transition-colors duration-200">Meals, drinks, and activities included</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-secondary-light dark:bg-secondary-dark rounded-full flex items-center justify-center mr-4 transition-colors duration-200">
+                      <svg className="w-5 h-5 text-secondary-dark dark:text-secondary-light transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-800 dark:text-gray-100 transition-colors duration-200">Pristine Bavaro Beach</p>
+                      <p className="text-gray-600 dark:text-gray-300 text-sm transition-colors duration-200">Crystal-clear waters & white sand</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
       
-      {/* Event Schedule */}
-      <section className="py-16 bg-accent-light/50 dark:bg-dark-secondary transition-colors duration-200">
+      {/* Wedding Day Schedule */}
+      <section className="py-20 bg-primary-light/30 dark:bg-dark-secondary transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-script text-4xl text-primary dark:text-primary-light text-center mb-12">
-            Wedding Day Schedule
+          <h2 className="font-script text-5xl text-primary dark:text-primary-light text-center mb-16 transition-colors duration-200">
+            Our Wedding Day
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Ceremony Card */}
-            <div className="bg-white dark:bg-dark-card rounded-lg shadow-md overflow-hidden transition-colors duration-200">
-              <div className="h-48 bg-primary-light dark:bg-primary-dark/40 flex items-center justify-center">
-                <div className="text-center px-4">
-                  <div className="text-4xl font-script text-primary-dark dark:text-white mb-2">Ceremony</div>
-                  <div className="text-xl font-light text-gray-700 dark:text-gray-200">April 10, 2026</div>
+            <div className="bg-white dark:bg-dark-card rounded-2xl shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-500">
+              <div className="relative h-64">
+                <img 
+                  src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                  alt="Beach wedding ceremony" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                <div className="absolute bottom-4 left-6">
+                  <h3 className="font-script text-3xl text-white mb-1">Ceremony</h3>
+                  <p className="text-white text-lg opacity-90">4:00 PM</p>
                 </div>
               </div>
-              <div className="p-6">
-                <div className="flex items-center mb-4">
-                  <svg className="h-6 w-6 text-primary dark:text-primary-light mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">3:00 PM - 4:00 PM</span>
-                </div>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  Our wedding ceremony will take place on the beach with the beautiful 
-                  Caribbean Sea as our backdrop. Please arrive 30 minutes early to find 
-                  your seats and get settled before the ceremony begins.
+              <div className="p-8">
+                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed transition-colors duration-200">
+                  Join us as we exchange vows in an intimate beachfront ceremony overlooking 
+                  the crystal-clear waters of the Caribbean Sea. The ceremony will take place 
+                  on the resort's pristine beach with the gentle sound of waves as our soundtrack.
                 </p>
-                <div className="flex items-center mb-2">
-                  <svg className="h-6 w-6 text-primary dark:text-primary-light mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  </svg>
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">Beachfront</span>
-                </div>
-                <div className="flex items-center">
-                  <svg className="h-6 w-6 text-primary dark:text-primary-light mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                  </svg>
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">Attire: Beach Formal</span>
+                <div className="space-y-3">
+                  <div className="flex items-center text-gray-700 dark:text-gray-300 transition-colors duration-200">
+                    <svg className="w-5 h-5 text-primary dark:text-primary-light mr-3 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>4:00 PM - 4:30 PM</span>
+                  </div>
+                  <div className="flex items-center text-gray-700 dark:text-gray-300 transition-colors duration-200">
+                    <svg className="w-5 h-5 text-primary dark:text-primary-light mr-3 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span>Beachfront Location</span>
+                  </div>
+                  <div className="flex items-center text-gray-700 dark:text-gray-300 transition-colors duration-200">
+                    <svg className="w-5 h-5 text-primary dark:text-primary-light mr-3 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <span>Beach Formal Attire</span>
+                  </div>
                 </div>
               </div>
             </div>
             
             {/* Reception Card */}
-            <div className="bg-white dark:bg-dark-card rounded-lg shadow-md overflow-hidden transition-colors duration-200">
-              <div className="h-48 bg-secondary-light dark:bg-secondary-dark/40 flex items-center justify-center">
-                <div className="text-center px-4">
-                  <div className="text-4xl font-script text-secondary-dark dark:text-white mb-2">Reception</div>
-                  <div className="text-xl font-light text-gray-700 dark:text-gray-200">April 10, 2026</div>
+            <div className="bg-white dark:bg-dark-card rounded-2xl shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-500">
+              <div className="relative h-64">
+                <img 
+                  src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                  alt="Beach reception dinner" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                <div className="absolute bottom-4 left-6">
+                  <h3 className="font-script text-3xl text-white mb-1">Reception</h3>
+                  <p className="text-white text-lg opacity-90">6:00 - 9:00 PM</p>
                 </div>
               </div>
-              <div className="p-6">
-                <div className="flex items-center mb-4">
-                  <svg className="h-6 w-6 text-secondary dark:text-secondary-light mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">5:00 PM - 11:00 PM</span>
-                </div>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  Following the ceremony, join us for cocktails, dinner, and dancing at 
-                  the resort's oceanfront terrace. We'll enjoy a delicious meal, toasts, 
-                  and celebration under the stars.
+              <div className="p-8">
+                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed transition-colors duration-200">
+                  Celebrate with us during our romantic reception! We're planning either an 
+                  intimate private dinner on the beach under the stars or a semi-private 
+                  dinner in one of the resort's exquisite restaurants. Stay tuned for final details!
                 </p>
-                <div className="flex items-center mb-2">
-                  <svg className="h-6 w-6 text-secondary dark:text-secondary-light mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  </svg>
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">Oceanfront Terrace</span>
-                </div>
-                <div className="flex items-center">
-                  <svg className="h-6 w-6 text-secondary dark:text-secondary-light mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                  </svg>
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">Dinner & Dancing</span>
+                <div className="space-y-3">
+                  <div className="flex items-center text-gray-700 dark:text-gray-300 transition-colors duration-200">
+                    <svg className="w-5 h-5 text-secondary dark:text-secondary-light mr-3 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>6:00 PM - 9:00 PM</span>
+                  </div>
+                  <div className="flex items-center text-gray-700 dark:text-gray-300 transition-colors duration-200">
+                    <svg className="w-5 h-5 text-secondary dark:text-secondary-light mr-3 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
+                    <span>Dinner & Dancing</span>
+                  </div>
+                  <div className="flex items-center text-gray-700 dark:text-gray-300 transition-colors duration-200">
+                    <svg className="w-5 h-5 text-secondary dark:text-secondary-light mr-3 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    <span>Celebration Under the Stars</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -154,101 +248,175 @@ function Venue() {
         </div>
       </section>
       
-      {/* Travel & Accommodations */}
-      <section className="py-16 bg-white dark:bg-dark-primary transition-colors duration-200">
+      {/* Booking Information */}
+      <section className="py-20 bg-gray-800 dark:bg-gray-900 text-white transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-script text-4xl text-primary dark:text-primary-light text-center mb-12">
-            Travel & Accommodations
-          </h2>
-          
-          <div className="bg-primary-light/30 dark:bg-dark-card rounded-lg shadow-md p-8 mb-10 transition-colors duration-200">
-            <h3 className="font-display text-2xl text-primary-dark dark:text-primary-light mb-4">
-              Resort Information
-            </h3>
-            <p className="text-gray-700 dark:text-gray-300 mb-6">
-              We've arranged a special room block at [Resort Name] for our wedding guests. 
-              When booking, please mention the "Quinn-Wedding" group to receive our special rate.
-              The resort is all-inclusive, which means your room, meals, drinks, and most activities 
-              are covered in your stay.
+          <div className="text-center mb-16">
+            <h2 className="font-script text-5xl mb-6 transition-colors duration-200">Plan Your Stay</h2>
+            <p className="text-xl text-gray-300 dark:text-gray-400 max-w-3xl mx-auto transition-colors duration-200">
+              We're not reserving a block of rooms, so guests have the freedom to choose 
+              their perfect accommodation and explore all the resort has to offer.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white dark:bg-dark-secondary rounded-lg p-4 shadow-sm transition-colors duration-200">
-                <h4 className="font-medium text-primary dark:text-primary-light text-lg mb-2">Booking Information</h4>
-                <p className="text-gray-600 dark:text-gray-400">
-                  Reservations: (555) 123-4567<br />
-                  Booking Code: QUINN2026<br />
-                  Website: <a href="#" className="text-primary hover:underline">www.resortname.com</a>
-                </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Booking Details */}
+            <div className="bg-gray-700 dark:bg-gray-800 rounded-2xl p-8 transition-colors duration-200">
+              <h3 className="font-display text-2xl text-white mb-6">Booking Information</h3>
+              <div className="space-y-6">
+                <div>
+                  <h4 className="text-lg font-semibold text-primary-light mb-2">Resort Contact</h4>
+                  <p className="text-gray-200 dark:text-gray-300 transition-colors duration-200">Grand Bavaro Princess</p>
+                  <p className="text-gray-200 dark:text-gray-300 transition-colors duration-200">Playa Bavaro, Punta Cana</p>
+                  <p className="text-gray-200 dark:text-gray-300 transition-colors duration-200">Dominican Republic</p>
+                </div>
+                
+                <div>
+                  <h4 className="text-lg font-semibold text-primary-light mb-2">Direct Booking</h4>
+                  <a 
+                    href="https://www.princess-hotels.com/en/punta-cana/grand-bavaro-princess/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+                  >
+                    Book at Grand Bavaro Princess
+                    <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                  </a>
+                </div>
+                
+                <div>
+                  <h4 className="text-lg font-semibold text-primary-light mb-2">Travel Dates</h4>
+                  <p className="text-gray-200 dark:text-gray-300 transition-colors duration-200">We recommend arriving April 9th or 10th</p>
+                  <p className="text-gray-200 dark:text-gray-300 transition-colors duration-200">and departing April 11th or later</p>
+                </div>
               </div>
-              <div className="bg-white dark:bg-dark-secondary rounded-lg p-4 shadow-sm transition-colors duration-200">
-                <h4 className="font-medium text-primary dark:text-primary-light text-lg mb-2">Room Block Details</h4>
-                <p className="text-gray-600 dark:text-gray-400">
-                  Available: April 7-14, 2026<br />
-                  Rate: $XXX per night, all-inclusive<br />
-                  Booking Deadline: January 10, 2026
-                </p>
+            </div>
+            
+            {/* Travel Tips */}
+            <div className="bg-gray-700 dark:bg-gray-800 rounded-2xl p-8 transition-colors duration-200">
+              <h3 className="font-display text-2xl text-white mb-6">Travel Tips</h3>
+              <div className="space-y-4">
+                <div className="flex items-start">
+                  <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">Airport</p>
+                    <p className="text-gray-300 dark:text-gray-400 text-sm transition-colors duration-200">Fly into Punta Cana International Airport (PUJ) - only 25 minutes from the resort</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">Documentation</p>
+                    <p className="text-gray-300 dark:text-gray-400 text-sm transition-colors duration-200">US citizens need a valid passport. Tourist card will be provided upon arrival</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">Weather</p>
+                    <p className="text-gray-300 dark:text-gray-400 text-sm transition-colors duration-200">April averages 82°F with sunshine - perfect beach weather!</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">Currency</p>
+                    <p className="text-gray-300 dark:text-gray-400 text-sm transition-colors duration-200">Dominican Peso (DOP) or US Dollar widely accepted</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white dark:bg-dark-card rounded-lg shadow-md p-6 transition-colors duration-200">
-              <h3 className="font-display text-2xl text-accent-dark dark:text-accent mb-4">
-                Travel Tips
-              </h3>
-              <ul className="space-y-4 text-gray-700 dark:text-gray-300">
-                <li className="flex">
-                  <svg className="h-6 w-6 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                  </svg>
-                  <span>Fly into Punta Cana International Airport (PUJ), which is approximately 20 minutes from the resort.</span>
-                </li>
-                <li className="flex">
-                  <svg className="h-6 w-6 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                  </svg>
-                  <span>A valid passport is required for travel to the Dominican Republic.</span>
-                </li>
-                <li className="flex">
-                  <svg className="h-6 w-6 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                  </svg>
-                  <span>The resort offers airport transfer services for guests. Please arrange this when booking your room.</span>
-                </li>
-              </ul>
-            </div>
-            
-            <div className="bg-white dark:bg-dark-card rounded-lg shadow-md p-6 transition-colors duration-200">
-              <h3 className="font-display text-2xl text-secondary-dark dark:text-secondary-light mb-4">
-                Things to Do
-              </h3>
-              <p className="text-gray-700 dark:text-gray-300 mb-4">
-                There are plenty of activities to enjoy during your stay:
+          {/* Map section */}
+          <div className="mt-16 bg-gray-700 dark:bg-gray-800 rounded-2xl p-8 transition-colors duration-200">
+            <h3 className="font-display text-2xl text-white mb-6 text-center">Resort Location</h3>
+            <div className="bg-gray-600 dark:bg-gray-700 rounded-xl p-4 text-center transition-colors duration-200">
+              <p className="text-gray-300 dark:text-gray-400 mb-4 transition-colors duration-200">
+                Grand Bavaro Princess is located on the famous Bavaro Beach in Punta Cana, 
+                Dominican Republic - one of the world's most beautiful beaches.
               </p>
-              <ul className="space-y-4 text-gray-700 dark:text-gray-300">
-                <li className="flex">
-                  <svg className="h-6 w-6 text-secondary mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
-                  </svg>
-                  <span>Snorkeling and scuba diving in crystal-clear waters</span>
-                </li>
-                <li className="flex">
-                  <svg className="h-6 w-6 text-secondary mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                  </svg>
-                  <span>Relax at the resort's spa and pools</span>
-                </li>
-                <li className="flex">
-                  <svg className="h-6 w-6 text-secondary mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                  </svg>
-                  <span>Join group excursions to explore local culture and nature</span>
-                </li>
-              </ul>
+              <a 
+                href="https://maps.google.com/?q=Grand+Bavaro+Princess+Punta+Cana"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-primary-light hover:text-primary transition-colors"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                View on Google Maps
+              </a>
             </div>
           </div>
         </div>
       </section>
+      
+      <style jsx>{`
+        @keyframes waves {
+          0%, 100% { transform: translateX(0px) translateY(0px); }
+          50% { transform: translateX(-10px) translateY(-5px); }
+        }
+        
+        @keyframes wave {
+          0%, 100% { transform: translateX(0px); }
+          50% { transform: translateX(-20px); }
+        }
+        
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+          50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+        
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+          animation: fade-in 1s ease-out forwards;
+        }
+        
+        .animate-fade-in-delayed {
+          animation: fade-in 1s ease-out 0.5s forwards;
+          opacity: 0;
+        }
+        
+        .animate-fade-in-delayed-2 {
+          animation: fade-in 1s ease-out 1s forwards;
+          opacity: 0;
+        }
+        
+        .text-shadow {
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .animate-float {
+          animation: float 4s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 }

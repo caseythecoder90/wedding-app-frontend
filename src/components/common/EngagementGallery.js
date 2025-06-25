@@ -112,7 +112,7 @@ const EngagementGallery = () => {
   return (
     <div>
       {/* Gallery Section */}
-      <section className="py-16 bg-white dark:bg-dark-primary transition-colors duration-200">
+      <section className="py-16 bg-white dark:bg-dark-primary transition-colors duration-200 animate-gallery-appear">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
             <h2 className="font-script text-4xl text-primary-dark dark:text-primary-light mb-4">
@@ -177,6 +177,24 @@ const EngagementGallery = () => {
           onNext={(nextPhoto) => setSelectedPhoto(nextPhoto)}
         />
       )}
+      
+      <style jsx>{`
+        @keyframes gallery-appear {
+          from { 
+            opacity: 0; 
+            transform: translateY(40px); 
+          }
+          to { 
+            opacity: 1; 
+            transform: translateY(0); 
+          }
+        }
+        
+        .animate-gallery-appear {
+          animation: gallery-appear 1s ease-out 0.3s forwards;
+          opacity: 0;
+        }
+      `}</style>
     </div>
   );
 };

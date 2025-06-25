@@ -79,13 +79,11 @@ function Home() {
         </div>
       </section>
 
-      {/* Engagement Gallery Section with Animation */}
-      <div className="animate-gallery-appear">
-        <EngagementGallery />
-      </div>
+      {/* Engagement Gallery Section */}
+      <EngagementGallery />
 
       {/* Info Cards Section */}
-      <section className="py-16 bg-primary/10 dark:bg-primary-dark/20 transition-colors duration-200">
+     <section className="py-16 bg-primary/10 dark:bg-primary-dark/20 transition-colors duration-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h3 className="font-script text-4xl text-primary-dark dark:text-primary-light mb-6">
             Join Our Celebration
@@ -144,16 +142,6 @@ function Home() {
           }
         }
         
-        @keyframes gallery-appear {
-          from { 
-            opacity: 0; 
-            transform: translateY(40px); 
-          }
-          to { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
-        }
         
         @keyframes card-slide-up {
           from { 
@@ -206,10 +194,6 @@ function Home() {
           opacity: 0;
         }
         
-        .animate-gallery-appear {
-          animation: gallery-appear 1s ease-out 0.3s forwards;
-          opacity: 0;
-        }
         
         .animate-card-1 {
           animation: card-slide-up 0.6s ease-out 0.2s forwards;

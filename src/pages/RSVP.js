@@ -70,38 +70,18 @@ function RSVP() {
       });
   };
 
-  // Hero section with invitation-style animations
+  // Hero section with clean text animations
   const rsvpHero = (
     <section className="relative py-24 bg-gradient-to-br from-primary-light/30 to-secondary-light/30 dark:from-primary-dark/20 dark:to-secondary-dark/20 overflow-hidden">
-      {/* Floating Elements Background */}
-      <div className="absolute inset-0">
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute opacity-20 animate-float-invitation"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${10 + Math.random() * 5}s`
-            }}
-          >
-            {i % 3 === 0 && '✉️'}
-            {i % 3 === 1 && '💌'}
-            {i % 3 === 2 && '📨'}
-          </div>
-        ))}
-      </div>
-      
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center">
-          <h1 className="font-script text-6xl text-primary dark:text-primary-light mb-6 animate-invitation-unfold overflow-visible">
+          <h1 className="font-script text-6xl text-primary dark:text-primary-light mb-6 overflow-visible animate-rsvp-fade opacity-0">
             RSVP
           </h1>
-          <p className="text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto animate-fade-up-invitation">
+          <p className="text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto animate-rsvp-fade-delayed opacity-0">
             We would be honored to have you join us for our special day.
           </p>
-          <div className="mt-8 animate-fade-up-invitation-delayed">
+          <div className="mt-8 animate-rsvp-fade-delayed-2 opacity-0">
             <div className="inline-block bg-white dark:bg-dark-card rounded-lg px-6 py-3 shadow-lg backdrop-blur-sm bg-opacity-90 border border-primary/20">
               <p className="text-sm text-gray-600 dark:text-gray-300">
                 Please respond by February 10, 2026
@@ -261,7 +241,7 @@ function RSVP() {
                 </button>
               </form>
               
-              <div className="mt-6 text-center animate-fade-in-up">
+              <div className="mt-6 text-center animate-fade-in-up opacity-0">
                 <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-200">
                   Don't have your invitation code? Please contact us for assistance.
                 </p>
@@ -279,9 +259,9 @@ function RSVP() {
       {rsvpHero}
       <section className="py-16">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white dark:bg-dark-card shadow-lg rounded-xl p-8 transition-colors duration-200 animate-form-entrance">            
+          <div className="bg-white dark:bg-dark-card shadow-lg rounded-xl p-8 transition-colors duration-200 animate-form-entrance opacity-0">            
             {guest && (
-              <div className="mb-8 text-center animate-guest-welcome">
+              <div className="mb-8 text-center animate-guest-welcome opacity-0">
                 <div className="h-16 w-16 bg-primary-light dark:bg-primary-dark rounded-full flex items-center justify-center mx-auto mb-4 transition-colors duration-200 animate-avatar-bounce">
                   <svg className="h-8 w-8 text-primary dark:text-primary-light transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -300,7 +280,7 @@ function RSVP() {
             
             <form onSubmit={handleRsvpSubmit} className="space-y-8">
               {/* Attendance Selection */}
-              <div className="bg-primary-light/10 dark:bg-gray-800 p-6 rounded-xl border border-primary/20 dark:border-gray-700 transition-colors duration-200 animate-section-slide">
+              <div className="bg-primary-light/10 dark:bg-gray-800 p-6 rounded-xl border border-primary/20 dark:border-gray-700 transition-colors duration-200 animate-section-slide opacity-0">
                 <label className="block text-gray-700 dark:text-gray-200 font-medium mb-6 transition-colors duration-200">
                   Will you be attending our wedding?
                 </label>
@@ -380,7 +360,7 @@ function RSVP() {
 
               {/* Dietary Restrictions */}
               {formData.attending && (
-                <div className="animate-section-slide-delayed">
+                <div className="animate-section-slide-delayed opacity-0">
                   <label htmlFor="dietaryRestrictions" className="block text-gray-700 dark:text-gray-200 font-medium mb-3">
                     Dietary Restrictions or Special Requests
                   </label>
@@ -397,7 +377,7 @@ function RSVP() {
               )}
 
               {/* Email Confirmation */}
-              <div className="bg-primary-light/10 dark:bg-gray-800 p-4 rounded-lg border border-primary/10 dark:border-gray-700 transition-colors duration-200 animate-section-slide-delayed-2">
+              <div className="bg-primary-light/10 dark:bg-gray-800 p-4 rounded-lg border border-primary/10 dark:border-gray-700 transition-colors duration-200 animate-section-slide-delayed-2 opacity-0">
                 <label className="flex items-center">
                   <input
                     type="checkbox"
@@ -413,7 +393,7 @@ function RSVP() {
               </div>
               
               {/* Submit Button */}
-              <div className="pt-4 animate-button-entrance">
+              <div className="pt-4 animate-button-entrance opacity-0">
                 <button
                   type="submit"
                   disabled={submissionStatus === 'loading'}
@@ -447,273 +427,6 @@ function RSVP() {
           </div>
         </div>
       </section>
-      
-      <style jsx>{`
-        @keyframes invitation-unfold {
-          from {
-            opacity: 0;
-            transform: scale(0.5) rotateX(90deg);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1) rotateX(0deg);
-          }
-        }
-
-        @keyframes fade-up-invitation {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes float-invitation {
-          0%, 100% {
-            transform: translateY(0px) rotate(0deg);
-            opacity: 0.3;
-          }
-          50% {
-            transform: translateY(-15px) rotate(180deg);
-            opacity: 0.8;
-          }
-        }
-
-        @keyframes card-entrance {
-          from {
-            opacity: 0;
-            transform: translateY(30px) scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-
-        @keyframes section-slide {
-          from {
-            opacity: 0;
-            transform: translateX(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes slide-down {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-            max-height: 0;
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-            max-height: 200px;
-          }
-        }
-
-        @keyframes fade-slide {
-          from {
-            opacity: 0;
-            transform: translateX(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes success-bounce {
-          0%, 20%, 50%, 80%, 100% {
-            transform: translateY(0);
-          }
-          40% {
-            transform: translateY(-10px);
-          }
-          60% {
-            transform: translateY(-5px);
-          }
-        }
-
-        @keyframes success-pulse {
-          0%, 100% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.1);
-          }
-        }
-
-        @keyframes error-shake {
-          0%, 100% {
-            transform: translateX(0);
-          }
-          25% {
-            transform: translateX(-5px);
-          }
-          75% {
-            transform: translateX(5px);
-          }
-        }
-
-        @keyframes error-wiggle {
-          0%, 100% {
-            transform: rotate(0deg);
-          }
-          25% {
-            transform: rotate(-1deg);
-          }
-          75% {
-            transform: rotate(1deg);
-          }
-        }
-
-        @keyframes button-pulse {
-          0%, 100% {
-            box-shadow: 0 4px 15px rgba(145, 195, 229, 0.3);
-          }
-          50% {
-            box-shadow: 0 6px 20px rgba(145, 195, 229, 0.5);
-          }
-        }
-
-        @keyframes icon-bounce {
-          0%, 20%, 50%, 80%, 100% {
-            transform: translateY(0);
-          }
-          40% {
-            transform: translateY(-3px);
-          }
-          60% {
-            transform: translateY(-1px);
-          }
-        }
-
-        .animate-invitation-unfold {
-          animation: invitation-unfold 1.2s ease-out forwards;
-        }
-
-        .animate-fade-up-invitation {
-          animation: fade-up-invitation 0.8s ease-out 0.5s forwards;
-          opacity: 0;
-        }
-
-        .animate-fade-up-invitation-delayed {
-          animation: fade-up-invitation 0.8s ease-out 1s forwards;
-          opacity: 0;
-        }
-
-        .animate-float-invitation {
-          animation: float-invitation 15s ease-in-out infinite;
-        }
-
-        .animate-card-entrance {
-          animation: card-entrance 0.8s ease-out forwards;
-        }
-
-        .animate-form-entrance {
-          animation: card-entrance 0.8s ease-out 0.2s forwards;
-          opacity: 0;
-        }
-
-        .animate-guest-welcome {
-          animation: card-entrance 0.6s ease-out 0.5s forwards;
-          opacity: 0;
-        }
-
-        .animate-section-slide {
-          animation: section-slide 0.6s ease-out 0.3s forwards;
-          opacity: 0;
-        }
-
-        .animate-section-slide-delayed {
-          animation: section-slide 0.6s ease-out 0.6s forwards;
-          opacity: 0;
-        }
-
-        .animate-section-slide-delayed-2 {
-          animation: section-slide 0.6s ease-out 0.9s forwards;
-          opacity: 0;
-        }
-
-        .animate-slide-down {
-          animation: slide-down 0.4s ease-out forwards;
-        }
-
-        .animate-fade-slide {
-          animation: fade-slide 0.3s ease-out forwards;
-        }
-
-        .animate-input-slide {
-          animation: section-slide 0.5s ease-out 0.2s forwards;
-          opacity: 0;
-        }
-
-        .animate-button-entrance {
-          animation: section-slide 0.6s ease-out 1.2s forwards;
-          opacity: 0;
-        }
-
-        .animate-button-glow {
-          animation: section-slide 0.5s ease-out 0.4s forwards;
-          opacity: 0;
-        }
-
-        .animate-button-pulse {
-          animation: button-pulse 2s ease-in-out infinite;
-        }
-
-        .animate-success-bounce {
-          animation: success-bounce 1s ease-out forwards;
-        }
-
-        .animate-success-pulse {
-          animation: success-pulse 1.5s ease-in-out infinite;
-        }
-
-        .animate-error-shake {
-          animation: error-shake 0.5s ease-in-out forwards;
-        }
-
-        .animate-error-wiggle {
-          animation: error-wiggle 0.5s ease-in-out forwards;
-        }
-
-        .animate-pulse-card {
-          animation: card-entrance 0.8s ease-out forwards;
-        }
-
-        .animate-icon-bounce {
-          animation: icon-bounce 2s ease-in-out infinite;
-        }
-
-        .animate-avatar-bounce {
-          animation: icon-bounce 1.5s ease-in-out infinite;
-        }
-
-        .animate-fade-in-up {
-          animation: fade-up-invitation 0.6s ease-out 0.6s forwards;
-          opacity: 0;
-        }
-
-        .animate-spin-slow {
-          animation: spin 3s linear infinite;
-        }
-
-        @keyframes spin {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
     </div>
   );
 }

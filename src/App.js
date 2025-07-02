@@ -8,7 +8,6 @@ import Home from './pages/Home';
 import OurStory from './pages/OurStory';
 import Venue from './pages/Venue';
 import RSVP from './pages/RSVP';
-import StyleGuide from './pages/StyleGuide';
 import NotFound from './pages/NotFound';
 import './App.css';
 
@@ -23,7 +22,6 @@ function App() {
             <Route path="our-story" element={<OurStory />} />
             <Route path="venue" element={<Venue />} />
             <Route path="rsvp" element={<RSVP />} />
-            <Route path="style-guide" element={<StyleGuide />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

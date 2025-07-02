@@ -1,81 +1,187 @@
-// src/pages/OurStory.js - Enhanced with Beautiful Animations
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-// Timeline data - moved outside component to prevent re-renders
 const timelinePoints = [
-    {
-      id: 1,
-      date: "August 2023",
-      title: "Summer of 2023",
-      story: "We met in the summer of 2023 while Casey was interning in Atlanta and finishing his final semester at Texas A&M. With just two weeks left before he returned to Texas, neither of us expected to find something so special.",
-      type: "text-only"
-    },
-    {
-      id: 2,
-      date: "August 17, 2023",
-      title: "Our Anniversary",
-      story: "Our first official date in Buckhead at Velvet Taco. Yasmim jokes that Casey made her uncomfortable with how he was looking at her - he just couldn't believe how beautiful she was.",
-      type: "text-only"
-    },
-    {
-      id: 3,
-      date: "October 2023",
-      title: "Making It Official",
-      story: "Casey visited Atlanta in early October, and after amazing few days together, we knew this was something special. Long distance couldn't stop what we had.",
-      type: "photo",
-      photos: [
-        "https://via.placeholder.com/600x400/91C3E5/ffffff?text=October+Visit+Photos",
-        "https://via.placeholder.com/600x400/FFC2AE/ffffff?text=Becoming+Official"
-      ]
-    },
-    {
-      id: 4,
-      date: "January 2024",
-      title: "Starting Our Life Together",
-      story: "Casey graduated and moved to Atlanta full-time with Visa. We decided to take the next step and moved in together in Midtown - our first home as a couple.",
-      type: "photo",
-      photos: [
-        "https://via.placeholder.com/600x400/C9E4DE/ffffff?text=Moving+In+Together",
-        "https://via.placeholder.com/600x400/91C3E5/ffffff?text=Midtown+Apartment"
-      ]
-    },
-    {
-      id: 5,
-      date: "May - July 2024",
-      title: "Making Memories",
-      story: "From meeting Casey's parents in Florida to hiking and camping in Rocky Mountain National Park, we discovered we're the perfect adventure team. Yasmim supported Casey's Longs Peak attempt, even with that 2am drop-off!",
-      type: "photo",
-      photos: [
-        "https://via.placeholder.com/600x400/FFC2AE/ffffff?text=Florida+Family+Visit",
-        "https://via.placeholder.com/600x400/91C3E5/ffffff?text=Colorado+Adventures",
-        "https://via.placeholder.com/600x400/C9E4DE/ffffff?text=Rocky+Mountain+Hiking"
-      ]
-    },
-    {
-      id: 6,
-      date: "December 2024",
-      title: "The Perfect Moment",
-      story: "After a stormy day in Rio, the clouds cleared just as we reached the top of Sugar Loaf Mountain. As the sun set over Copacabana, Casey proposed with the most breathtaking view in the world.",
-      type: "photo",
-      photos: [
-        "https://via.placeholder.com/600x400/91C3E5/ffffff?text=Sugar+Loaf+Proposal",
-        "https://via.placeholder.com/600x400/FFC2AE/ffffff?text=Rio+Sunset",
-        "https://via.placeholder.com/600x400/C9E4DE/ffffff?text=Brazil+Adventures"
-      ]
-    },
-    {
-      id: 7,
-      date: "2025 - Present",
-      title: "Planning Our Forever",
-      story: "Now engaged and building our future together in our new apartment, planning our Punta Cana wedding where both our families can celebrate with us.",
-      type: "photo",
-      photos: [
-        "https://via.placeholder.com/600x400/91C3E5/ffffff?text=Engaged+Life",
-        "https://via.placeholder.com/600x400/FFC2AE/ffffff?text=Wedding+Planning"
-      ]
-    }
-  ];
+  {
+    id: 1,
+    date: "August 2023",
+    title: "Summer of 2023",
+    story: "We met in the summer of 2023 while Casey was interning in Atlanta and finishing his final semester at Texas A&M. With just two weeks left before he returned to Texas, neither of us expected to find something so special.",
+    type: "text-only"
+  },
+  {
+    id: 2,
+    date: "August 17, 2023",
+    title: "Our Anniversary",
+    story: "Our first official date in Buckhead at Velvet Taco. Yasmim jokes that Casey made her uncomfortable with how he was looking at her - he just couldn't believe how beautiful she was.",
+    type: "text-only"
+  },
+  {
+    id: 3,
+    date: "October 2023",
+    title: "Making It Official",
+    story: "Casey visited Atlanta in early October, and after amazing few days together, we knew this was something special. Long distance couldn't stop what we had.",
+    type: "photo",
+    photos: [
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751481626/story-becoming-official-atlanta-trip_aoaimh",
+        caption: "Casey's Visit to Atlanta",
+        alt: "Casey and Yasmim during Casey's visit to Atlanta in October 2023"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751481627/story-becoming-official-texas-trip_vsdfzr",
+        caption: "Yasmim Visits Texas", 
+        alt: "Yasmim visiting Casey in Texas during their long distance relationship"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751481627/story-becoming-official-long-distance_h9ntiu",
+        caption: "Long Distance Love",
+        alt: "Casey and Yasmim making long distance work"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751481675/story-becoming-official-long-distance-2_mv3wmp",
+        caption: "Building Our Connection", 
+        alt: "More memories from Casey and Yasmim's long distance relationship period"
+      }
+    ]
+  },
+  {
+    id: 4,
+    date: "January 2024",
+    title: "Starting Our Life Together",
+    story: "Casey graduated and moved to Atlanta full-time with Visa. We decided to take the next step and moved in together in Midtown - our first home as a couple.",
+    type: "photo",
+    photos: [
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751483422/starting-our-life-together-first-apartment_w7lgj3",
+        caption: "Our First Apartment",
+        alt: "Casey and Yasmim in their first apartment together in Midtown Atlanta"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751483422/starting-our-life-together-date-night_lgbscs",
+        caption: "Date Night Adventures",
+        alt: "Casey and Yasmim enjoying date nights in Atlanta"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751483424/starting-our-life-together-ice-skating_wqjbxk",
+        caption: "Ice Skating Together",
+        alt: "Casey and Yasmim ice skating as a couple in Atlanta"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751483423/starting-our-life-together-friends-wedding_vtvtsw",
+        caption: "Friends' Wedding",
+        alt: "Casey and Yasmim attending a friends' wedding together"
+      }
+    ]
+  },
+  {
+    id: 5,
+    date: "May - July 2024",
+    title: "Making Memories",
+    story: "From meeting Casey's parents in Florida to hiking and camping in Rocky Mountain National Park, we discovered we're the perfect adventure team. Yasmim supported Casey's Longs Peak attempt, even with that 2am drop-off!",
+    type: "photo",
+    photos: [
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484339/making-memories-florida-trip_amo1cf",
+        caption: "Florida Family Visit",
+        alt: "Casey and Yasmim visiting Casey's parents in Florida"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484338/making-memories-colorado-trip-beautiful-backdrop_sfalzd",
+        caption: "Colorado Adventures",
+        alt: "Casey and Yasmim exploring Colorado with beautiful mountain backdrop"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484370/making-memories-sky-pond-colorado_sugm1b",
+        caption: "Sky Pond Hike",
+        alt: "Casey and Yasmim at Sky Pond in Rocky Mountain National Park"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484340/making-memories-kissing-in-colorado_uekqpy",
+        caption: "Rocky Mountain Romance",
+        alt: "Casey and Yasmim sharing a romantic moment in Colorado"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484313/making-memories-colorado-selfie-together_nddh23",
+        caption: "Colorado Selfie",
+        alt: "Casey and Yasmim taking a selfie together in Colorado"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484312/making-memories-camping-tennessee_bi8w1q",
+        caption: "Camping in Tennessee",
+        alt: "Casey and Yasmim camping adventure in Tennessee"
+      }
+    ]
+  },
+  {
+    id: 6,
+    date: "December 2024",
+    title: "The Perfect Moment",
+    story: "After a stormy day in Rio, the clouds cleared just as we reached the top of Sugar Loaf Mountain. As the sun set over Copacabana, Casey proposed with the most breathtaking view in the world.",
+    type: "photo",
+    photos: [
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485123/perfect-moment-landing-in-rio-airport-horizontal_decqmo",
+        caption: "Landing in Rio",
+        alt: "Casey and Yasmim arriving at Rio airport for their Brazil trip"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485121/perfect-moment-boat-tour-ubatuba_iofjtk",
+        caption: "Ubatuba Boat Tour",
+        alt: "Casey and Yasmim enjoying a boat tour in Ubatuba, Brazil"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485122/perfect-moment-dinner-in-itai-with-yas-family_lgbwkw",
+        caption: "Dinner with Yasmim's Family",
+        alt: "Casey meeting Yasmim's family over dinner in Itaí, Brazil"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485126/perfect-moment-sugarloaf-overlooking-botafago-harbor_vgioan",
+        caption: "Sugar Loaf Views",
+        alt: "Breathtaking views from Sugar Loaf Mountain overlooking Botafogo Harbor"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485124/perfect-moment-me-proposing-sugarloaf-nighttime-just-started_qgtiwt",
+        caption: "The Proposal Moment",
+        alt: "Casey proposing to Yasmim at Sugar Loaf Mountain as night falls over Rio"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485127/perfect-moment-yasmim-after-proposal_sip6vo",
+        caption: "Yasmim After the Proposal",
+        alt: "Yasmim's joyful reaction after Casey's proposal at Sugar Loaf Mountain"
+      }
+    ]
+  },
+  {
+    id: 7,
+    date: "2025 - Present",
+    title: "Planning Our Forever",
+    story: "Now engaged and building our future together in our new apartment, planning our Punta Cana wedding where both our families can celebrate with us.",
+    type: "photo",
+    photos: [
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485764/planning-forever-piedmont-park-picnic_jm442m",
+        caption: "Piedmont Park Picnic",
+        alt: "Casey and Yasmim enjoying an engaged couple's picnic at Piedmont Park"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485761/planning-forever-atlanta-braves-game-yasmims-first-ever_xpjwfp",
+        caption: "Yasmim's First Braves Game",
+        alt: "Casey and Yasmim at Yasmim's first ever Atlanta Braves baseball game"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485762/planning-forever-brasstown-bald-georgia_bk5wo6",
+        caption: "Brasstown Bald Adventure",
+        alt: "Casey and Yasmim at Brasstown Bald, the highest point in Georgia"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485763/planning-forever-cruise-bahamas_tehubj",
+        caption: "Bahamas Cruise",
+        alt: "Casey and Yasmim on their engagement cruise to the Bahamas"
+      }
+    ]
+  }
+];
 
 function OurStory() {
   const [activeSection, setActiveSection] = useState(0);
@@ -225,7 +331,6 @@ function OurStory() {
                           <p className="font-script text-2xl text-primary dark:text-primary-light">
                             {index === 0 && '"The beginning of our forever"'}
                             {index === 1 && '"Love at first sight... at Velvet Taco"'}
-                            {index === 2 && '"When you know, you know"'}
                           </p>
                           <div className="flex justify-center space-x-2">
                             <div className="w-2 h-2 rounded-full bg-primary/40 animate-bounce"></div>
@@ -235,32 +340,32 @@ function OurStory() {
                         </div>
                       </div>
                     ) : (
-                      // Photo gallery for photo sections with Staggered Hover Effects
+                      // Updated photo gallery with masonry layout for natural photo sizing
                       <div className="space-y-4">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {/* Masonry grid layout */}
+                        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
                           {point.photos.map((photo, photoIndex) => (
                             <div
                               key={photoIndex}
-                              className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer transform hover:-translate-y-2"
+                              className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer transform hover:-translate-y-2 break-inside-avoid mb-4"
                               style={{ animationDelay: `${photoIndex * 0.1}s` }}
                             >
                               <img
-                                src={photo}
-                                alt={`${point.title} memory ${photoIndex + 1}`}
-                                className="w-full h-48 sm:h-56 object-cover group-hover:scale-110 transition-transform duration-700"
+                                src={typeof photo === 'string' ? photo : photo.url}
+                                alt={typeof photo === 'string' ? `${point.title} memory ${photoIndex + 1}` : photo.alt}
+                                className="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700"
                               />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                              <div className="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
-                                <p className="text-sm font-medium">Memory #{photoIndex + 1}</p>
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                              <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                                <p className="text-sm font-medium">
+                                  {typeof photo === 'string' ? `Memory #${photoIndex + 1}` : photo.caption}
+                                </p>
                               </div>
                               {/* Shimmer effect */}
                               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                             </div>
                           ))}
                         </div>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 text-center italic animate-pulse">
-                          Photos coming soon - Yasmim's approval pending! 😄
-                        </p>
                       </div>
                     )}
                   </div>

@@ -62,16 +62,6 @@ function Navbar() {
             >
               RSVP
             </NavLink>
-            <NavLink 
-              to="/style-guide"
-              className={({ isActive }) => 
-                isActive 
-                  ? "text-primary dark:text-primary-light border-b-2 border-primary dark:border-primary-light px-1 pt-1 font-medium" 
-                  : "text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light px-1 pt-1 font-medium"
-              }
-            >
-              Style Guide
-            </NavLink>
             
             {/* Dark Mode Toggle */}
             <div className="ml-2">
@@ -152,17 +142,6 @@ function Navbar() {
               onClick={() => setIsMenuOpen(false)}
             >
               RSVP
-            </NavLink>
-            <NavLink
-              to="/style-guide"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-primary dark:bg-primary-dark text-white block px-3 py-2 rounded-md text-base font-medium"
-                  : "text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-primary-light block px-3 py-2 rounded-md text-base font-medium"
-              }
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Style Guide
             </NavLink>
           </div>
         </div>

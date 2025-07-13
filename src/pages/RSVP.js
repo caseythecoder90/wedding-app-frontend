@@ -1,73 +1,123 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { validateInvitationCode, submitRsvp, updateFormData, resetRsvpState } from '../store/slices/rsvpSlice';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRSVP } from '../hooks/useRSVP';
+import InvitationCodeInput from '../components/InvitationCodeInput';
 
+/**
+ * Guest object shape (from backend GuestResponseDTO)
+ * @typedef {Object} Guest
+ * @property {number} id - Guest database ID
+ * @property {string} firstName - Guest's first name
+ * @property {string} lastName - Guest's last name
+ * @property {string|null} email - Guest's email address
+ * @property {boolean} plusOneAllowed - Can bring plus-one
+ * @property {boolean} hasRsvp - Has submitted RSVP
+ * @property {number|null} rsvpId - RSVP ID if exists
+ */
+
+/**
+ * RSVP object shape (from backend RSVPResponseDTO)
+ * @typedef {Object} ExistingRSVP
+ * @property {number} id - RSVP database ID
+ * @property {number} guestId - Guest ID
+ * @property {string} guestName - Full guest name
+ * @property {string|null} guestEmail - Guest email
+ * @property {boolean} attending - Is attending
+ * @property {boolean} bringingPlusOne - Bringing plus-one
+ * @property {string|null} plusOneName - Plus-one name
+ * @property {string|null} dietaryRestrictions - Dietary restrictions
+ * @property {string} submittedAt - ISO datetime string
+ */
+
+/**
+ * Error object shape (from backend ErrorResponse)
+ * @typedef {Object} APIError
+ * @property {string} errorKey - Error identifier
+ * @property {string} errorMessage - Human readable message
+ * @property {Array<{field: string, reason: string}>} details - Error details
+ * @property {string} timestamp - ISO datetime string
+ * @property {string} path - Request path that caused error
+ */
+
+/**
+ * Form data shape for RSVP submission
+ * @typedef {Object} FormData
+ * @property {number|null} guestId - Guest database ID
+ * @property {boolean} attending - Whether attending
+ * @property {boolean} bringingPlusOne - Bringing plus-one
+ * @property {string} plusOneName - Plus-one name
+ * @property {string} dietaryRestrictions - Dietary restrictions
+ * @property {string} email - Guest email
+ * @property {boolean} sendConfirmationEmail - Send confirmation
+ */
+
+/**
+ * Main RSVP component handling invitation validation and RSVP submission
+ * 
+ * State Flow:
+ * 1. Code Input → 2. Validation → 3. Main Form → 4. Success
+ *                      ↓ (if invalid)
+ *                   Error Screen
+ * 
+ * API Interactions:
+ * - GET /v1/api/invitation/validate/{code} → InvitationValidationResponseDTO
+ * - POST /v1/api/rsvps → RSVPResponseDTO
+ */
 function RSVP() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const invitationCode = searchParams.get('code');
-  
-  const { 
-    guest, 
-    existingRsvp, 
-    hasExistingRsvp, 
+  const {
+    // State
+    guest,
+    existingRsvp,
+    hasExistingRsvp,
     formData,
-    validationStatus, 
-    submissionStatus, 
-    error 
-  } = useSelector((state) => state.rsvp);
+    error,
+    invitationCode,
+    
+    // Computed state
+    shouldShowCodeForm,
+    shouldShowMainForm,
+    shouldShowSuccessPage,
+    shouldShowErrorPage,
+    shouldShowLoadingPage,
+    isSubmissionInProgress,
+    hasSubmissionFailed,
+    canSubmit,
+    
+    // Actions
+    navigateToCodeEntry,
+    navigateWithCode,
+    updateForm,
+    submitForm,
+  } = useRSVP();
 
   const [codeInput, setCodeInput] = useState(invitationCode || '');
-  const [showCodeForm, setShowCodeForm] = useState(!invitationCode);
   const [submitted, setSubmitted] = useState(false);
-
-  useEffect(() => {
-    // Reset RSVP state when component unmounts
-    return () => {
-      dispatch(resetRsvpState());
-    };
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (invitationCode) {
-      dispatch(validateInvitationCode(invitationCode));
-    }
-  }, [dispatch, invitationCode]);
 
   const handleCodeSubmit = (e) => {
     e.preventDefault();
-    if (codeInput.trim()) {
-      setShowCodeForm(false);
-      navigate(`/rsvp?code=${codeInput}`);
-    }
+    navigateWithCode(codeInput);
   };
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     const inputValue = type === 'checkbox' ? checked : value;
     
-    dispatch(updateFormData({ [name]: inputValue }));
+    updateForm({ [name]: inputValue });
   };
 
-  const handleRsvpSubmit = (e) => {
+  const handleRsvpSubmit = async (e) => {
     e.preventDefault();
     
-    // Add submission timestamp
-    const rsvpData = {
-      ...formData,
-      submittedAt: new Date().toISOString()
-    };
-    
-    dispatch(submitRsvp(rsvpData))
-      .unwrap()
-      .then(() => {
-        setSubmitted(true);
-      })
-      .catch((err) => {
-        console.error('Failed to submit RSVP:', err);
-      });
+    const result = await submitForm();
+    if (result.success) {
+      setSubmitted(true);
+    }
+  };
+
+  const handleTryAgain = () => {
+    navigateToCodeEntry();
+    setCodeInput('');
   };
 
   // Hero section with clean text animations
@@ -94,7 +144,7 @@ function RSVP() {
   );
 
   // Loading validation state
-  if (validationStatus === 'loading') {
+  if (shouldShowLoadingPage) {
     return (
       <div>
         {rsvpHero}
@@ -118,7 +168,7 @@ function RSVP() {
   }
 
   // Error validation state
-  if (validationStatus === 'failed') {
+  if (shouldShowErrorPage) {
     return (
       <div>
         {rsvpHero}
@@ -138,10 +188,7 @@ function RSVP() {
               </p>
               
               <button
-                onClick={() => {
-                  dispatch(resetRsvpState());
-                  setShowCodeForm(true);
-                }}
+                onClick={handleTryAgain}
                 className="w-full bg-primary dark:bg-primary-dark hover:bg-primary-dark dark:hover:bg-primary text-white font-medium py-3 rounded-lg shadow-md transition-all duration-200 transform hover:scale-105"
               >
                 Try Again
@@ -154,7 +201,7 @@ function RSVP() {
   }
 
   // Success submission state
-  if (submitted || submissionStatus === 'succeeded') {
+  if (submitted || shouldShowSuccessPage) {
     return (
       <div>
         {rsvpHero}
@@ -172,7 +219,7 @@ function RSVP() {
                 Thank You!
               </h2>
               <p className="text-gray-700 dark:text-gray-300 mb-4 text-center">
-                Your RSVP has been successfully submitted. We're looking forward to celebrating with you!
+                Your RSVP has been successfully submitted.
               </p>
               <p className="text-gray-500 dark:text-gray-400 mb-8 text-center">
                 {hasExistingRsvp && existingRsvp.attending 
@@ -196,7 +243,7 @@ function RSVP() {
   }
 
   // Code input form
-  if (showCodeForm) {
+  if (shouldShowCodeForm) {
     return (
       <div>
         {rsvpHero}
@@ -219,17 +266,11 @@ function RSVP() {
               
               <form onSubmit={handleCodeSubmit} className="space-y-6">
                 <div className="animate-input-slide">
-                  <label htmlFor="invitationCode" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-200">
-                    Invitation Code
-                  </label>
-                  <input
-                    type="text"
-                    id="invitationCode"
+                  <InvitationCodeInput
                     value={codeInput}
-                    onChange={(e) => setCodeInput(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:text-white transition-all duration-200"
-                    placeholder="Enter your code"
-                    required
+                    onChange={setCodeInput}
+                    onSubmit={() => navigateWithCode(codeInput)}
+                    error={error}
                   />
                 </div>
                 
@@ -254,13 +295,13 @@ function RSVP() {
   }
 
   // Main RSVP form
-  return (
-    <div>
-      {rsvpHero}
-      <section className="py-16">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white dark:bg-dark-card shadow-lg rounded-xl p-8 transition-colors duration-200 animate-form-entrance opacity-0">            
-            {guest && (
+  if (shouldShowMainForm) {
+    return (
+      <div>
+        {rsvpHero}
+        <section className="py-16">
+          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-white dark:bg-dark-card shadow-lg rounded-xl p-8 transition-colors duration-200 animate-form-entrance opacity-0">            
               <div className="mb-8 text-center animate-guest-welcome opacity-0">
                 <div className="h-16 w-16 bg-primary-light dark:bg-primary-dark rounded-full flex items-center justify-center mx-auto mb-4 transition-colors duration-200 animate-avatar-bounce">
                   <svg className="h-8 w-8 text-primary dark:text-primary-light transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -270,160 +311,192 @@ function RSVP() {
                 <h2 className="text-2xl font-display text-primary dark:text-primary-light mb-2 transition-colors duration-200">
                   Hello, {guest.firstName} {guest.lastName}!
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 transition-colors duration-200">
+                <p className="text-gray-600 dark:text-gray-300 transition-colors duration-200">
                   {hasExistingRsvp 
-                    ? "You've already responded, but you can update your RSVP below." 
-                    : "Please fill out the form below to RSVP to our wedding."}
+                    ? "You can update your RSVP details below." 
+                    : "Please let us know if you'll be joining us for our special day."
+                  }
                 </p>
               </div>
-            )}
-            
-            <form onSubmit={handleRsvpSubmit} className="space-y-8">
-              {/* Attendance Selection */}
-              <div className="bg-primary-light/10 dark:bg-gray-800 p-6 rounded-xl border border-primary/20 dark:border-gray-700 transition-colors duration-200 animate-section-slide opacity-0">
-                <label className="block text-gray-700 dark:text-gray-200 font-medium mb-6 transition-colors duration-200">
-                  Will you be attending our wedding?
-                </label>
-                <div className="space-y-4">
-                  <label className={`flex items-center p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 hover:shadow-md ${
-                    formData.attending 
-                      ? 'border-primary dark:border-primary-light bg-primary/5 dark:bg-primary-dark/20 transform scale-105' 
-                      : 'border-gray-200 dark:border-gray-700 bg-white/70 dark:bg-transparent hover:border-primary/50'
-                  }`}>
-                    <input
-                      type="radio"
-                      name="attending"
-                      checked={formData.attending}
-                      onChange={() => dispatch(updateFormData({ attending: true }))}
-                      className="text-primary dark:text-primary-light focus:ring-primary dark:focus:ring-primary-light h-5 w-5"
-                    />
-                    <div className="ml-3">
-                      <span className="text-gray-800 dark:text-gray-100 font-medium">Yes, I'll be there! 🎉</span>
-                      <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Can't wait to celebrate with you</p>
-                    </div>
-                  </label>
 
-                  <label className={`flex items-center p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 hover:shadow-md ${
-                    !formData.attending 
-                      ? 'border-primary dark:border-primary-light bg-primary/5 dark:bg-primary-dark/20 transform scale-105' 
-                      : 'border-gray-200 dark:border-gray-700 bg-white/70 dark:bg-transparent hover:border-primary/50'
-                  }`}>
-                    <input
-                      type="radio"
-                      name="attending"
-                      checked={!formData.attending}
-                      onChange={() => dispatch(updateFormData({ attending: false }))}
-                      className="text-primary dark:text-primary-light focus:ring-primary dark:focus:ring-primary-light h-5 w-5"
-                    />
-                    <div className="ml-3">
-                      <span className="text-gray-800 dark:text-gray-100 font-medium">Sorry, I can't make it</span>
-                      <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">I'll be there in spirit</p>
-                    </div>
-                  </label>
-                </div>
-              </div>
-              
-              {/* Plus One Section with Conditional Animation */}
-              {formData.attending && guest && guest.plusOneAllowed && (
-                <div className="bg-primary-light/10 dark:bg-gray-800 p-6 rounded-xl border border-primary/20 dark:border-gray-700 transition-all duration-300 animate-slide-down">
-                  <label className="flex items-center mb-4">
-                    <input
-                      type="checkbox"
-                      name="bringingPlusOne"
-                      checked={formData.bringingPlusOne}
-                      onChange={handleInputChange}
-                      className="text-primary dark:text-primary-light focus:ring-primary dark:focus:ring-primary-light h-5 w-5 rounded transition-all duration-200"
-                    />
-                    <span className="ml-3 text-gray-700 dark:text-gray-200 font-medium">
-                      I'll be bringing a guest
-                    </span>
-                  </label>
-                  
-                  {formData.bringingPlusOne && (
-                    <div className="mt-4 pl-8 animate-fade-slide">
-                      <label htmlFor="plusOneName" className="block text-gray-700 dark:text-gray-200 mb-2">
-                        Guest's Name
-                      </label>
+              <form onSubmit={handleRsvpSubmit} className="space-y-8">
+                {/* Attendance Section */}
+                <div className="bg-primary-light/10 dark:bg-gray-800 p-6 rounded-lg border border-primary/10 dark:border-gray-700 transition-colors duration-200 animate-section-slide opacity-0">
+                  <h3 className="text-lg font-display text-primary dark:text-primary-light mb-4 transition-colors duration-200">
+                    Will you be attending?
+                  </h3>
+                  <div className="space-y-3">
+                    <label className="flex items-center cursor-pointer">
                       <input
-                        type="text"
-                        id="plusOneName"
-                        name="plusOneName"
-                        value={formData.plusOneName}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light bg-white dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        placeholder="Enter guest's full name"
+                        type="radio"
+                        name="attending"
+                        value="true"
+                        checked={formData.attending === true}
+                        onChange={() => updateForm({ attending: true })}
+                        className="text-primary dark:text-primary-light focus:ring-primary dark:focus:ring-primary-light h-5 w-5"
                       />
-                    </div>
-                  )}
+                      <span className="ml-3 text-gray-700 dark:text-gray-200 font-medium">
+                        Yes, I'll be there! 🎉
+                      </span>
+                    </label>
+                    <label className="flex items-center cursor-pointer">
+                      <input
+                        type="radio"
+                        name="attending"
+                        value="false"
+                        checked={formData.attending === false}
+                        onChange={() => updateForm({ attending: false, bringingPlusOne: false, plusOneName: '' })}
+                        className="text-primary dark:text-primary-light focus:ring-primary dark:focus:ring-primary-light h-5 w-5"
+                      />
+                      <span className="ml-3 text-gray-700 dark:text-gray-200 font-medium">
+                        Sorry, I can't make it 😢
+                      </span>
+                    </label>
+                  </div>
                 </div>
-              )}
 
-              {/* Dietary Restrictions */}
-              {formData.attending && (
+                {/* Plus One Section - Only show if attending */}
+                {formData.attending && (
+                  <div className="bg-secondary-light/10 dark:bg-gray-800 p-6 rounded-lg border border-secondary/10 dark:border-gray-700 transition-colors duration-200 animate-section-slide-delayed opacity-0">
+                    <h3 className="text-lg font-display text-secondary dark:text-secondary-light mb-4 transition-colors duration-200">
+                      Plus One
+                    </h3>
+                    
+                    <div className="space-y-4">
+                      <label className="flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          name="bringingPlusOne"
+                          checked={formData.bringingPlusOne}
+                          onChange={handleInputChange}
+                          className="text-secondary dark:text-secondary-light focus:ring-secondary dark:focus:ring-secondary-light h-5 w-5 rounded"
+                        />
+                        <span className="ml-3 text-gray-700 dark:text-gray-200">
+                          I'm bringing a plus one
+                        </span>
+                      </label>
+                      
+                      {formData.bringingPlusOne && (
+                        <div className="mt-4 animate-plus-one-slide">
+                          <label htmlFor="plusOneName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Plus One Name
+                          </label>
+                          <input
+                            type="text"
+                            id="plusOneName"
+                            name="plusOneName"
+                            value={formData.plusOneName}
+                            onChange={handleInputChange}
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary dark:focus:ring-secondary-light bg-white dark:bg-gray-700 dark:text-white transition-all duration-200"
+                            placeholder="Enter your guest's name"
+                            required={formData.bringingPlusOne}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Email Section */}
                 <div className="animate-section-slide-delayed opacity-0">
-                  <label htmlFor="dietaryRestrictions" className="block text-gray-700 dark:text-gray-200 font-medium mb-3">
-                    Dietary Restrictions or Special Requests
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Email Address
                   </label>
-                  <textarea
-                    id="dietaryRestrictions"
-                    name="dietaryRestrictions"
-                    rows="3"
-                    value={formData.dietaryRestrictions}
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light bg-white dark:bg-gray-700 dark:text-white transition-all duration-200"
-                    placeholder="Please let us know of any dietary restrictions, allergies, or special accommodations needed..."
+                    placeholder="your.email@example.com"
+                    required
                   />
                 </div>
-              )}
 
-              {/* Email Confirmation */}
-              <div className="bg-primary-light/10 dark:bg-gray-800 p-4 rounded-lg border border-primary/10 dark:border-gray-700 transition-colors duration-200 animate-section-slide-delayed-2 opacity-0">
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    name="sendConfirmationEmail"
-                    checked={formData.sendConfirmationEmail}
-                    onChange={handleInputChange}
-                    className="text-primary dark:text-primary-light focus:ring-primary dark:focus:ring-primary-light h-5 w-5 rounded"
-                  />
-                  <span className="ml-3 text-gray-700 dark:text-gray-200">
-                    Send me a confirmation email
-                  </span>
-                </label>
-              </div>
-              
-              {/* Submit Button */}
-              <div className="pt-4 animate-button-entrance opacity-0">
-                <button
-                  type="submit"
-                  disabled={submissionStatus === 'loading'}
-                  className={`w-full font-medium py-4 rounded-lg shadow-lg transition-all duration-300 transform ${
-                    submissionStatus === 'loading'
-                      ? 'bg-gray-400 dark:bg-gray-600 text-white cursor-not-allowed'
-                      : 'bg-primary dark:bg-primary-dark hover:bg-primary-dark dark:hover:bg-primary text-white hover:scale-105 hover:shadow-xl animate-button-pulse'
-                  }`}
-                >
-                  {submissionStatus === 'loading' ? (
-                    <span className="flex items-center justify-center">
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Submitting Your RSVP...
+                {/* Dietary Restrictions - Only show if attending */}
+                {formData.attending && (
+                  <div className="animate-section-slide-delayed opacity-0">
+                    <label htmlFor="dietaryRestrictions" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Dietary Restrictions or Special Accommodations
+                    </label>
+                    <textarea
+                      id="dietaryRestrictions"
+                      name="dietaryRestrictions"
+                      rows="4"
+                      value={formData.dietaryRestrictions}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light bg-white dark:bg-gray-700 dark:text-white transition-all duration-200"
+                      placeholder="Please let us know of any dietary restrictions, allergies, or special accommodations needed..."
+                    />
+                  </div>
+                )}
+
+                {/* Email Confirmation */}
+                <div className="bg-primary-light/10 dark:bg-gray-800 p-4 rounded-lg border border-primary/10 dark:border-gray-700 transition-colors duration-200 animate-section-slide-delayed-2 opacity-0">
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      name="sendConfirmationEmail"
+                      checked={formData.sendConfirmationEmail}
+                      onChange={handleInputChange}
+                      className="text-primary dark:text-primary-light focus:ring-primary dark:focus:ring-primary-light h-5 w-5 rounded"
+                    />
+                    <span className="ml-3 text-gray-700 dark:text-gray-200">
+                      Send me a confirmation email
                     </span>
-                  ) : (
-                    'Submit RSVP'
-                  )}
-                </button>
-              </div>
-              
-              {/* Error Message */}
-              {submissionStatus === 'failed' && (
-                <div className="p-4 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg text-center animate-error-wiggle">
-                  {error?.details?.[0]?.reason || error?.errorMessage || "There was an error submitting your RSVP. Please try again."}
+                  </label>
                 </div>
-              )}
-            </form>
+                
+                {/* Submit Button */}
+                <div className="pt-4 animate-button-entrance opacity-0">
+                  <button
+                    type="submit"
+                    disabled={!canSubmit}
+                    className={`w-full font-medium py-4 rounded-lg shadow-lg transition-all duration-300 transform ${
+                      !canSubmit
+                        ? 'bg-gray-400 dark:bg-gray-600 text-white cursor-not-allowed'
+                        : 'bg-primary dark:bg-primary-dark hover:bg-primary-dark dark:hover:bg-primary text-white hover:scale-105 hover:shadow-xl animate-button-pulse'
+                    }`}
+                  >
+                    {isSubmissionInProgress ? (
+                      <span className="flex items-center justify-center">
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Submitting Your RSVP...
+                      </span>
+                    ) : (
+                      'Submit RSVP'
+                    )}
+                  </button>
+                </div>
+                
+                {/* Error Message */}
+                {hasSubmissionFailed && (
+                  <div className="p-4 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg text-center animate-error-wiggle">
+                    {error?.details?.[0]?.reason || error?.errorMessage || "There was an error submitting your RSVP. Please try again."}
+                  </div>
+                )}
+              </form>
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  // Fallback - should not normally reach here
+  return (
+    <div>
+      {rsvpHero}
+      <section className="py-16">
+        <div className="max-w-md mx-auto px-4">
+          <div className="bg-white dark:bg-dark-card shadow-lg rounded-xl p-8 text-center">
+            <p className="text-gray-600 dark:text-gray-400">
+              Loading...
+            </p>
           </div>
         </div>
       </section>

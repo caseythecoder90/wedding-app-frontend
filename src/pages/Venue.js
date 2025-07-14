@@ -75,7 +75,8 @@ function Venue() {
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed transition-colors duration-200">
               A luxurious all-inclusive resort nestled on the pristine shores of Bavaro Beach, 
-              offering world-class amenities and breathtaking ocean views for our special celebration.
+              where we'll be celebrating our special day. We (Yasmim & Casey) will be staying 
+              April 8th - 13th and would be thrilled to spend this time with you!
             </p>
           </div>
           
@@ -160,14 +161,16 @@ function Venue() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Ceremony Card */}
             <div className="bg-white dark:bg-dark-card rounded-2xl shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-500">
-              <div className="relative h-64">
-                <img 
-                  src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                  alt="Beach wedding ceremony" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                <div className="absolute bottom-4 left-6">
+              <div className="relative h-64 overflow-hidden">
+                <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-700">
+                  <img 
+                    src="https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1752463079/wedding-ceremony_g0qnwj.jpg" 
+                    alt="Beach wedding ceremony" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                </div>
+                <div className="absolute bottom-4 left-6 z-10">
                   <h3 className="font-script text-3xl text-white mb-1">Ceremony</h3>
                   <p className="text-white text-lg opacity-90">4:00 PM</p>
                 </div>
@@ -204,14 +207,16 @@ function Venue() {
             
             {/* Reception Card */}
             <div className="bg-white dark:bg-dark-card rounded-2xl shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-500">
-              <div className="relative h-64">
-                <img 
-                  src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                  alt="Beach reception dinner" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                <div className="absolute bottom-4 left-6">
+              <div className="relative h-64 overflow-hidden">
+                <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-700">
+                  <img 
+                    src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                    alt="Beach reception dinner" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                </div>
+                <div className="absolute bottom-4 left-6 z-10">
                   <h3 className="font-script text-3xl text-white mb-1">Reception</h3>
                   <p className="text-white text-lg opacity-90">6:00 - 9:00 PM</p>
                 </div>
@@ -248,14 +253,75 @@ function Venue() {
         </div>
       </section>
       
+      {/* Stay With Us Section */}
+      <section className="py-20 bg-gradient-to-br from-primary-light/20 to-secondary-light/20 dark:from-primary-dark/20 dark:to-secondary-dark/20 transition-colors duration-200">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-script text-5xl text-primary dark:text-primary-light mb-8 transition-colors duration-200">
+            Come Celebrate With Us
+          </h2>
+          <div className="bg-white dark:bg-dark-card rounded-2xl shadow-xl p-8 transition-colors duration-200">
+            <div className="mb-8">
+              <h3 className="font-display text-2xl text-gray-800 dark:text-gray-100 mb-4 transition-colors duration-200">
+                We'll Be There April 8th - 13th
+              </h3>
+              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed transition-colors duration-200">
+                While our wedding is on <strong className="text-primary dark:text-primary-light">April 10th</strong>, 
+                we're making this a true celebration by staying at the resort for several days. 
+                We would be absolutely thrilled if you join us for any part of this time!
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-primary-light dark:bg-primary-dark rounded-full flex items-center justify-center mx-auto mb-3 transition-colors duration-200">
+                  <svg className="w-8 h-8 text-primary-dark dark:text-primary-light transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <h4 className="font-medium text-gray-800 dark:text-gray-100 transition-colors duration-200">Your Timeline</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-200">Stay for any length that works for you</p>
+              </div>
+              
+              <div className="text-center">
+                <div className="w-16 h-16 bg-secondary-light dark:bg-secondary-dark rounded-full flex items-center justify-center mx-auto mb-3 transition-colors duration-200">
+                  <svg className="w-8 h-8 text-secondary-dark dark:text-secondary-light transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                  </svg>
+                </div>
+                <h4 className="font-medium text-gray-800 dark:text-gray-100 transition-colors duration-200">Quality Time</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-200">Pool days, beach walks, and memories</p>
+              </div>
+              
+              <div className="text-center">
+                <div className="w-16 h-16 bg-accent-light dark:bg-accent-dark rounded-full flex items-center justify-center mx-auto mb-3 transition-colors duration-200">
+                  <svg className="w-8 h-8 text-accent-dark dark:text-accent-light transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                  </svg>
+                </div>
+                <h4 className="font-medium text-gray-800 dark:text-gray-100 transition-colors duration-200">Celebration</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-200">Extended wedding festivities</p>
+              </div>
+            </div>
+            
+            <div className="bg-primary-light/10 dark:bg-primary-dark/20 rounded-lg p-6 transition-colors duration-200">
+              <p className="text-gray-700 dark:text-gray-300 font-medium transition-colors duration-200">
+                💙 Whether you come just for the wedding day or stay the whole time with us, 
+                we're just excited to celebrate this special moment with the people we love most!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       {/* Booking Information */}
       <section className="py-20 bg-gray-800 dark:bg-gray-900 text-white transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="font-script text-5xl mb-6 transition-colors duration-200">Plan Your Stay</h2>
             <p className="text-xl text-gray-300 dark:text-gray-400 max-w-3xl mx-auto transition-colors duration-200">
-              We're not reserving a block of rooms, so guests have the freedom to choose 
-              their perfect accommodation and explore all the resort has to offer.
+              We're not reserving a block of rooms, giving you the freedom to choose your perfect 
+              accommodation and stay for any length of time you desire. We'll be there April 8th - 13th 
+              and would love to spend as much time as possible celebrating with you!
             </p>
           </div>
           
@@ -287,9 +353,12 @@ function Venue() {
                 </div>
                 
                 <div>
-                  <h4 className="text-lg font-semibold text-primary-light mb-2">Travel Dates</h4>
-                  <p className="text-gray-200 dark:text-gray-300 transition-colors duration-200">We recommend arriving April 9th or 10th</p>
-                  <p className="text-gray-200 dark:text-gray-300 transition-colors duration-200">and departing April 11th or later</p>
+                  <h4 className="text-lg font-semibold text-primary-light mb-2">Our Stay & Suggestions</h4>
+                  <p className="text-gray-200 dark:text-gray-300 transition-colors duration-200">Yasmim & Casey: April 8th - 13th</p>
+                  <p className="text-gray-200 dark:text-gray-300 transition-colors duration-200">Wedding Day: April 10th, 2026</p>
+                  <p className="text-gray-200 dark:text-gray-300 text-sm mt-2 italic transition-colors duration-200">
+                    Stay for any duration that works for you - even just the wedding day!
+                  </p>
                 </div>
               </div>
             </div>

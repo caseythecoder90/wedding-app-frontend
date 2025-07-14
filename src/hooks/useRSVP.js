@@ -83,11 +83,17 @@ export const useRSVP = () => {
   const hasSubmissionFailed = rsvpState.submissionStatus === 'failed';
 
   // Determine what UI state to show
-  const shouldShowCodeForm = !invitationCode || !isValidationSuccessful;
-  const shouldShowMainForm = isValidationSuccessful && rsvpState.guest;
-  const shouldShowSuccessPage = isSubmissionSuccessful;
-  const shouldShowErrorPage = hasValidationFailed;
   const shouldShowLoadingPage = isValidationInProgress;
+  const shouldShowSuccessPage = isSubmissionSuccessful;
+  
+  const shouldShowErrorPage = invitationCode && hasValidationFailed;
+  
+  const shouldShowMainForm = isValidationSuccessful && rsvpState.guest && !shouldShowSuccessPage;
+  
+  const shouldShowCodeForm = !shouldShowLoadingPage && 
+                            !shouldShowSuccessPage && 
+                            !shouldShowErrorPage && 
+                            !shouldShowMainForm;
 
   // Form validation
   const isFormValid = useCallback(() => {
@@ -130,6 +136,6 @@ export const useRSVP = () => {
     
     // Validation helpers
     canSubmit: isFormValid() && !isSubmissionInProgress,
-    hasRepeatedFailures: rsvpState.validationAttempts >= 3,
+    hasRepeatedFailures: rsvpState.validationAttempts >= 5,
   };
 };

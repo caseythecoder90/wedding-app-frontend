@@ -156,7 +156,7 @@ const timelinePoints = [
     id: 7,
     date: "2025 - Present",
     title: "Planning Our Forever",
-    story: "Now engaged and building our future together in our new apartment, planning our Punta Cana wedding where both our families can celebrate with us.",
+    story: "Now engaged and building our future together in our new apartment, planning our Punta Cana wedding where both our families can celebrate with us. From NYC adventures to Atlanta explorations, we're creating memories while planning our big day.",
     type: "photo",
     photos: [
       {
@@ -168,6 +168,26 @@ const timelinePoints = [
         url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485761/planning-forever-atlanta-braves-game-yasmims-first-ever_xpjwfp",
         caption: "Yasmim's First Braves Game",
         alt: "Casey and Yasmim at Yasmim's first ever Atlanta Braves baseball game"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1752462265/planning-forever-new-york-city-one_ttn8bc",
+        caption: "New York City Adventure",
+        alt: "Casey and Yasmim exploring New York City during their recent trip"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1752462265/planning-forever-new-york-city-two_cgx4mv",
+        caption: "NYC Memories",
+        alt: "Casey and Yasmim making memories during their New York City getaway"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1752462830/planning-forever-new-york-three_qgyoyp",
+        caption: "NYC Exploration",
+        alt: "Casey and Yasmim exploring the sights and sounds of New York City"
+      },
+      {
+        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1752462829/planning-forever-new-york-four_hsbkd7",
+        caption: "Big Apple Adventures",
+        alt: "Casey and Yasmim enjoying their time together in the Big Apple"
       },
       {
         url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485762/planning-forever-brasstown-bald-georgia_bk5wo6",

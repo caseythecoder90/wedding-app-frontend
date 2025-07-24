@@ -9,6 +9,8 @@ import OurStory from './pages/OurStory';
 import Venue from './pages/Venue';
 import RSVP from './pages/RSVP';
 import NotFound from './pages/NotFound';
+import Registry from './pages/Registry';
+
 import './App.css';
 
 function App() {
@@ -23,6 +25,7 @@ function App() {
             <Route path="venue" element={<Venue />} />
             <Route path="rsvp" element={<RSVP />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/registry" element={<Registry />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -27,7 +27,7 @@ function Navbar() {
               className={({ isActive }) => 
                 isActive 
                   ? "text-primary dark:text-primary-light border-b-2 border-primary dark:border-primary-light px-1 pt-1 font-medium" 
-                  : "text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light px-1 pt-1 font-medium"
+                  : "text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light px-1 pt-1 font-medium transition-colors duration-200"
               }
             >
               Home
@@ -37,7 +37,7 @@ function Navbar() {
               className={({ isActive }) => 
                 isActive 
                   ? "text-primary dark:text-primary-light border-b-2 border-primary dark:border-primary-light px-1 pt-1 font-medium" 
-                  : "text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light px-1 pt-1 font-medium"
+                  : "text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light px-1 pt-1 font-medium transition-colors duration-200"
               }
             >
               Our Story
@@ -47,7 +47,7 @@ function Navbar() {
               className={({ isActive }) => 
                 isActive 
                   ? "text-primary dark:text-primary-light border-b-2 border-primary dark:border-primary-light px-1 pt-1 font-medium" 
-                  : "text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light px-1 pt-1 font-medium"
+                  : "text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light px-1 pt-1 font-medium transition-colors duration-200"
               }
             >
               Venue
@@ -57,21 +57,23 @@ function Navbar() {
               className={({ isActive }) => 
                 isActive 
                   ? "text-primary dark:text-primary-light border-b-2 border-primary dark:border-primary-light px-1 pt-1 font-medium" 
-                  : "text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light px-1 pt-1 font-medium"
+                  : "text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light px-1 pt-1 font-medium transition-colors duration-200"
               }
             >
               RSVP
             </NavLink>
             
+            {/* Japan Fund Registry Link */}
             <NavLink 
               to="/registry"
               className={({ isActive }) => 
                 isActive 
-                  ? "text-primary dark:text-primary-light border-b-2 border-primary dark:border-primary-light px-1 pt-1 font-medium" 
-                  : "text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light px-1 pt-1 font-medium"
+                  ? "text-pink-600 dark:text-pink-400 border-b-2 border-pink-500 dark:border-pink-400 px-1 pt-1 font-medium flex items-center" 
+                  : "text-gray-500 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 px-1 pt-1 font-medium transition-colors duration-200 flex items-center"
               }
             >
-              Registry 💝
+              <span className="mr-1">🌸</span>
+              Honeymoon Fund
             </NavLink>
             
             {/* Dark Mode Toggle */}
@@ -115,7 +117,7 @@ function Navbar() {
               className={({ isActive }) =>
                 isActive
                   ? "bg-primary dark:bg-primary-dark text-white block px-3 py-2 rounded-md text-base font-medium"
-                  : "text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-primary-light block px-3 py-2 rounded-md text-base font-medium"
+                  : "text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-primary-light block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
               }
               onClick={() => setIsMenuOpen(false)}
             >
@@ -126,7 +128,7 @@ function Navbar() {
               className={({ isActive }) =>
                 isActive
                   ? "bg-primary dark:bg-primary-dark text-white block px-3 py-2 rounded-md text-base font-medium"
-                  : "text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-primary-light block px-3 py-2 rounded-md text-base font-medium"
+                  : "text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-primary-light block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
               }
               onClick={() => setIsMenuOpen(false)}
             >
@@ -137,7 +139,7 @@ function Navbar() {
               className={({ isActive }) =>
                 isActive
                   ? "bg-primary dark:bg-primary-dark text-white block px-3 py-2 rounded-md text-base font-medium"
-                  : "text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-primary-light block px-3 py-2 rounded-md text-base font-medium"
+                  : "text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-primary-light block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
               }
               onClick={() => setIsMenuOpen(false)}
             >
@@ -148,23 +150,26 @@ function Navbar() {
               className={({ isActive }) =>
                 isActive
                   ? "bg-primary dark:bg-primary-dark text-white block px-3 py-2 rounded-md text-base font-medium"
-                  : "text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-primary-light block px-3 py-2 rounded-md text-base font-medium"
+                  : "text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-primary-light block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
               }
               onClick={() => setIsMenuOpen(false)}
             >
               RSVP
             </NavLink>
             
+            {/* Japan Fund Registry Link - Mobile */}
             <NavLink
               to="/registry"
               className={({ isActive }) =>
                 isActive
-                  ? "bg-primary dark:bg-primary-dark text-white block px-3 py-2 rounded-md text-base font-medium"
-                  : "text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-primary-light block px-3 py-2 rounded-md text-base font-medium"
+                  ? "bg-gradient-to-r from-pink-500 to-red-500 text-white block px-3 py-2 rounded-md text-base font-medium flex items-center"
+                  : "text-gray-500 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-pink-900/20 hover:text-pink-600 dark:hover:text-pink-400 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 flex items-center"
               }
               onClick={() => setIsMenuOpen(false)}
             >
-              Registry 💝
+              <span className="mr-2">🌸</span>
+              Honeymoon Fund
+              <span className="ml-2">🏔️</span>
             </NavLink>
           </div>
         </div>

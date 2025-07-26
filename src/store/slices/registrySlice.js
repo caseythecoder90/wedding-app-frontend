@@ -1,5 +1,5 @@
-// src/store/slices/registrySlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import RegistryAPI from '../../services/registryAPI.js';
 
 /**
  * Registry settings object shape (from backend RegistrySettingsDTO)
@@ -68,37 +68,9 @@ export const fetchRegistryOverview = createAsyncThunk(
    */
   async (_, { rejectWithValue }) => {
     try {
-      const apiUrl = process.env.REACT_APP_API_URL || '';
-      const response = await fetch(`${apiUrl}/v1/api/registry/overview`);
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        return rejectWithValue(errorData);
-      }
-      
-      const data = await response.json();
-      
-      // Validate that we received the expected data structure
-      if (!data.settings) {
-        return rejectWithValue({ 
-          errorMessage: 'Invalid response from server', 
-          details: [{ reason: 'Registry settings not found in response' }] 
-        });
-      }
-      
-      return data;
+      return await RegistryAPI.fetchOverview();
     } catch (error) {
-      if (error.name === 'TypeError' && error.message.includes('fetch')) {
-        return rejectWithValue({ 
-          errorMessage: 'Unable to connect to server. Please check your internet connection and try again.',
-          details: [{ reason: 'Network error' }]
-        });
-      }
-      
-      return rejectWithValue({ 
-        errorMessage: error.message || 'An unexpected error occurred',
-        details: [{ reason: 'Unknown error' }]
-      });
+      return rejectWithValue(error);
     }
   }
 );
@@ -113,99 +85,13 @@ export const submitDonation = createAsyncThunk(
    */
   async (donationData, { rejectWithValue }) => {
     try {
-      const apiUrl = process.env.REACT_APP_API_URL || '';
-      
-      // Validate required fields before sending
-      if (!donationData.donorName?.trim()) {
-        return rejectWithValue({
-          errorMessage: 'Please provide your name.',
-          details: [{ reason: 'Missing donor name' }]
-        });
-      }
-      
-      if (!donationData.donorEmail || !donationData.donorEmail.includes('@')) {
-        return rejectWithValue({
-          errorMessage: 'Please provide a valid email address.',
-          details: [{ reason: 'Invalid email format' }]
-        });
-      }
-      
-      if (!donationData.amount || donationData.amount < 1) {
-        return rejectWithValue({
-          errorMessage: 'Please enter a donation amount of at least $1.00.',
-          details: [{ reason: 'Invalid donation amount' }]
-        });
-      }
-      
-      if (!donationData.paymentMethod) {
-        return rejectWithValue({
-          errorMessage: 'Please select a payment method.',
-          details: [{ reason: 'Missing payment method' }]
-        });
-      }
-      
-      const response = await fetch(`${apiUrl}/v1/api/registry/donations`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(donationData),
-      });
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        return rejectWithValue(errorData);
-      }
-      
-      return await response.json();
+      return await RegistryAPI.submitDonation(donationData);
     } catch (error) {
-      if (error.name === 'TypeError' && error.message.includes('fetch')) {
-        return rejectWithValue({ 
-          errorMessage: 'Unable to submit donation. Please check your internet connection and try again.',
-          details: [{ reason: 'Network error' }]
-        });
-      }
-      
-      return rejectWithValue({ 
-        errorMessage: error.message || 'Failed to submit donation',
-        details: [{ reason: 'Submission error' }]
-      });
+      return rejectWithValue(error);
     }
   }
 );
 
-export const fetchRecentDonations = createAsyncThunk(
-  'registry/fetchRecentDonations',
-  /**
-   * Fetches recent confirmed donations for display (optional feature)
-   * @returns {Promise<Donation[]>} List of recent donations
-   */
-  async (_, { rejectWithValue }) => {
-    try {
-      const apiUrl = process.env.REACT_APP_API_URL || '';
-      const response = await fetch(`${apiUrl}/v1/api/registry/donations?status=CONFIRMED`);
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        return rejectWithValue(errorData);
-      }
-      
-      return await response.json();
-    } catch (error) {
-      if (error.name === 'TypeError' && error.message.includes('fetch')) {
-        return rejectWithValue({ 
-          errorMessage: 'Unable to load recent donations.',
-          details: [{ reason: 'Network error' }]
-        });
-      }
-      
-      return rejectWithValue({ 
-        errorMessage: error.message || 'Failed to load donations',
-        details: [{ reason: 'Fetch error' }]
-      });
-    }
-  }
-);
 
 const initialState = {
   /** @type {RegistryOverview|null} */
@@ -214,8 +100,6 @@ const initialState = {
   /** @type {RegistrySettings|null} */
   settings: null,
 
-  /** @type {Donation[]} */
-  recentDonations: [],
 
   /** @type {Donation|null} */
   lastSubmittedDonation: null,
@@ -238,11 +122,12 @@ const initialState = {
   /** @type {'idle'|'loading'|'succeeded'|'failed'} */
   donationStatus: 'idle',
 
-  /** @type {'idle'|'loading'|'succeeded'|'failed'} */
-  recentDonationsStatus: 'idle',
-
   /** @type {APIError|null} */
   error: null,
+
+  // Field validation state (for real-time validation feedback)
+  /** @type {Object<string, {isValid: boolean, errorMessage?: string}>} */
+  fieldValidation: {},
 
   // UI state
   showSuccessModal: false,
@@ -258,6 +143,7 @@ const registrySlice = createSlice({
     },
     resetDonationForm: (state) => {
       state.donationForm = initialState.donationForm;
+      state.fieldValidation = {};
     },
     clearError: (state) => {
       state.error = null;
@@ -271,6 +157,17 @@ const registrySlice = createSlice({
     resetRegistryState: () => initialState,
     incrementSubmissionAttempts: (state) => {
       state.submissionAttempts += 1;
+    },
+    validateDonationField: (state, action) => {
+      // Real-time field validation (for UI feedback)
+      const { field, value, context } = action.payload;
+      const validation = RegistryAPI.validateDonationField(field, value, context);
+      
+      // Store field-specific validation state if needed
+      if (!state.fieldValidation) {
+        state.fieldValidation = {};
+      }
+      state.fieldValidation[field] = validation;
     },
   },
   extraReducers: (builder) => {
@@ -308,19 +205,6 @@ const registrySlice = createSlice({
         state.error = action.payload;
         state.submissionAttempts += 1;
       })
-      
-      // Fetch recent donations
-      .addCase(fetchRecentDonations.pending, (state) => {
-        state.recentDonationsStatus = 'loading';
-      })
-      .addCase(fetchRecentDonations.fulfilled, (state, action) => {
-        state.recentDonationsStatus = 'succeeded';
-        state.recentDonations = action.payload;
-      })
-      .addCase(fetchRecentDonations.rejected, (state, action) => {
-        state.recentDonationsStatus = 'failed';
-        // Don't set main error for recent donations failure
-      });
   },
 });
 
@@ -331,7 +215,8 @@ export const {
   showSuccessModal, 
   hideSuccessModal, 
   resetRegistryState,
-  incrementSubmissionAttempts 
+  incrementSubmissionAttempts,
+  validateDonationField
 } = registrySlice.actions;
 
 export default registrySlice.reducer;

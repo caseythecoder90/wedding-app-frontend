@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRSVP } from '../hooks/useRSVP';
 import InvitationCodeInput from '../components/InvitationCodeInput';
+import './RSVP.css';
 
 /**
  * Guest object shape (from backend GuestResponseDTO)

@@ -1,0 +1,168 @@
+/* OurStory Component Animations - Optimized for Mobile */
+
+@keyframes typewriter-title {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-heart {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 0.7;
+  }
+}
+
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes timeline-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(145, 195, 229, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(145, 195, 229, 0);
+  }
+}
+
+@keyframes pulse-gentle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes blob {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  33% {
+    transform: translateY(-30px) scale(1.1);
+  }
+  66% {
+    transform: translateY(20px) scale(0.9);
+  }
+}
+
+/* Animation Classes - Mobile Optimized */
+.animate-typewriter-title {
+  animation: typewriter-title 2s ease-out forwards;
+  white-space: nowrap;
+  border-right: 3px solid transparent;
+}
+
+.animate-fade-up-delayed {
+  animation: fade-up 1s ease-out 1.5s forwards;
+  opacity: 0;
+}
+
+.animate-fade-up-delayed-2 {
+  animation: fade-up 1s ease-out 2s forwards;
+  opacity: 0;
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s ease-out forwards;
+}
+
+.animate-float-heart {
+  animation: float-heart 20s ease-in-out infinite;
+}
+
+.animate-float-gentle {
+  animation: float-gentle 3s ease-in-out infinite;
+}
+
+.animate-timeline-pulse {
+  animation: timeline-pulse 2s infinite;
+}
+
+.animate-pulse-gentle {
+  animation: pulse-gentle 2s ease-in-out infinite;
+}
+
+.animate-sparkle {
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.animate-blob {
+  animation: blob 7s ease-in-out infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Mobile Performance Optimizations */
+@media (max-width: 768px) {
+  /* Reduce animation complexity on mobile */
+  .animate-float-heart,
+  .animate-blob {
+    animation-duration: 10s; /* Slower animations for mobile */
+  }
+  
+  .animate-timeline-pulse {
+    animation: none; /* Disable pulse on mobile to prevent flashing */
+  }
+  
+  /* Reduce transform operations that can cause flashing */
+  .animate-sparkle {
+    animation: none;
+  }
+  
+  /* Ensure hardware acceleration is used */
+  .will-change-transform {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}
+
+/* Prevent layout shifts during animation */
+.timeline-content {
+  contain: layout style paint;
+}

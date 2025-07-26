@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import './OurStory.css';
 
 const timelinePoints = [
   {
@@ -206,30 +207,64 @@ const timelinePoints = [
 function OurStory() {
   const [activeSection, setActiveSection] = useState(0);
   const [isVisible, setIsVisible] = useState({});
+  const scrollTimeoutRef = useRef(null);
+  const elementsRef = useRef({});
 
-  // Handle scroll to update active section and visibility
-  useEffect(() => {
-    const handleScroll = () => {
-      // Check visibility of timeline sections
+  // Throttled scroll handler to prevent excessive re-renders on mobile
+  const handleScroll = useCallback(() => {
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    
+    scrollTimeoutRef.current = setTimeout(() => {
       const newVisibility = {};
+      let newActiveSection = activeSection;
+      
       timelinePoints.forEach((_, index) => {
-        const element = document.getElementById(`timeline-${index}`);
+        const element = elementsRef.current[index];
         if (element) {
           const rect = element.getBoundingClientRect();
-          const isInView = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
+          const isInView = rect.top < window.innerHeight * 0.75 && rect.bottom > window.innerHeight * 0.25;
           newVisibility[index] = isInView;
-          if (isInView && activeSection !== index) {
-            setActiveSection(index);
+          
+          // Only update active section if significantly in view
+          if (isInView && rect.top < window.innerHeight * 0.5 && rect.bottom > window.innerHeight * 0.3) {
+            newActiveSection = index;
           }
         }
       });
-      setIsVisible(newVisibility);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
-    return () => window.removeEventListener('scroll', handleScroll);
+      
+      // Batch state updates to prevent multiple re-renders
+      setIsVisible(prev => {
+        const hasChanged = Object.keys(newVisibility).some(key => prev[key] !== newVisibility[key]);
+        return hasChanged ? newVisibility : prev;
+      });
+      
+      if (newActiveSection !== activeSection) {
+        setActiveSection(newActiveSection);
+      }
+    }, 50); // 50ms throttle for mobile performance
   }, [activeSection]);
+
+  useEffect(() => {
+    // Cache element references to avoid repeated DOM queries
+    timelinePoints.forEach((_, index) => {
+      const element = document.getElementById(`timeline-${index}`);
+      if (element) {
+        elementsRef.current[index] = element;
+      }
+    });
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, [handleScroll]);
 
   const scrollToSection = (index) => {
     const element = document.getElementById(`timeline-${index}`);
@@ -303,14 +338,18 @@ function OurStory() {
           </div>
 
           {/* Timeline Content with Staggered Animations */}
-          <div className="space-y-24">
+          <div className="space-y-24 timeline-content">
             {timelinePoints.map((point, index) => (
               <div
                 key={point.id}
                 id={`timeline-${index}`}
-                className={`flex flex-col lg:flex-row items-center gap-12 transition-opacity duration-500 ${
+                className={`flex flex-col lg:flex-row items-center gap-12 transition-opacity duration-300 will-change-transform ${
                   index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                } ${isVisible[index] ? 'opacity-100 animate-simple-fade-in' : 'opacity-0'}`}
+                } ${isVisible[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                style={{ 
+                  transform: isVisible[index] ? 'translateY(0)' : 'translateY(16px)',
+                  transition: 'opacity 0.3s ease-out, transform 0.3s ease-out'
+                }}
               >
                 {/* Date Badge with Floating Animation */}
                 <div className="flex-shrink-0 relative">
@@ -328,9 +367,9 @@ function OurStory() {
                   )}
                 </div>
 
-                {/* Content Card with Hover Effects */}
+                {/* Content Card with Reduced Hover Effects for Mobile */}
                 <div className="flex-1 max-w-2xl">
-                  <div className="bg-white dark:bg-dark-card rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 group">
+                  <div className="bg-white dark:bg-dark-card rounded-2xl shadow-xl p-8 transition-shadow duration-300 hover:shadow-2xl group will-change-transform">
                     <h3 className="font-script text-3xl text-primary dark:text-primary-light mb-4 group-hover:text-primary-dark dark:group-hover:text-white transition-colors duration-300">
                       {point.title}
                     </h3>
@@ -367,8 +406,7 @@ function OurStory() {
                           {point.photos.map((photo, photoIndex) => (
                             <div
                               key={photoIndex}
-                              className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer transform hover:-translate-y-2 break-inside-avoid mb-4"
-                              style={{ animationDelay: `${photoIndex * 0.1}s` }}
+                              className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 group cursor-pointer break-inside-avoid mb-4 will-change-transform"
                             >
                               <img
                                 src={typeof photo === 'string' ? photo : photo.url}
@@ -430,158 +468,6 @@ function OurStory() {
         </div>
       </section>
       
-      <style jsx>{`
-        @keyframes typewriter-title {
-          from {
-            width: 0;
-            opacity: 0;
-          }
-          50% {
-            opacity: 1;
-          }
-          to {
-            width: 100%;
-            opacity: 1;
-          }
-        }
-
-        @keyframes fade-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes float-heart {
-          0%, 100% {
-            transform: translateY(0px) rotate(0deg);
-            opacity: 0.3;
-          }
-          50% {
-            transform: translateY(-20px) rotate(180deg);
-            opacity: 0.7;
-          }
-        }
-
-        @keyframes float-gentle {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-5px);
-          }
-        }
-
-        @keyframes timeline-pulse {
-          0%, 100% {
-            box-shadow: 0 0 0 0 rgba(145, 195, 229, 0.7);
-          }
-          50% {
-            box-shadow: 0 0 0 10px rgba(145, 195, 229, 0);
-          }
-        }
-
-        @keyframes simple-fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(15px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes pulse-gentle {
-          0%, 100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.7;
-          }
-        }
-
-        @keyframes sparkle {
-          0%, 100% {
-            opacity: 0;
-          }
-          50% {
-            opacity: 1;
-          }
-        }
-
-        @keyframes blob {
-          0%, 100% {
-            transform: translateY(0px) scale(1);
-          }
-          33% {
-            transform: translateY(-30px) scale(1.1);
-          }
-          66% {
-            transform: translateY(20px) scale(0.9);
-          }
-        }
-
-        .animate-typewriter-title {
-          animation: typewriter-title 2s ease-out forwards;
-          white-space: nowrap;
-          border-right: 3px solid transparent;
-        }
-
-        .animate-fade-up-delayed {
-          animation: fade-up 1s ease-out 1.5s forwards;
-          opacity: 0;
-        }
-
-        .animate-fade-up-delayed-2 {
-          animation: fade-up 1s ease-out 2s forwards;
-          opacity: 0;
-        }
-
-        .animate-fade-up {
-          animation: fade-up 0.8s ease-out forwards;
-        }
-
-        .animate-float-heart {
-          animation: float-heart 20s ease-in-out infinite;
-        }
-
-        .animate-float-gentle {
-          animation: float-gentle 3s ease-in-out infinite;
-        }
-
-        .animate-timeline-pulse {
-          animation: timeline-pulse 2s infinite;
-        }
-
-        .animate-simple-fade-in {
-          animation: simple-fade-in 0.6s ease-out forwards;
-        }
-
-        .animate-pulse-gentle {
-          animation: pulse-gentle 2s ease-in-out infinite;
-        }
-
-        .animate-sparkle {
-          animation: sparkle 1.5s ease-in-out infinite;
-        }
-
-        .animate-blob {
-          animation: blob 7s ease-in-out infinite;
-        }
-
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-      `}</style>
     </div>
   );
 }

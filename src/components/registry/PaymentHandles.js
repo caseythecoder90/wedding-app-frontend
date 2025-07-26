@@ -14,7 +14,7 @@ const PaymentHandles = ({ settings }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 md:p-8 mb-8">
+    <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 md:p-8 mb-8 border border-gray-200 dark:border-gray-700">
       <h3 className="text-xl md:text-2xl font-playfair text-gray-800 dark:text-white mb-6 text-center">
         Send Your Gift 💝
       </h3>
@@ -22,19 +22,24 @@ const PaymentHandles = ({ settings }) => {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Venmo */}
         {settings.venmoHandle && (
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-lg p-6 text-center">
-            <div className="text-blue-600 text-4xl mb-3">📱</div>
-            <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
-              Venmo
-            </h4>
-            <div className="bg-white dark:bg-gray-700 rounded-lg p-3 mb-4">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 border border-blue-200 dark:border-gray-600 hover:shadow-lg transition-all duration-300">
+            <div className="flex items-center mb-4">
+              <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mr-4">
+                <span className="text-white font-bold text-lg">V</span>
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold text-gray-800 dark:text-white">Venmo</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Quick & Easy</p>
+              </div>
+            </div>
+            <div className="bg-white/60 dark:bg-gray-700/60 rounded-lg p-3 mb-4 backdrop-blur-sm">
               <code className="text-blue-600 dark:text-blue-400 font-mono text-lg">
                 {settings.venmoHandle}
               </code>
             </div>
             <button
               onClick={() => copyToClipboard(settings.venmoHandle, 'venmo')}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors inline-flex items-center space-x-2"
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
             >
               <span>{copiedText === 'venmo' ? '✓ Copied!' : 'Copy Handle'}</span>
             </button>
@@ -43,21 +48,26 @@ const PaymentHandles = ({ settings }) => {
 
         {/* Zelle */}
         {settings.zelleHandle && (
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-lg p-6 text-center">
-            <div className="text-purple-600 text-4xl mb-3">💳</div>
-            <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
-              Zelle
-            </h4>
-            <div className="bg-white dark:bg-gray-700 rounded-lg p-3 mb-4">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 border border-purple-200 dark:border-gray-600 hover:shadow-lg transition-all duration-300">
+            <div className="flex items-center mb-4">
+              <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center mr-4">
+                <span className="text-white font-bold text-lg">Z</span>
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold text-gray-800 dark:text-white">Zelle</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Bank Transfer</p>
+              </div>
+            </div>
+            <div className="bg-white/60 dark:bg-gray-700/60 rounded-lg p-3 mb-4 backdrop-blur-sm">
               <code className="text-purple-600 dark:text-purple-400 font-mono text-lg">
                 {settings.zelleHandle}
               </code>
             </div>
             <button
               onClick={() => copyToClipboard(settings.zelleHandle, 'zelle')}
-              className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition-colors inline-flex items-center space-x-2"
+              className="w-full bg-purple-500 hover:bg-purple-600 text-white px-4 py-3 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
             >
-              <span>{copiedText === 'zelle' ? '✓ Copied!' : 'Copy Email'}</span>
+              <span>{copiedText === 'zelle' ? '✓ Copied!' : 'Copy Phone'}</span>
             </button>
           </div>
         )}

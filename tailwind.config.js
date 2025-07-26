@@ -6,16 +6,46 @@ module.exports = {
     extend: {
       colors: {
         primary: {
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#91C3E5', // Primary pastel blue
+          600: '#6BAADB', // Slightly darker pastel blue
+          700: '#0369a1',
+          800: '#075985',
+          900: '#0c4a6e',
           light: '#BFD7ED', // Lighter pastel blue
           DEFAULT: '#91C3E5', // Primary pastel blue
           dark: '#6BAADB',   // Slightly darker pastel blue
         },
         secondary: {
+          50: '#fff7ed',
+          100: '#ffedd5',
+          200: '#fed7aa',
+          300: '#fdba74',
+          400: '#fb923c',
+          500: '#FFC2AE', // Pastel peach
+          600: '#FFAB90', // Darker peach
+          700: '#c2410c',
+          800: '#9a3412',
+          900: '#7c2d12',
           light: '#FFD8CC', // Light pastel peach
           DEFAULT: '#FFC2AE', // Pastel peach
           dark: '#FFAB90',  // Darker peach
         },
         accent: {
+          50: '#f0fdf4',
+          100: '#dcfce7',
+          200: '#bbf7d0',
+          300: '#86efac',
+          400: '#4ade80',
+          500: '#C9E4DE', // Mint
+          600: '#A5C8BF', // Dark mint
+          700: '#15803d',
+          800: '#166534',
+          900: '#14532d',
           light: '#E4F1EE', // Light mint
           DEFAULT: '#C9E4DE', // Mint
           dark: '#A5C8BF',  // Dark mint
@@ -199,6 +229,10 @@ module.exports = {
             opacity: '1', 
             transform: 'translateY(0)' 
           }
+        },
+        'shimmer': {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' }
         }
       },
       animation: {
@@ -234,7 +268,8 @@ module.exports = {
         'guest-welcome': 'guest-welcome 0.8s ease-out 0.2s forwards',
         'button-glow': 'button-glow 3s ease-in-out infinite',
         'button-pulse': 'button-pulse 2s ease-in-out infinite',
-        'button-entrance': 'button-entrance 0.8s ease-out 0.7s forwards'
+        'button-entrance': 'button-entrance 0.8s ease-out 0.7s forwards',
+        'shimmer': 'shimmer 2s ease-in-out infinite'
       }
     },
   },

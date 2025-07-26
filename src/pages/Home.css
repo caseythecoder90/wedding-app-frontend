@@ -1,0 +1,135 @@
+/* Home Component Animations - Mobile Optimized */
+
+@keyframes romantic-fade {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes section-fade {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes countdown-appear {
+  from { 
+    opacity: 0; 
+    transform: scale(0.9) translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1) translateY(0); 
+  }
+}
+
+@keyframes card-slide-up {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Animation Classes */
+.animate-romantic-fade {
+  animation: romantic-fade 1.2s ease-out 0.5s forwards;
+  opacity: 0;
+}
+
+.animate-romantic-fade-delayed {
+  animation: romantic-fade 1s ease-out 1.2s forwards;
+  opacity: 0;
+}
+
+.animate-romantic-fade-delayed-2 {
+  animation: romantic-fade 1s ease-out 1.8s forwards;
+  opacity: 0;
+}
+
+.animate-romantic-fade-delayed-3 {
+  animation: romantic-fade 1s ease-out 2.4s forwards;
+  opacity: 0;
+}
+
+.animate-romantic-fade-delayed-4 {
+  animation: romantic-fade 1s ease-out 3s forwards;
+  opacity: 0;
+}
+
+.animate-section-fade {
+  animation: section-fade 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.animate-section-fade-delayed {
+  animation: section-fade 0.8s ease-out 0.8s forwards;
+  opacity: 0;
+}
+
+.animate-countdown-appear {
+  animation: countdown-appear 1s ease-out 0.5s forwards;
+  opacity: 0;
+}
+
+.animate-card-1 {
+  animation: card-slide-up 0.6s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.animate-card-2 {
+  animation: card-slide-up 0.6s ease-out 0.4s forwards;
+  opacity: 0;
+}
+
+.animate-card-3 {
+  animation: card-slide-up 0.6s ease-out 0.6s forwards;
+  opacity: 0;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  /* Reduce animation complexity on mobile */
+  .animate-romantic-fade,
+  .animate-romantic-fade-delayed,
+  .animate-romantic-fade-delayed-2,
+  .animate-romantic-fade-delayed-3,
+  .animate-romantic-fade-delayed-4 {
+    animation-duration: 0.8s;
+  }
+  
+  /* Faster loading on mobile */
+  .animate-section-fade,
+  .animate-section-fade-delayed {
+    animation-duration: 0.6s;
+  }
+  
+  /* Ensure buttons have adequate spacing on mobile */
+  .mobile-button-stack {
+    gap: 1rem !important;
+  }
+}
+
+/* Hero section mobile improvements */
+.hero-content {
+  padding-bottom: 2rem;
+}
+
+@media (max-width: 640px) {
+  .hero-content {
+    padding-bottom: 4rem;
+  }
+}

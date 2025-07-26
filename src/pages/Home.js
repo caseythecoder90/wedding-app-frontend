@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import EngagementGallery from '../components/common/EngagementGallery';
+import './Home.css';
 
 function Home() {
   // Calculate days until wedding
@@ -26,14 +27,14 @@ function Home() {
         </div>
         
         {/* Content */}
-        <div className="relative z-10 text-center px-4 max-w-4xl flex flex-col justify-end pb-32 h-full">
-          <h1 className="font-script text-6xl md:text-8xl text-white mb-6 drop-shadow-lg animate-romantic-fade">
+        <div className="relative z-10 text-center px-4 max-w-4xl flex flex-col justify-end hero-content h-full">
+          <h1 className="font-script text-4xl sm:text-6xl md:text-8xl text-white mb-4 sm:mb-6 drop-shadow-lg animate-romantic-fade">
             Casey & Yasmim
           </h1>
-          <p className="text-2xl md:text-3xl text-white mb-6 font-light drop-shadow-md animate-romantic-fade-delayed">
+          <p className="text-xl sm:text-2xl md:text-3xl text-white mb-4 sm:mb-6 font-light drop-shadow-md animate-romantic-fade-delayed">
             We're getting married!
           </p>
-          <div className="text-xl md:text-2xl text-white font-light mb-8 drop-shadow-md animate-romantic-fade-delayed-2">
+          <div className="text-lg sm:text-xl md:text-2xl text-white font-light mb-6 sm:mb-8 drop-shadow-md animate-romantic-fade-delayed-2">
             April 10, 2026 • Punta Cana, Dominican Republic
           </div>
           <Link 
@@ -62,7 +63,7 @@ function Home() {
               Counting Down
             </h2>
             
-            <div className="bg-accent-light dark:bg-dark-card rounded-lg p-8 shadow-md inline-block transition-colors duration-200 animate-countdown-appear">
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 sm:p-8 shadow-lg border border-gray-200 dark:border-gray-700 inline-block transition-colors duration-200 animate-countdown-appear">
               <div className="text-6xl font-display text-primary-dark dark:text-primary-light mb-4 transition-colors duration-200">
                 {diffDays}
               </div>
@@ -91,125 +92,22 @@ function Home() {
           <p className="text-xl text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
             We would be honored to have you share in our joy. Please let us know if you can join us in paradise.
           </p>
-          <div className="space-y-4 sm:space-y-0 sm:space-x-6 sm:flex sm:justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mobile-button-stack">
             <Link 
               to="/rsvp" 
-              className="inline-block bg-primary dark:bg-primary-dark hover:bg-primary-dark dark:hover:bg-primary text-white font-medium px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+              className="w-full sm:w-auto inline-block bg-primary dark:bg-primary-dark hover:bg-primary-dark dark:hover:bg-primary text-white font-medium px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 text-center"
             >
               RSVP Now
             </Link>
             <Link 
               to="/venue" 
-              className="inline-block bg-white dark:bg-dark-card border-2 border-primary dark:border-primary-light text-primary dark:text-primary-light hover:bg-primary hover:text-white dark:hover:bg-primary-light dark:hover:text-white font-medium px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+              className="w-full sm:w-auto inline-block bg-white dark:bg-dark-card border-2 border-primary dark:border-primary-light text-primary dark:text-primary-light hover:bg-primary hover:text-white dark:hover:bg-primary-light dark:hover:text-white font-medium px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 text-center"
             >
               Learn More
             </Link>
           </div>
         </div>
       </section>
-      
-      <style jsx>{`
-        @keyframes romantic-fade {
-          from { 
-            opacity: 0; 
-            transform: translateY(30px); 
-          }
-          to { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
-        }
-        
-        @keyframes section-fade {
-          from { 
-            opacity: 0; 
-            transform: translateY(20px); 
-          }
-          to { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
-        }
-        
-        @keyframes countdown-appear {
-          from { 
-            opacity: 0; 
-            transform: scale(0.9) translateY(20px); 
-          }
-          to { 
-            opacity: 1; 
-            transform: scale(1) translateY(0); 
-          }
-        }
-        
-        
-        @keyframes card-slide-up {
-          from { 
-            opacity: 0; 
-            transform: translateY(30px); 
-          }
-          to { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
-        }
-        
-        .animate-romantic-fade {
-          animation: romantic-fade 1.2s ease-out 0.5s forwards;
-          opacity: 0;
-        }
-        
-        .animate-romantic-fade-delayed {
-          animation: romantic-fade 1s ease-out 1.2s forwards;
-          opacity: 0;
-        }
-        
-        .animate-romantic-fade-delayed-2 {
-          animation: romantic-fade 1s ease-out 1.8s forwards;
-          opacity: 0;
-        }
-        
-        .animate-romantic-fade-delayed-3 {
-          animation: romantic-fade 1s ease-out 2.4s forwards;
-          opacity: 0;
-        }
-        
-        .animate-romantic-fade-delayed-4 {
-          animation: romantic-fade 1s ease-out 3s forwards;
-          opacity: 0;
-        }
-        
-        .animate-section-fade {
-          animation: section-fade 0.8s ease-out 0.2s forwards;
-          opacity: 0;
-        }
-        
-        .animate-section-fade-delayed {
-          animation: section-fade 0.8s ease-out 0.8s forwards;
-          opacity: 0;
-        }
-        
-        .animate-countdown-appear {
-          animation: countdown-appear 1s ease-out 0.5s forwards;
-          opacity: 0;
-        }
-        
-        
-        .animate-card-1 {
-          animation: card-slide-up 0.6s ease-out 0.2s forwards;
-          opacity: 0;
-        }
-        
-        .animate-card-2 {
-          animation: card-slide-up 0.6s ease-out 0.4s forwards;
-          opacity: 0;
-        }
-        
-        .animate-card-3 {
-          animation: card-slide-up 0.6s ease-out 0.6s forwards;
-          opacity: 0;
-        }
-      `}</style>
     </div>
   );
 }

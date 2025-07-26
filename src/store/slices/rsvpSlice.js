@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import RSVPAPIService from '../../services/rsvpAPI.js';
 
 /**
  * Guest object shape (from backend GuestResponseDTO)
@@ -59,41 +60,11 @@ export const validateInvitationCode = createAsyncThunk(
    */
   async (code, { rejectWithValue }) => {
     try {
-
-      console.log("CODE: ", code);
-      const apiUrl = process.env.REACT_APP_API_URL || '';
-      const response = await fetch(`${apiUrl}/v1/api/invitation/validate/${encodeURIComponent(code)}`);
-
-      console.log("RESPONSE FROM INVITATION VALIDATION: " + response);
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        return rejectWithValue(errorData);
-      }
-      
-      const data = await response.json();
-      
-      // Validate that we received the expected data structure
-      if (!data.guest) {
-        return rejectWithValue({ 
-          errorMessage: 'Invalid response from server', 
-          details: [{ reason: 'Guest information not found in response' }] 
-        });
-      }
-      
-      return data;
+      return await RSVPAPIService.validateInvitationCode(code);
     } catch (error) {
-      // Handle network errors, timeout, etc.
-      if (error.name === 'TypeError' && error.message.includes('fetch')) {
-        return rejectWithValue({ 
-          errorMessage: 'Unable to connect to server. Please check your internet connection and try again.',
-          details: [{ reason: 'Network error' }]
-        });
-      }
-      
-      return rejectWithValue({ 
-        errorMessage: error.message || 'An unexpected error occurred',
-        details: [{ reason: 'Unknown error' }]
+      return rejectWithValue({
+        errorMessage: error.message,
+        details: [{ reason: error.message }]
       });
     }
   }
@@ -110,56 +81,11 @@ export const submitRsvp = createAsyncThunk(
    */
   async (rsvpData, { rejectWithValue }) => {
     try {
-      const apiUrl = process.env.REACT_APP_API_URL || '';
-      
-      // Validate required fields before sending
-      if (!rsvpData.guestId) {
-        return rejectWithValue({
-          errorMessage: 'Guest information is missing. Please refresh and try again.',
-          details: [{ reason: 'Missing guest ID' }]
-        });
-      }
-      
-      if (!rsvpData.email || !rsvpData.email.includes('@')) {
-        return rejectWithValue({
-          errorMessage: 'Please provide a valid email address.',
-          details: [{ reason: 'Invalid email format' }]
-        });
-      }
-      
-      if (rsvpData.bringingPlusOne && !rsvpData.plusOneName?.trim()) {
-        return rejectWithValue({
-          errorMessage: 'Please provide your plus one\'s name.',
-          details: [{ reason: 'Missing plus one name' }]
-        });
-      }
-      
-      const response = await fetch(`${apiUrl}/v1/api/rsvps`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(rsvpData),
-      });
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        return rejectWithValue(errorData);
-      }
-      
-      return await response.json();
+      return await RSVPAPIService.submitRSVP(rsvpData);
     } catch (error) {
-      // Handle network errors
-      if (error.name === 'TypeError' && error.message.includes('fetch')) {
-        return rejectWithValue({ 
-          errorMessage: 'Unable to submit RSVP. Please check your internet connection and try again.',
-          details: [{ reason: 'Network error' }]
-        });
-      }
-      
-      return rejectWithValue({ 
-        errorMessage: error.message || 'Failed to submit RSVP',
-        details: [{ reason: 'Submission error' }]
+      return rejectWithValue({
+        errorMessage: error.message,
+        details: [{ reason: error.message }]
       });
     }
   }

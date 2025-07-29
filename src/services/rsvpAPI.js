@@ -1,11 +1,11 @@
-import APIService from './api.js';
+import api from './api.js';
 import ValidationService from './validation.js';
 
 /**
  * RSVP-specific API service for handling invitation validation and RSVP submissions
- * Extends the base APIService with RSVP-specific functionality
+ * Uses the base API service instance for HTTP operations
  */
-class RSVPAPIService extends APIService {
+class RSVPAPIService {
   /**
    * Validates invitation code with backend
    * @param {string} code - Invitation code (e.g., "WEDABC123")
@@ -19,7 +19,7 @@ class RSVPAPIService extends APIService {
         throw new Error(validation.error);
       }
 
-      const response = await this.get(`/v1/api/invitation/validate/${encodeURIComponent(code)}`);
+      const response = await api.get(`/v1/api/invitation/validate/${encodeURIComponent(code)}`);
       
       // Validate that we received the expected data structure
       if (!response.guest) {
@@ -29,7 +29,7 @@ class RSVPAPIService extends APIService {
       return response;
     } catch (error) {
       console.error('Invitation validation failed:', error);
-      throw this.formatError(error, 'Failed to validate invitation code');
+      throw RSVPAPIService.formatError(error, 'Failed to validate invitation code');
     }
   }
 
@@ -46,14 +46,14 @@ class RSVPAPIService extends APIService {
         throw new Error(validation.error);
       }
 
-      const sanitizedData = this.sanitizeRSVPData(rsvpData);
+      const sanitizedData = RSVPAPIService.sanitizeRSVPData(rsvpData);
       
-      const response = await this.post('/v1/api/rsvps', sanitizedData);
+      const response = await api.post('/v1/api/rsvps', sanitizedData);
       
       return response;
     } catch (error) {
       console.error('RSVP submission failed:', error);
-      throw this.formatError(error, 'Failed to submit RSVP');
+      throw RSVPAPIService.formatError(error, 'Failed to submit RSVP');
     }
   }
 
@@ -81,31 +81,35 @@ class RSVPAPIService extends APIService {
    * @returns {Error} Formatted error
    */
   static formatError(error, defaultMessage) {
-    if (error.message.includes('fetch')) {
+    // Get the error message from either standard Error or APIError format
+    const errorMessage = error.errorMessage || error.message || '';
+    
+    if (errorMessage.includes('fetch') || errorMessage.includes('network')) {
       return new Error('Unable to connect to server. Please check your internet connection and try again.');
     }
     
-    if (error.message.includes('invalid invitation')) {
+    if (errorMessage.includes('INVALID_INVITATION_CODE') || errorMessage.includes('invalid invitation')) {
       return new Error('The invitation code is invalid. Please check your code and try again.');
     }
     
-    if (error.message.includes('expired')) {
+    if (errorMessage.includes('expired')) {
       return new Error('This invitation code has expired. Please contact us for assistance.');
     }
     
-    if (error.message.includes('already used')) {
+    if (errorMessage.includes('already used')) {
       return new Error('This invitation code has already been used.');
     }
     
-    if (error.message.includes('email')) {
+    if (errorMessage.includes('email')) {
       return new Error('Please provide a valid email address.');
     }
     
-    if (error.message.includes('plus one')) {
+    if (errorMessage.includes('plus one')) {
       return new Error('Please provide your plus one\'s name.');
     }
     
-    return new Error(error.message || defaultMessage);
+    // Return the original error message or default
+    return new Error(errorMessage || defaultMessage);
   }
 }
 

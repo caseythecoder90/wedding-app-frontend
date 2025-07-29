@@ -30,8 +30,8 @@ const RegistryHero = () => {
       </div>
       
       {/* Decorative Elements */}
-      <div className="absolute top-10 left-10 text-white/20 text-3xl">🌸</div>
-      <div className="absolute bottom-10 right-10 text-white/20 text-3xl">🏔️</div>
+      <div className="absolute top-10 left-10 w-8 h-8 bg-white/10 rounded-full"></div>
+      <div className="absolute bottom-10 right-10 w-6 h-6 bg-white/10 rounded-full"></div>
     </div>
   );
 };

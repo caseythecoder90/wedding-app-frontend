@@ -18,7 +18,7 @@ function Footer() {
           </div>
           
           <div className="flex flex-col items-center md:items-end">
-            <div className="flex space-x-6 mb-4">
+            <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2 mb-4">
               <Link to="/our-story" className="text-primary dark:text-primary-light hover:text-primary-dark dark:hover:text-white transition-colors">
                 Our Story
               </Link>
@@ -27,6 +27,9 @@ function Footer() {
               </Link>
               <Link to="/rsvp" className="text-primary dark:text-primary-light hover:text-primary-dark dark:hover:text-white transition-colors">
                 RSVP
+              </Link>
+              <Link to="/registry" className="text-pink-600 dark:text-pink-400 hover:text-pink-700 dark:hover:text-pink-300 transition-colors">
+                Honeymoon Fund
               </Link>
             </div>
             <div className="text-gray-500 dark:text-gray-400 text-xs">

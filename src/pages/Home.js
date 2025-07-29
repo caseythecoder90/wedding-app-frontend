@@ -1,14 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import EngagementGallery from '../components/common/EngagementGallery';
 import './Home.css';
 
 function Home() {
-  // Calculate days until wedding
-  const weddingDate = new Date('April 10, 2026');
-  const today = new Date();
-  const diffTime = weddingDate.getTime() - today.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  // Wedding ceremony: April 10, 2026 at 4:30 PM Dominican Republic time (UTC-4)
+  // useMemo ensures this date object is only created once, not on every render
+  const weddingDateTime = useMemo(() => new Date('2026-04-10T16:30:00-04:00'), []);
+  
+  const [timeLeft, setTimeLeft] = useState({
+    isMarried: false,
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const now = new Date().getTime();
+      const difference = weddingDateTime.getTime() - now;
+
+      if (difference > 0) {
+        // Before wedding - show countdown
+        setTimeLeft({
+          isMarried: false,
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((difference % (1000 * 60)) / 1000)
+        });
+      } else {
+        // After wedding - show time married
+        const timeSinceWedding = now - weddingDateTime.getTime();
+        setTimeLeft({
+          isMarried: true,
+          days: Math.floor(timeSinceWedding / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((timeSinceWedding % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((timeSinceWedding % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((timeSinceWedding % (1000 * 60)) / 1000)
+        });
+      }
+    };
+
+    // Calculate immediately
+    calculateTimeLeft();
+    
+    // Update every second
+    const timer = setInterval(calculateTimeLeft, 1000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(timer);
+  }, [weddingDateTime]);
   
   return (
     <div>
@@ -60,21 +103,62 @@ function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="font-script text-4xl text-primary-dark dark:text-primary-light mb-12 transition-colors duration-200 animate-section-fade">
-              Counting Down
+              {timeLeft.isMarried ? 'Happily Married' : 'Counting Down'}
             </h2>
             
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 sm:p-8 shadow-lg border border-gray-200 dark:border-gray-700 inline-block transition-colors duration-200 animate-countdown-appear">
-              <div className="text-6xl font-display text-primary-dark dark:text-primary-light mb-4 transition-colors duration-200">
-                {diffDays}
+            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 sm:p-8 shadow-lg border border-gray-200 dark:border-gray-700 max-w-4xl mx-auto transition-colors duration-200 animate-countdown-appear">
+              {/* Countdown Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-display text-primary-dark dark:text-primary-light mb-2 transition-colors duration-200">
+                    {timeLeft.days}
+                  </div>
+                  <div className="text-sm md:text-base text-gray-600 dark:text-gray-300 transition-colors duration-200">
+                    Days
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-display text-primary-dark dark:text-primary-light mb-2 transition-colors duration-200">
+                    {timeLeft.hours}
+                  </div>
+                  <div className="text-sm md:text-base text-gray-600 dark:text-gray-300 transition-colors duration-200">
+                    Hours
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-display text-primary-dark dark:text-primary-light mb-2 transition-colors duration-200">
+                    {timeLeft.minutes}
+                  </div>
+                  <div className="text-sm md:text-base text-gray-600 dark:text-gray-300 transition-colors duration-200">
+                    Minutes
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-display text-primary-dark dark:text-primary-light mb-2 transition-colors duration-200">
+                    {timeLeft.seconds}
+                  </div>
+                  <div className="text-sm md:text-base text-gray-600 dark:text-gray-300 transition-colors duration-200">
+                    Seconds
+                  </div>
+                </div>
               </div>
-              <div className="text-xl text-gray-600 dark:text-gray-300 transition-colors duration-200">
-                days until we say "I do"
+              
+              {/* Ceremony Details */}
+              <div className="text-center border-t border-gray-200 dark:border-gray-600 pt-4">
+                <div className="text-lg md:text-xl text-gray-700 dark:text-gray-300 font-medium mb-2">
+                  {timeLeft.isMarried ? 'since we said "I do"' : 'until we say "I do"'}
+                </div>
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  {timeLeft.isMarried 
+                    ? 'Married: April 10, 2026 at 4:30 PM (Dominican Republic time)' 
+                    : 'Ceremony: April 10, 2026 at 4:30 PM (Dominican Republic time)'
+                  }
+                </div>
               </div>
             </div>
             
             <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mt-12 transition-colors duration-200 animate-section-fade-delayed">
-              We can't wait to celebrate our special day with friends and family in beautiful Punta Cana.
-              Please check back soon for more details about our destination wedding.
+              Join us for our dream destination wedding in beautiful Punta Cana! Browse our story, check out the venue details, and RSVP today.
             </p>
           </div>
         </div>

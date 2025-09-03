@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRSVP } from '../hooks/useRSVP';
 import InvitationCodeInput from '../components/InvitationCodeInput';
+import GroupMembersSection from '../components/GroupMembersSection';
 import './RSVP.css';
 
 /**
@@ -68,9 +69,13 @@ function RSVP() {
   const navigate = useNavigate();
   const {
     // State
-    guest,
+    primaryGuest,
     existingRsvp,
     hasExistingRsvp,
+    guestType,
+    familyGroup,
+    familyMembers,
+    // canBringPlusOne, // Not currently used in UI
     formData,
     error,
     invitationCode,
@@ -89,6 +94,9 @@ function RSVP() {
     navigateToCodeEntry,
     navigateWithCode,
     updateForm,
+    updateFamilyMemberData,
+    addNewFamilyMember,
+    removeFamilyMemberData,
     submitForm,
   } = useRSVP();
 
@@ -225,6 +233,8 @@ function RSVP() {
               <p className="text-gray-500 dark:text-gray-400 mb-8 text-center">
                 {hasExistingRsvp && existingRsvp.attending 
                   ? "We're so happy you'll be joining us!" 
+                  : formData.attending
+                  ? "We're so happy you'll be joining us!"
                   : "We're sorry you won't be able to join us, but we appreciate your response."}
               </p>
               
@@ -310,7 +320,7 @@ function RSVP() {
                   </svg>
                 </div>
                 <h2 className="text-2xl font-display text-primary dark:text-primary-light mb-2 transition-colors duration-200">
-                  Hello, {guest.firstName} {guest.lastName}!
+                  Hello, {primaryGuest.firstName} {primaryGuest.lastName}!
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 transition-colors duration-200">
                   {hasExistingRsvp 
@@ -356,45 +366,19 @@ function RSVP() {
                   </div>
                 </div>
 
-                {/* Plus One Section - Only show if attending */}
-                {formData.attending && (
-                  <div className="bg-secondary-light/10 dark:bg-gray-800 p-6 rounded-lg border border-secondary/10 dark:border-gray-700 transition-colors duration-200 animate-section-slide-delayed opacity-0">
-                    <h3 className="text-lg font-display text-secondary dark:text-secondary-light mb-4 transition-colors duration-200">
-                      Plus One
-                    </h3>
-                    
-                    <div className="space-y-4">
-                      <label className="flex items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          name="bringingPlusOne"
-                          checked={formData.bringingPlusOne}
-                          onChange={handleInputChange}
-                          className="text-secondary dark:text-secondary-light focus:ring-secondary dark:focus:ring-secondary-light h-5 w-5 rounded"
-                        />
-                        <span className="ml-3 text-gray-700 dark:text-gray-200">
-                          I'm bringing a plus one
-                        </span>
-                      </label>
-                      
-                      {formData.bringingPlusOne && (
-                        <div className="mt-4 animate-plus-one-slide">
-                          <label htmlFor="plusOneName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                            Plus One Name
-                          </label>
-                          <input
-                            type="text"
-                            id="plusOneName"
-                            name="plusOneName"
-                            value={formData.plusOneName}
-                            onChange={handleInputChange}
-                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary dark:focus:ring-secondary-light bg-white dark:bg-gray-700 dark:text-white transition-all duration-200"
-                            placeholder="Enter your guest's name"
-                            required={formData.bringingPlusOne}
-                          />
-                        </div>
-                      )}
-                    </div>
+                {/* Group Members Section - Show for SOLO_WITH_PLUS_ONE and FAMILY_PRIMARY */}
+                {formData.attending && (guestType === 'SOLO_WITH_PLUS_ONE' || guestType === 'FAMILY_PRIMARY') && (
+                  <div className="animate-section-slide-delayed opacity-0">
+                    <GroupMembersSection
+                      guestType={guestType}
+                      familyMembers={formData.familyMembers}
+                      existingFamilyMembers={familyMembers}
+                      familyGroup={familyGroup}
+                      onUpdateMember={updateFamilyMemberData}
+                      onAddMember={addNewFamilyMember}
+                      onRemoveMember={removeFamilyMemberData}
+                      attending={formData.attending}
+                    />
                   </div>
                 )}
 

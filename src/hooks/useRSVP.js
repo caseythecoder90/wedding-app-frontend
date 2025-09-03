@@ -4,7 +4,10 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { 
   validateInvitationCode, 
   submitRsvp, 
-  updateFormData, 
+  updateFormData,
+  updateFamilyMember,
+  addFamilyMember,
+  removeFamilyMember,
   resetRsvpState,
   clearError 
 } from '../store/slices/rsvpSlice';
@@ -54,6 +57,18 @@ export const useRSVP = () => {
     dispatch(updateFormData(updates));
   }, [dispatch]);
 
+  const updateFamilyMemberData = useCallback((index, updates) => {
+    dispatch(updateFamilyMember({ index, updates }));
+  }, [dispatch]);
+
+  const addNewFamilyMember = useCallback((memberData = {}) => {
+    dispatch(addFamilyMember(memberData));
+  }, [dispatch]);
+
+  const removeFamilyMemberData = useCallback((index) => {
+    dispatch(removeFamilyMember(index));
+  }, [dispatch]);
+
   const submitForm = useCallback(async (additionalData = {}) => {
     const rsvpData = {
       ...rsvpState.formData,
@@ -88,7 +103,7 @@ export const useRSVP = () => {
   
   const shouldShowErrorPage = invitationCode && hasValidationFailed;
   
-  const shouldShowMainForm = isValidationSuccessful && rsvpState.guest && !shouldShowSuccessPage;
+  const shouldShowMainForm = isValidationSuccessful && rsvpState.primaryGuest && !shouldShowSuccessPage;
   
   const shouldShowCodeForm = !shouldShowLoadingPage && 
                             !shouldShowSuccessPage && 
@@ -97,16 +112,34 @@ export const useRSVP = () => {
 
   // Form validation
   const isFormValid = useCallback(() => {
-    const { attending, bringingPlusOne, plusOneName, email } = rsvpState.formData;
+    const { attending, email, familyMembers } = rsvpState.formData;
+    const { guestType } = rsvpState;
     
     // Email is always required
     if (!email?.includes('@')) return false;
     
-    // If attending and bringing plus one, name is required
-    if (attending && bringingPlusOne && !plusOneName?.trim()) return false;
+    // If attending, validate family members based on guest type
+    if (attending) {
+      if (guestType === 'SOLO_WITH_PLUS_ONE' && familyMembers?.length > 0) {
+        // For plus-ones, if they're attending, they need a name
+        const plusOne = familyMembers[0];
+        if (plusOne?.isAttending && (!plusOne?.firstName?.trim() || !plusOne?.lastName?.trim())) {
+          return false;
+        }
+      }
+      
+      if (guestType === 'FAMILY_PRIMARY') {
+        // For family members, if they're attending, they need names
+        for (const member of familyMembers || []) {
+          if (member?.isAttending && (!member?.firstName?.trim() || !member?.lastName?.trim())) {
+            return false;
+          }
+        }
+      }
+    }
     
     return true;
-  }, [rsvpState.formData]);
+  }, [rsvpState]);
 
   return {
     // State
@@ -130,6 +163,9 @@ export const useRSVP = () => {
     navigateToCodeEntry,
     navigateWithCode,
     updateForm,
+    updateFamilyMemberData,
+    addNewFamilyMember,
+    removeFamilyMemberData,
     submitForm,
     clearErrors,
     isFormValid,

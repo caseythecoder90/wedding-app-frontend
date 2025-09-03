@@ -9,7 +9,7 @@ class RSVPAPIService {
   /**
    * Validates invitation code with backend
    * @param {string} code - Invitation code (e.g., "WEDABC123")
-   * @returns {Promise<{guest: Object, existingRsvp: Object|null, hasExistingRsvp: boolean}>}
+   * @returns {Promise<InvitationValidationResponse>}
    * @throws {APIError} When code is invalid or expired
    */
   static async validateInvitationCode(code) {
@@ -22,8 +22,8 @@ class RSVPAPIService {
       const response = await api.get(`/v1/api/invitation/validate/${encodeURIComponent(code)}`);
       
       // Validate that we received the expected data structure
-      if (!response.guest) {
-        throw new Error('Guest information not found in response');
+      if (!response.primaryGuest) {
+        throw new Error('Primary guest information not found in response');
       }
       
       return response;
@@ -35,8 +35,8 @@ class RSVPAPIService {
 
   /**
    * Submits RSVP data to backend
-   * @param {Object} rsvpData - RSVP form data
-   * @returns {Promise<Object>} Created/updated RSVP
+   * @param {Object} rsvpData - RSVP form data with new structure
+   * @returns {Promise<RSVPResponse>} Created/updated RSVP
    * @throws {APIError} When validation fails or guest not found
    */
   static async submitRSVP(rsvpData) {
@@ -60,18 +60,31 @@ class RSVPAPIService {
   /**
    * Sanitizes RSVP data before sending to API
    * @param {Object} rsvpData - Raw form data
-   * @returns {Object} Sanitized data
+   * @returns {Object} Sanitized data matching RSVPRequest structure
    */
   static sanitizeRSVPData(rsvpData) {
-    return {
+    const sanitized = {
       guestId: parseInt(rsvpData.guestId) || null,
       attending: Boolean(rsvpData.attending),
-      bringingPlusOne: Boolean(rsvpData.bringingPlusOne),
-      plusOneName: rsvpData.plusOneName?.trim() || '',
-      dietaryRestrictions: rsvpData.dietaryRestrictions?.trim() || '',
+      dietaryRestrictions: rsvpData.dietaryRestrictions?.trim() || undefined,
       email: rsvpData.email?.trim()?.toLowerCase() || '',
-      sendConfirmationEmail: Boolean(rsvpData.sendConfirmationEmail)
+      sendConfirmationEmail: Boolean(rsvpData.sendConfirmationEmail),
+      submittedAt: rsvpData.submittedAt || new Date().toISOString()
     };
+
+    // Handle family members if present
+    if (rsvpData.familyMembers && Array.isArray(rsvpData.familyMembers)) {
+      sanitized.familyMembers = rsvpData.familyMembers.map(member => ({
+        familyMemberId: member.familyMemberId || null,
+        firstName: member.firstName?.trim() || '',
+        lastName: member.lastName?.trim() || '',
+        ageGroup: (member.ageGroup || 'ADULT').toLowerCase(),
+        isAttending: Boolean(member.isAttending),
+        dietaryRestrictions: member.dietaryRestrictions?.trim() || undefined
+      }));
+    }
+
+    return sanitized;
   }
 
   /**
@@ -104,8 +117,16 @@ class RSVPAPIService {
       return new Error('Please provide a valid email address.');
     }
     
-    if (errorMessage.includes('plus one')) {
-      return new Error('Please provide your plus one\'s name.');
+    if (errorMessage.includes('plus one') || errorMessage.includes('family member name')) {
+      return new Error('Please provide all required guest names.');
+    }
+    
+    if (errorMessage.includes('family')) {
+      return new Error('There was an error with family member information. Please check all details.');
+    }
+
+    if (errorMessage.includes('max attendees') || errorMessage.includes('exceeded')) {
+      return new Error('You have exceeded the maximum number of attendees allowed for your invitation.');
     }
     
     // Return the original error message or default

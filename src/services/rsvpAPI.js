@@ -48,7 +48,8 @@ class RSVPAPIService {
 
       const sanitizedData = RSVPAPIService.sanitizeRSVPData(rsvpData);
       
-      const response = await api.post('/v1/api/rsvps', sanitizedData);
+      // Use longer timeout for RSVP submissions (30 seconds)
+      const response = await api.post('/v1/api/rsvps', sanitizedData, { timeout: 30000 });
       
       return response;
     } catch (error) {

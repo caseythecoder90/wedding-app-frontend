@@ -29,7 +29,7 @@ class APIService {
       'Content-Type': 'application/json',
       ...config.defaultHeaders
     };
-    this.timeout = config.timeout || 10000; // 10 seconds default
+    this.timeout = config.timeout || 20000; // 20 seconds default
   }
 
   /**

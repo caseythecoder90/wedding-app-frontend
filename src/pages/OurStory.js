@@ -5,7 +5,7 @@ import './OurStory.css';
 
 
 function OurStory() {
-  const { t } = useTranslation('story');
+  const { t, ready } = useTranslation('story');
   const [activeSection, setActiveSection] = useState(0);
   const [isVisible, setIsVisible] = useState({});
   const scrollTimeoutRef = useRef(null);
@@ -265,6 +265,15 @@ function OurStory() {
       setActiveSection(index);
     }
   };
+
+  // Show loading state until translations are ready
+  if (!ready) {
+    return (
+      <div className="bg-white dark:bg-dark-primary transition-colors duration-200 min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white dark:bg-dark-primary transition-colors duration-200">

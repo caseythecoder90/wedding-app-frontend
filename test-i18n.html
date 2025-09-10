@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>i18n Testing Guide</title>
+</head>
+<body>
+    <h1>Quick i18n Testing Methods</h1>
+    
+    <h2>Method 1: Chrome DevTools (Recommended)</h2>
+    <ol>
+        <li>Open Chrome DevTools (F12)</li>
+        <li>Click the 3 dots menu → More tools → Sensors</li>
+        <li>In the Sensors tab, find "Locale"</li>
+        <li>Select "pt-BR" from dropdown</li>
+        <li>Refresh the page</li>
+    </ol>
+
+    <h2>Method 2: Console Commands</h2>
+    <p>Run these in browser console:</p>
+    <pre>
+// Switch to Portuguese
+localStorage.setItem('weddingAppLanguage', 'pt');
+location.reload();
+
+// Switch to English
+localStorage.setItem('weddingAppLanguage', 'en');
+location.reload();
+
+// Clear preference (use browser detection)
+localStorage.removeItem('weddingAppLanguage');
+location.reload();
+    </pre>
+
+    <h2>Method 3: Direct URL Testing</h2>
+    <ul>
+        <li>Portuguese: <a href="http://localhost:3000/?lang=pt">http://localhost:3000/?lang=pt</a></li>
+        <li>English: <a href="http://localhost:3000/?lang=en">http://localhost:3000/?lang=en</a></li>
+    </ul>
+
+    <h2>Method 4: Browser Language Simulation</h2>
+    <p>Use Chrome with command line flags:</p>
+    <pre>
+# Mac/Linux
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --lang=pt-BR
+
+# Windows
+chrome.exe --lang=pt-BR
+    </pre>
+
+    <h2>Testing Checklist</h2>
+    <ul>
+        <li>☐ Homepage loads in Portuguese for pt-BR browser</li>
+        <li>☐ Language toggle switches all text immediately</li>
+        <li>☐ Language preference persists after refresh</li>
+        <li>☐ URL parameter overrides browser language</li>
+        <li>☐ Forms and validation messages translate</li>
+        <li>☐ Dynamic content (countdown, RSVP) translates</li>
+        <li>☐ No missing translation keys (no raw keys shown)</li>
+    </ul>
+</body>
+</html>

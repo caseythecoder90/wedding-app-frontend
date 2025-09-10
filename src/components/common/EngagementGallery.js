@@ -1,10 +1,12 @@
 // src/components/common/EngagementGallery.js
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import PhotoModal from './PhotoModal';
 
 const EngagementGallery = () => {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { t } = useTranslation('home');
 
   const cloudinaryBaseUrl = "https://res.cloudinary.com/dwdaehpml/image/upload";
 
@@ -116,10 +118,10 @@ const EngagementGallery = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
             <h2 className="font-script text-4xl text-primary-dark dark:text-primary-light mb-4">
-              Our Engagement
+              {t('gallery.title')}
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-4">
-              Celebrating our love story through these special moments
+              {t('gallery.subtitle')}
             </p>
             
             {/* Mobile hint - only shows on mobile */}
@@ -130,7 +132,7 @@ const EngagementGallery = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                 </svg>
                 <p className="text-sm text-gray-700 dark:text-gray-300 text-center">
-                  <span className="font-medium">Tap any photo</span> to view high-quality slideshow
+                  <span className="font-medium">{t('gallery.mobileHintBold')}</span> {t('gallery.mobileHintText')}
                 </p>
               </div>
             </div>

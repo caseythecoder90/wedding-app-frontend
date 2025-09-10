@@ -1,16 +1,18 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const RegistryHeader = ({ overview }) => {
+  const { t } = useTranslation('registry');
   const { totalDonated, goalAmount, progressPercentage, totalDonations } = overview;
 
   return (
     <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6 md:p-8 mb-8 border border-gray-200 dark:border-gray-700">
       <div className="text-center mb-6">
         <h2 className="text-2xl md:text-3xl font-playfair text-gray-800 dark:text-white mb-2">
-          Our Honeymoon Fund
+          {t('header.title')}
         </h2>
         <p className="text-gray-600 dark:text-gray-300">
-          {overview.settings.registryDescription}
+          {overview.settings.registryDescription || t('header.description')}
         </p>
       </div>
 
@@ -18,7 +20,7 @@ const RegistryHeader = ({ overview }) => {
       <div className="mb-6">
         <div className="flex justify-between items-center mb-2">
           <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
-            Progress toward our goal
+            {t('header.progressLabel')}
           </span>
           <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
             {Math.round(progressPercentage)}%
@@ -42,21 +44,21 @@ const RegistryHeader = ({ overview }) => {
             <div className="text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400">
               ${totalDonated.toLocaleString()}
             </div>
-            <div className="text-sm text-gray-500 dark:text-gray-400">Raised</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">{t('header.raisedLabel')}</div>
           </div>
           
           <div className="text-center">
             <div className="text-xl md:text-2xl font-semibold text-gray-600 dark:text-gray-300">
               ${goalAmount.toLocaleString()}
             </div>
-            <div className="text-sm text-gray-500 dark:text-gray-400">Goal</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">{t('header.goalLabel')}</div>
           </div>
           
           <div className="text-center">
             <div className="text-2xl md:text-3xl font-bold text-accent-600 dark:text-accent-400">
               {totalDonations}
             </div>
-            <div className="text-sm text-gray-500 dark:text-gray-400">Donations</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">{t('header.donationsLabel')}</div>
           </div>
         </div>
       </div>
@@ -64,7 +66,7 @@ const RegistryHeader = ({ overview }) => {
       {/* Thank You Message */}
       <div className="text-center bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-gray-700 dark:to-gray-600 rounded-lg p-4">
         <p className="text-gray-700 dark:text-gray-200 italic">
-          "Every contribution, no matter the size, helps us create memories that will last a lifetime. Thank you for being part of our journey!" 💕
+          {t('header.thankYouMessage')}
         </p>
       </div>
     </div>

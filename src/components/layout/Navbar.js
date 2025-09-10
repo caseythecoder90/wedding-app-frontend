@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import DarkModeToggle from '../common/DarkModeToggle';
+import LanguageSelector from '../../i18n/LanguageSelector';
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useTranslation('navbar');
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -30,7 +33,7 @@ function Navbar() {
                   : "text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light px-1 pt-1 font-medium transition-colors duration-200"
               }
             >
-              Home
+              {t('home')}
             </NavLink>
             <NavLink 
               to="/our-story"
@@ -40,7 +43,7 @@ function Navbar() {
                   : "text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light px-1 pt-1 font-medium transition-colors duration-200"
               }
             >
-              Our Story
+              {t('ourStory')}
             </NavLink>
             <NavLink 
               to="/venue"
@@ -50,7 +53,7 @@ function Navbar() {
                   : "text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light px-1 pt-1 font-medium transition-colors duration-200"
               }
             >
-              Venue
+              {t('venue')}
             </NavLink>
             <NavLink 
               to="/rsvp"
@@ -60,7 +63,7 @@ function Navbar() {
                   : "text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light px-1 pt-1 font-medium transition-colors duration-200"
               }
             >
-              RSVP
+              {t('rsvp')}
             </NavLink>
             
             {/* Japan Fund Registry Link */}
@@ -73,17 +76,19 @@ function Navbar() {
               }
             >
               <span className="mr-1">🌸</span>
-              Honeymoon Fund
+              {t('honeymoonFund')}
             </NavLink>
             
-            {/* Dark Mode Toggle */}
-            <div className="ml-2">
+            {/* Language Selector and Dark Mode Toggle */}
+            <div className="ml-2 flex items-center space-x-3">
+              <LanguageSelector />
               <DarkModeToggle />
             </div>
           </div>
           
           {/* Mobile menu button */}
           <div className="flex items-center sm:hidden space-x-2">
+            <LanguageSelector />
             <DarkModeToggle />
             <button
               type="button"
@@ -92,7 +97,7 @@ function Navbar() {
               aria-expanded="false"
               onClick={toggleMenu}
             >
-              <span className="sr-only">Open main menu</span>
+              <span className="sr-only">{t('openMainMenu')}</span>
               {isMenuOpen ? (
                 <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -121,7 +126,7 @@ function Navbar() {
               }
               onClick={() => setIsMenuOpen(false)}
             >
-              Home
+              {t('home')}
             </NavLink>
             <NavLink
               to="/our-story"
@@ -132,7 +137,7 @@ function Navbar() {
               }
               onClick={() => setIsMenuOpen(false)}
             >
-              Our Story
+              {t('ourStory')}
             </NavLink>
             <NavLink
               to="/venue"
@@ -143,7 +148,7 @@ function Navbar() {
               }
               onClick={() => setIsMenuOpen(false)}
             >
-              Venue
+              {t('venue')}
             </NavLink>
             <NavLink
               to="/rsvp"
@@ -154,7 +159,7 @@ function Navbar() {
               }
               onClick={() => setIsMenuOpen(false)}
             >
-              RSVP
+              {t('rsvp')}
             </NavLink>
             
             {/* Japan Fund Registry Link - Mobile */}
@@ -168,7 +173,7 @@ function Navbar() {
               onClick={() => setIsMenuOpen(false)}
             >
               <span className="mr-2">🌸</span>
-              Honeymoon Fund
+              {t('honeymoonFund')}
             </NavLink>
           </div>
         </div>

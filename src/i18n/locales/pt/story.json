@@ -1,0 +1,85 @@
+{
+  "title": "Nossa História",
+  "subtitle": "Como nos conhecemos, nos apaixonamos e decidimos passar nossas vidas juntos.",
+  "timeline": {
+    "summer2023": {
+      "date": "Agosto de 2023",
+      "title": "Verão de 2023",
+      "story": "Nos conhecemos no verão de 2023 enquanto Casey estava estagiando em Atlanta e terminando seu último semestre na Texas A&M. Com apenas duas semanas restantes antes dele voltar para o Texas, nenhum de nós esperava encontrar algo tão especial.",
+      "quote": "\"O começo do nosso para sempre\""
+    },
+    "anniversary": {
+      "date": "17 de Agosto de 2023",
+      "title": "Nosso Aniversário",
+      "story": "Nosso primeiro encontro oficial em Buckhead no Velvet Taco. Yasmim brinca que Casey a deixou desconfortável com o jeito que ele estava olhando para ela - ele simplesmente não conseguia acreditar como ela era linda.",
+      "quote": "\"Amor à primeira vista... no Velvet Taco\""
+    },
+    "official": {
+      "date": "Outubro de 2023",
+      "title": "Oficializando",
+      "story": "Casey visitou Atlanta no início de outubro, e depois de alguns dias incríveis juntos, sabíamos que isso era algo especial. A distância não conseguia parar o que tínhamos.",
+      "photos": {
+        "atlantaTrip": "Visita do Casey a Atlanta",
+        "texasTrip": "Yasmim Visita o Texas",
+        "longDistance": "Amor à Distância",
+        "buildingConnection": "Construindo Nossa Conexão"
+      }
+    },
+    "lifeTogether": {
+      "date": "Janeiro de 2024",
+      "title": "Começando Nossa Vida Juntos",
+      "story": "Casey se formou e se mudou para Atlanta em tempo integral com a Visa. Decidimos dar o próximo passo e nos mudamos juntos para Midtown - nosso primeiro lar como casal.",
+      "photos": {
+        "firstApartment": "Nosso Primeiro Apartamento",
+        "dateNight": "Aventuras de Encontros",
+        "iceSkating": "Patinando no Gelo Juntos",
+        "friendsWedding": "Casamento de Amigos"
+      }
+    },
+    "memories": {
+      "date": "Maio - Julho de 2024",
+      "title": "Criando Memórias",
+      "story": "De conhecer os pais do Casey na Flórida até fazer trilhas e acampar no Parque Nacional das Montanhas Rochosas, descobrimos que somos a equipe de aventura perfeita. Yasmim apoiou a tentativa do Casey no Longs Peak, mesmo com aquela deixada às 2 da manhã!",
+      "photos": {
+        "florida": "Visita à Família na Flórida",
+        "colorado": "Aventuras no Colorado",
+        "skyPond": "Trilha Sky Pond",
+        "romance": "Romance nas Montanhas Rochosas",
+        "selfie": "Selfie no Colorado",
+        "camping": "Acampando no Tennessee"
+      }
+    },
+    "proposal": {
+      "date": "Dezembro de 2024",
+      "title": "O Momento Perfeito",
+      "story": "Depois de um dia tempestuoso no Rio, as nuvens se abriram exatamente quando chegamos ao topo do Pão de Açúcar. Enquanto o sol se punha sobre Copacabana, Casey pediu em casamento com a vista mais deslumbrante do mundo.",
+      "photos": {
+        "landing": "Chegando no Rio",
+        "boatTour": "Passeio de Barco em Ubatuba",
+        "family": "Jantar com a Família da Yasmim",
+        "views": "Vistas do Pão de Açúcar",
+        "proposal": "O Momento do Pedido",
+        "afterProposal": "Yasmim Depois do Pedido"
+      }
+    },
+    "planning": {
+      "date": "2025 - Presente",
+      "title": "Planejando Nosso Para Sempre",
+      "story": "Agora noivos e construindo nosso futuro juntos em nosso novo apartamento, planejando nosso casamento em Punta Cana onde nossas duas famílias podem celebrar conosco. Das aventuras em NYC às explorações em Atlanta, estamos criando memórias enquanto planejamos nosso grande dia.",
+      "photos": {
+        "picnic": "Piquenique no Piedmont Park",
+        "braves": "Primeiro Jogo dos Braves da Yasmim",
+        "nycOne": "Aventura na Cidade de Nova York",
+        "nycTwo": "Memórias de NYC",
+        "nycThree": "Explorando NYC",
+        "nycFour": "Aventuras na Big Apple",
+        "brasstown": "Aventura em Brasstown Bald",
+        "cruise": "Cruzeiro nas Bahamas"
+      }
+    }
+  },
+  "continuesTitle": "Nossa Aventura Continua",
+  "continuesSubtitle": "De um encontro casual em Atlanta ao planejamento do nosso casamento dos sonhos em Punta Cana, nossa história de amor está apenas começando. Mal podemos esperar para celebrar com todos vocês!",
+  "rsvpBtn": "Confirmar Presença no Nosso Casamento",
+  "venueBtn": "Saiba Mais Sobre Punta Cana"
+}

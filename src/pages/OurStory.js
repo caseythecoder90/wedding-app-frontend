@@ -1,214 +1,206 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './OurStory.css';
 
-const timelinePoints = [
-  {
-    id: 1,
-    date: "August 2023",
-    title: "Summer of 2023",
-    story: "We met in the summer of 2023 while Casey was interning in Atlanta and finishing his final semester at Texas A&M. With just two weeks left before he returned to Texas, neither of us expected to find something so special.",
-    type: "text-only"
-  },
-  {
-    id: 2,
-    date: "August 17, 2023",
-    title: "Our Anniversary",
-    story: "Our first official date in Buckhead at Velvet Taco. Yasmim jokes that Casey made her uncomfortable with how he was looking at her - he just couldn't believe how beautiful she was.",
-    type: "text-only"
-  },
-  {
-    id: 3,
-    date: "October 2023",
-    title: "Making It Official",
-    story: "Casey visited Atlanta in early October, and after amazing few days together, we knew this was something special. Long distance couldn't stop what we had.",
-    type: "photo",
-    photos: [
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751481626/story-becoming-official-atlanta-trip_aoaimh",
-        caption: "Casey's Visit to Atlanta",
-        alt: "Casey and Yasmim during Casey's visit to Atlanta in October 2023"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751481627/story-becoming-official-texas-trip_vsdfzr",
-        caption: "Yasmim Visits Texas", 
-        alt: "Yasmim visiting Casey in Texas during their long distance relationship"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751481627/story-becoming-official-long-distance_h9ntiu",
-        caption: "Long Distance Love",
-        alt: "Casey and Yasmim making long distance work"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751481675/story-becoming-official-long-distance-2_mv3wmp",
-        caption: "Building Our Connection", 
-        alt: "More memories from Casey and Yasmim's long distance relationship period"
-      }
-    ]
-  },
-  {
-    id: 4,
-    date: "January 2024",
-    title: "Starting Our Life Together",
-    story: "Casey graduated and moved to Atlanta full-time with Visa. We decided to take the next step and moved in together in Midtown - our first home as a couple.",
-    type: "photo",
-    photos: [
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751483422/starting-our-life-together-first-apartment_w7lgj3",
-        caption: "Our First Apartment",
-        alt: "Casey and Yasmim in their first apartment together in Midtown Atlanta"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751483422/starting-our-life-together-date-night_lgbscs",
-        caption: "Date Night Adventures",
-        alt: "Casey and Yasmim enjoying date nights in Atlanta"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751483424/starting-our-life-together-ice-skating_wqjbxk",
-        caption: "Ice Skating Together",
-        alt: "Casey and Yasmim ice skating as a couple in Atlanta"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751483423/starting-our-life-together-friends-wedding_vtvtsw",
-        caption: "Friends' Wedding",
-        alt: "Casey and Yasmim attending a friends' wedding together"
-      }
-    ]
-  },
-  {
-    id: 5,
-    date: "May - July 2024",
-    title: "Making Memories",
-    story: "From meeting Casey's parents in Florida to hiking and camping in Rocky Mountain National Park, we discovered we're the perfect adventure team. Yasmim supported Casey's Longs Peak attempt, even with that 2am drop-off!",
-    type: "photo",
-    photos: [
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484339/making-memories-florida-trip_amo1cf",
-        caption: "Florida Family Visit",
-        alt: "Casey and Yasmim visiting Casey's parents in Florida"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484338/making-memories-colorado-trip-beautiful-backdrop_sfalzd",
-        caption: "Colorado Adventures",
-        alt: "Casey and Yasmim exploring Colorado with beautiful mountain backdrop"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484370/making-memories-sky-pond-colorado_sugm1b",
-        caption: "Sky Pond Hike",
-        alt: "Casey and Yasmim at Sky Pond in Rocky Mountain National Park"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484340/making-memories-kissing-in-colorado_uekqpy",
-        caption: "Rocky Mountain Romance",
-        alt: "Casey and Yasmim sharing a romantic moment in Colorado"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484313/making-memories-colorado-selfie-together_nddh23",
-        caption: "Colorado Selfie",
-        alt: "Casey and Yasmim taking a selfie together in Colorado"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484312/making-memories-camping-tennessee_bi8w1q",
-        caption: "Camping in Tennessee",
-        alt: "Casey and Yasmim camping adventure in Tennessee"
-      }
-    ]
-  },
-  {
-    id: 6,
-    date: "December 2024",
-    title: "The Perfect Moment",
-    story: "After a stormy day in Rio, the clouds cleared just as we reached the top of Sugar Loaf Mountain. As the sun set over Copacabana, Casey proposed with the most breathtaking view in the world.",
-    type: "photo",
-    photos: [
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485123/perfect-moment-landing-in-rio-airport-horizontal_decqmo",
-        caption: "Landing in Rio",
-        alt: "Casey and Yasmim arriving at Rio airport for their Brazil trip"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485121/perfect-moment-boat-tour-ubatuba_iofjtk",
-        caption: "Ubatuba Boat Tour",
-        alt: "Casey and Yasmim enjoying a boat tour in Ubatuba, Brazil"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485122/perfect-moment-dinner-in-itai-with-yas-family_lgbwkw",
-        caption: "Dinner with Yasmim's Family",
-        alt: "Casey meeting Yasmim's family over dinner in Itaí, Brazil"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485126/perfect-moment-sugarloaf-overlooking-botafago-harbor_vgioan",
-        caption: "Sugar Loaf Views",
-        alt: "Breathtaking views from Sugar Loaf Mountain overlooking Botafogo Harbor"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485124/perfect-moment-me-proposing-sugarloaf-nighttime-just-started_qgtiwt",
-        caption: "The Proposal Moment",
-        alt: "Casey proposing to Yasmim at Sugar Loaf Mountain as night falls over Rio"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485127/perfect-moment-yasmim-after-proposal_sip6vo",
-        caption: "Yasmim After the Proposal",
-        alt: "Yasmim's joyful reaction after Casey's proposal at Sugar Loaf Mountain"
-      }
-    ]
-  },
-  {
-    id: 7,
-    date: "2025 - Present",
-    title: "Planning Our Forever",
-    story: "Now engaged and building our future together in our new apartment, planning our Punta Cana wedding where both our families can celebrate with us. From NYC adventures to Atlanta explorations, we're creating memories while planning our big day.",
-    type: "photo",
-    photos: [
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485764/planning-forever-piedmont-park-picnic_jm442m",
-        caption: "Piedmont Park Picnic",
-        alt: "Casey and Yasmim enjoying an engaged couple's picnic at Piedmont Park"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485761/planning-forever-atlanta-braves-game-yasmims-first-ever_xpjwfp",
-        caption: "Yasmim's First Braves Game",
-        alt: "Casey and Yasmim at Yasmim's first ever Atlanta Braves baseball game"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1752462265/planning-forever-new-york-city-one_ttn8bc",
-        caption: "New York City Adventure",
-        alt: "Casey and Yasmim exploring New York City during their recent trip"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1752462265/planning-forever-new-york-city-two_cgx4mv",
-        caption: "NYC Memories",
-        alt: "Casey and Yasmim making memories during their New York City getaway"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1752462830/planning-forever-new-york-three_qgyoyp",
-        caption: "NYC Exploration",
-        alt: "Casey and Yasmim exploring the sights and sounds of New York City"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1752462829/planning-forever-new-york-four_hsbkd7",
-        caption: "Big Apple Adventures",
-        alt: "Casey and Yasmim enjoying their time together in the Big Apple"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485762/planning-forever-brasstown-bald-georgia_bk5wo6",
-        caption: "Brasstown Bald Adventure",
-        alt: "Casey and Yasmim at Brasstown Bald, the highest point in Georgia"
-      },
-      {
-        url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485763/planning-forever-cruise-bahamas_tehubj",
-        caption: "Bahamas Cruise",
-        alt: "Casey and Yasmim on their engagement cruise to the Bahamas"
-      }
-    ]
-  }
-];
 
 function OurStory() {
+  const { t } = useTranslation('story');
   const [activeSection, setActiveSection] = useState(0);
   const [isVisible, setIsVisible] = useState({});
   const scrollTimeoutRef = useRef(null);
   const elementsRef = useRef({});
+
+  // Timeline configuration using translation keys
+  const timelineConfig = [
+    {
+      id: 1,
+      key: 'summer2023',
+      type: 'text-only',
+      photos: []
+    },
+    {
+      id: 2,
+      key: 'anniversary',
+      type: 'text-only',
+      photos: []
+    },
+    {
+      id: 3,
+      key: 'official',
+      type: 'photo',
+      photos: [
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751481626/story-becoming-official-atlanta-trip_aoaimh",
+          captionKey: 'atlantaTrip',
+          alt: "Casey and Yasmim during Casey's visit to Atlanta in October 2023"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751481627/story-becoming-official-texas-trip_vsdfzr",
+          captionKey: 'texasTrip',
+          alt: "Yasmim visiting Casey in Texas during their long distance relationship"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751481627/story-becoming-official-long-distance_h9ntiu",
+          captionKey: 'longDistance',
+          alt: "Casey and Yasmim making long distance work"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751481675/story-becoming-official-long-distance-2_mv3wmp",
+          captionKey: 'buildingConnection',
+          alt: "More memories from Casey and Yasmim's long distance relationship period"
+        }
+      ]
+    },
+    {
+      id: 4,
+      key: 'lifeTogether',
+      type: 'photo',
+      photos: [
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751483422/starting-our-life-together-first-apartment_w7lgj3",
+          captionKey: 'firstApartment',
+          alt: "Casey and Yasmim in their first apartment together in Midtown Atlanta"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751483422/starting-our-life-together-date-night_lgbscs",
+          captionKey: 'dateNight',
+          alt: "Casey and Yasmim enjoying date nights in Atlanta"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751483424/starting-our-life-together-ice-skating_wqjbxk",
+          captionKey: 'iceSkating',
+          alt: "Casey and Yasmim ice skating as a couple in Atlanta"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751483423/starting-our-life-together-friends-wedding_vtvtsw",
+          captionKey: 'friendsWedding',
+          alt: "Casey and Yasmim attending a friends' wedding together"
+        }
+      ]
+    },
+    {
+      id: 5,
+      key: 'memories',
+      type: 'photo',
+      photos: [
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484339/making-memories-florida-trip_amo1cf",
+          captionKey: 'florida',
+          alt: "Casey and Yasmim visiting Casey's parents in Florida"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484338/making-memories-colorado-trip-beautiful-backdrop_sfalzd",
+          captionKey: 'colorado',
+          alt: "Casey and Yasmim exploring Colorado with beautiful mountain backdrop"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484370/making-memories-sky-pond-colorado_sugm1b",
+          captionKey: 'skyPond',
+          alt: "Casey and Yasmim at Sky Pond in Rocky Mountain National Park"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484340/making-memories-kissing-in-colorado_uekqpy",
+          captionKey: 'romance',
+          alt: "Casey and Yasmim sharing a romantic moment in Colorado"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484313/making-memories-colorado-selfie-together_nddh23",
+          captionKey: 'selfie',
+          alt: "Casey and Yasmim taking a selfie together in Colorado"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751484312/making-memories-camping-tennessee_bi8w1q",
+          captionKey: 'camping',
+          alt: "Casey and Yasmim camping adventure in Tennessee"
+        }
+      ]
+    },
+    {
+      id: 6,
+      key: 'proposal',
+      type: 'photo',
+      photos: [
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485123/perfect-moment-landing-in-rio-airport-horizontal_decqmo",
+          captionKey: 'landing',
+          alt: "Casey and Yasmim arriving at Rio airport for their Brazil trip"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485121/perfect-moment-boat-tour-ubatuba_iofjtk",
+          captionKey: 'boatTour',
+          alt: "Casey and Yasmim enjoying a boat tour in Ubatuba, Brazil"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485122/perfect-moment-dinner-in-itai-with-yas-family_lgbwkw",
+          captionKey: 'family',
+          alt: "Casey meeting Yasmim's family over dinner in Itaí, Brazil"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485126/perfect-moment-sugarloaf-overlooking-botafago-harbor_vgioan",
+          captionKey: 'views',
+          alt: "Breathtaking views from Sugar Loaf Mountain overlooking Botafogo Harbor"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485124/perfect-moment-me-proposing-sugarloaf-nighttime-just-started_qgtiwt",
+          captionKey: 'proposal',
+          alt: "Casey proposing to Yasmim at Sugar Loaf Mountain as night falls over Rio"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485127/perfect-moment-yasmim-after-proposal_sip6vo",
+          captionKey: 'afterProposal',
+          alt: "Yasmim's joyful reaction after Casey's proposal at Sugar Loaf Mountain"
+        }
+      ]
+    },
+    {
+      id: 7,
+      key: 'planning',
+      type: 'photo',
+      photos: [
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485764/planning-forever-piedmont-park-picnic_jm442m",
+          captionKey: 'picnic',
+          alt: "Casey and Yasmim enjoying an engaged couple's picnic at Piedmont Park"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485761/planning-forever-atlanta-braves-game-yasmims-first-ever_xpjwfp",
+          captionKey: 'braves',
+          alt: "Casey and Yasmim at Yasmim's first ever Atlanta Braves baseball game"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1752462265/planning-forever-new-york-city-one_ttn8bc",
+          captionKey: 'nycOne',
+          alt: "Casey and Yasmim exploring New York City during their recent trip"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1752462265/planning-forever-new-york-city-two_cgx4mv",
+          captionKey: 'nycTwo',
+          alt: "Casey and Yasmim making memories during their New York City getaway"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1752462830/planning-forever-new-york-three_qgyoyp",
+          captionKey: 'nycThree',
+          alt: "Casey and Yasmim exploring the sights and sounds of New York City"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1752462829/planning-forever-new-york-four_hsbkd7",
+          captionKey: 'nycFour',
+          alt: "Casey and Yasmim enjoying their time together in the Big Apple"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485762/planning-forever-brasstown-bald-georgia_bk5wo6",
+          captionKey: 'brasstown',
+          alt: "Casey and Yasmim at Brasstown Bald, the highest point in Georgia"
+        },
+        {
+          url: "https://res.cloudinary.com/dwdaehpml/image/upload/w_800,c_scale,q_auto,f_auto/v1751485763/planning-forever-cruise-bahamas_tehubj",
+          captionKey: 'cruise',
+          alt: "Casey and Yasmim on their engagement cruise to the Bahamas"
+        }
+      ]
+    }
+  ];
 
   // Throttled scroll handler to prevent excessive re-renders on mobile
   const handleScroll = useCallback(() => {
@@ -220,7 +212,7 @@ function OurStory() {
       const newVisibility = {};
       let newActiveSection = activeSection;
       
-      timelinePoints.forEach((_, index) => {
+      timelineConfig.forEach((_, index) => {
         const element = elementsRef.current[index];
         if (element) {
           const rect = element.getBoundingClientRect();
@@ -248,7 +240,7 @@ function OurStory() {
 
   useEffect(() => {
     // Cache element references to avoid repeated DOM queries
-    timelinePoints.forEach((_, index) => {
+    timelineConfig.forEach((_, index) => {
       const element = document.getElementById(`timeline-${index}`);
       if (element) {
         elementsRef.current[index] = element;
@@ -300,10 +292,10 @@ function OurStory() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
             <h1 className="font-script text-6xl text-primary dark:text-primary-light mb-6 animate-typewriter-title overflow-visible">
-              Our Story
+              {t('title')}
             </h1>
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8 animate-fade-up-delayed">
-              How we met, fell in love, and decided to spend our lives together.
+              {t('subtitle')}
             </p>
           </div>
         </div>
@@ -316,7 +308,7 @@ function OurStory() {
           {/* Timeline Navigation with Simplified Indicators */}
           <div className="fixed left-8 top-1/2 transform -translate-y-1/2 z-20 hidden lg:block">
             <div className="flex flex-col space-y-4">
-              {timelinePoints.map((point, index) => (
+              {timelineConfig.map((point, index) => (
                 <button
                   key={point.id}
                   onClick={() => scrollToSection(index)}
@@ -325,21 +317,21 @@ function OurStory() {
                       ? 'bg-primary border-primary dark:bg-primary-light dark:border-primary-light animate-timeline-pulse'
                       : 'bg-white border-gray-300 dark:bg-dark-card dark:border-gray-600 hover:border-primary dark:hover:border-primary-light'
                   }`}
-                  aria-label={`Go to ${point.title}`}
+                  aria-label={`Go to ${t(`timeline.${point.key}.title`)}`}
                 />
               ))}
               {/* Connecting line with progress indicator */}
               <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-600 transform -translate-x-1/2 -z-10" />
               <div 
                 className="absolute left-1/2 top-0 w-0.5 bg-gradient-to-b from-primary to-secondary transform -translate-x-1/2 transition-all duration-500 ease-out"
-                style={{ height: `${(activeSection / (timelinePoints.length - 1)) * 100}%` }}
+                style={{ height: `${(activeSection / (timelineConfig.length - 1)) * 100}%` }}
               />
             </div>
           </div>
 
           {/* Timeline Content with Staggered Animations */}
           <div className="space-y-24 timeline-content">
-            {timelinePoints.map((point, index) => (
+            {timelineConfig.map((point, index) => (
               <div
                 key={point.id}
                 id={`timeline-${index}`}
@@ -356,7 +348,7 @@ function OurStory() {
                   <div className={`bg-gradient-to-br from-primary to-secondary text-white px-6 py-3 rounded-full shadow-lg font-medium min-w-max animate-float-gentle ${
                     activeSection === index ? 'ring-4 ring-primary/30 scale-110' : ''
                   } transition-all duration-300`}>
-                    {point.date}
+                    {t(`timeline.${point.key}.date`)}
                   </div>
                   {/* Sparkle effect for active item */}
                   {activeSection === index && (
@@ -371,10 +363,10 @@ function OurStory() {
                 <div className="flex-1 max-w-2xl">
                   <div className="bg-white dark:bg-dark-card rounded-2xl shadow-xl p-8 transition-shadow duration-300 hover:shadow-2xl group will-change-transform">
                     <h3 className="font-script text-3xl text-primary dark:text-primary-light mb-4 group-hover:text-primary-dark dark:group-hover:text-white transition-colors duration-300">
-                      {point.title}
+                      {t(`timeline.${point.key}.title`)}
                     </h3>
                     <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed mb-6">
-                      {point.story}
+                      {t(`timeline.${point.key}.story`)}
                     </p>
 
                     {/* Content based on type */}
@@ -410,13 +402,13 @@ function OurStory() {
                             >
                               <img
                                 src={typeof photo === 'string' ? photo : photo.url}
-                                alt={typeof photo === 'string' ? `${point.title} memory ${photoIndex + 1}` : photo.alt}
+                                alt={typeof photo === 'string' ? `${t(`timeline.${point.key}.title`)} memory ${photoIndex + 1}` : photo.alt}
                                 className="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700"
                               />
                               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                               <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                                 <p className="text-sm font-medium">
-                                  {typeof photo === 'string' ? `Memory #${photoIndex + 1}` : photo.caption}
+                                  {typeof photo === 'string' ? `Memory #${photoIndex + 1}` : t(`timeline.${point.key}.photos.${photo.captionKey}`)}
                                 </p>
                               </div>
                               {/* Shimmer effect */}
@@ -445,24 +437,23 @@ function OurStory() {
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h3 className="font-script text-4xl text-primary dark:text-primary-light mb-6 animate-fade-up">
-            Our Adventure Continues
+            {t('continuesTitle')}
           </h3>
           <p className="text-xl text-gray-700 dark:text-gray-300 mb-8 leading-relaxed animate-fade-up-delayed">
-            From a chance meeting in Atlanta to planning our dream wedding in Punta Cana, 
-            our love story is just beginning. We can't wait to celebrate with all of you!
+            {t('continuesSubtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up-delayed-2">
             <Link
               to="/rsvp"
               className="inline-block bg-primary dark:bg-primary-dark hover:bg-primary-dark dark:hover:bg-primary text-white font-medium px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
             >
-              RSVP to Our Wedding
+              {t('rsvpBtn')}
             </Link>
             <Link
               to="/venue"
               className="inline-block bg-white dark:bg-dark-card border-2 border-primary dark:border-primary-light text-primary dark:text-primary-light hover:bg-primary hover:text-white dark:hover:bg-primary-light dark:hover:text-white font-medium px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
             >
-              Learn About Punta Cana
+              {t('venueBtn')}
             </Link>
           </div>
         </div>

@@ -1,0 +1,107 @@
+{
+  "heroTitle": "Nosso Paraíso",
+  "heroSubtitle": "Junte-se a nós na linda Punta Cana, República Dominicana",
+  "heroDate": "10 de Abril de 2026",
+  "resortTitle": "Grand Bavaro Princess",
+  "resortDescription": "Um resort de luxo com tudo incluído aninhado nas praias pristinas de Bavaro Beach, onde estaremos celebrando nosso dia especial. Nós (Yasmim & Casey) ficaremos de 8 a 13 de abril e ficaríamos emocionados em passar este tempo com vocês!",
+  "aboutResortTitle": "Sobre Nosso Resort",
+  "resortDetails": "Localizado na mundialmente famosa Praia de Bavaro, o Grand Bavaro Princess possui {{suites}} suítes espaçosas, {{restaurants}} restaurantes temáticos e {{bars}} bares situados dentro de um complexo ecológico que respeita a vegetação e vida selvagem nativas.",
+  "suites": "1.290",
+  "restaurants": "11",
+  "bars": "15",
+  "features": {
+    "location": {
+      "title": "Localização Privilegiada",
+      "description": "25 minutos do Aeroporto de Punta Cana"
+    },
+    "allInclusive": {
+      "title": "Experiência Tudo Incluído", 
+      "description": "Refeições, bebidas e atividades incluídas"
+    },
+    "beach": {
+      "title": "Praia Pristina de Bavaro",
+      "description": "Águas cristalinas e areia branca"
+    }
+  },
+  "weddingDayTitle": "Nosso Dia de Casamento",
+  "ceremony": {
+    "title": "Cerimônia",
+    "time": "16:00",
+    "description": "Junte-se a nós enquanto trocamos votos em uma cerimônia íntima à beira-mar com vista para as águas cristalinas do Mar do Caribe. A cerimônia acontecerá na praia pristina do resort com o som suave das ondas como nossa trilha sonora.",
+    "details": {
+      "time": "16:00 - 16:30",
+      "location": "Local à Beira-Mar",
+      "attire": "Traje Formal de Praia"
+    }
+  },
+  "reception": {
+    "title": "Recepção",
+    "time": "18:00 - 21:00", 
+    "description": "Celebre conosco durante nossa recepção romântica! Estamos planejando um jantar privado íntimo na praia sob as estrelas ou um jantar semi-privado em um dos restaurantes requintados do resort. Fiquem atentos aos detalhes finais!",
+    "details": {
+      "time": "18:00 - 21:00",
+      "activities": "Jantar e Dança",
+      "setting": "Celebração Sob as Estrelas"
+    }
+  },
+  "celebrateTitle": "Venham Celebrar Conosco",
+  "stayTitle": "Estaremos Lá de 8 a 13 de Abril",
+  "stayDescription": "Embora nosso casamento seja no dia {{weddingDate}}, estamos fazendo desta uma verdadeira celebração ficando no resort por vários dias. Ficaríamos absolutamente emocionados se vocês se juntassem a nós por qualquer parte deste tempo!",
+  "weddingDate": "10 de abril",
+  "stayFeatures": {
+    "timeline": {
+      "title": "Sua Programação",
+      "description": "Fiquem pelo tempo que funcionar para vocês"
+    },
+    "qualityTime": {
+      "title": "Tempo de Qualidade", 
+      "description": "Dias de piscina, caminhadas na praia e memórias"
+    },
+    "celebration": {
+      "title": "Celebração",
+      "description": "Festividades de casamento estendidas"  
+    }
+  },
+  "stayMessage": "💙 Seja vocês venham apenas para o dia do casamento ou fiquem o tempo todo conosco, estamos apenas animados para celebrar este momento especial com as pessoas que mais amamos!",
+  "planStayTitle": "Planejem Sua Estadia",
+  "planStayDescription": "Não estamos reservando um bloco de quartos, dando a vocês a liberdade de escolher sua acomodação perfeita e ficar pelo tempo que desejarem. Estaremos lá de 8 a 13 de abril e adoraríamos passar o máximo de tempo possível celebrando com vocês!",
+  "bookingTitle": "Informações de Reserva",
+  "resortContact": {
+    "title": "Contato do Resort",
+    "name": "Grand Bavaro Princess",
+    "address1": "Playa Bavaro, Punta Cana", 
+    "address2": "República Dominicana"
+  },
+  "directBooking": {
+    "title": "Reserva Direta",
+    "buttonText": "Reservar no Grand Bavaro Princess"
+  },
+  "ourStay": {
+    "title": "Nossa Estadia e Sugestões",
+    "dates": "Yasmim & Casey: 8 a 13 de abril",
+    "weddingDay": "Dia do Casamento: 10 de Abril de 2026",
+    "suggestion": "Fiquem pelo tempo que funcionar para vocês - mesmo que seja apenas o dia do casamento!"
+  },
+  "travelTips": {
+    "title": "Dicas de Viagem",
+    "airport": {
+      "title": "Aeroporto",
+      "description": "Voem para o Aeroporto Internacional de Punta Cana (PUJ) - apenas 25 minutos do resort"
+    },
+    "documentation": {
+      "title": "Documentação",
+      "description": "Cidadãos americanos precisam de passaporte válido. Cartão de turista será fornecido na chegada"
+    },
+    "weather": {
+      "title": "Clima", 
+      "description": "Abril tem média de 28°C com sol - clima perfeito de praia!"
+    },
+    "currency": {
+      "title": "Moeda",
+      "description": "Peso Dominicano (DOP) ou Dólar Americano amplamente aceitos"
+    }
+  },
+  "locationTitle": "Localização do Resort",
+  "locationDescription": "O Grand Bavaro Princess está localizado na famosa Praia de Bavaro em Punta Cana, República Dominicana - uma das praias mais bonitas do mundo.",
+  "viewMapText": "Ver no Google Maps"
+}

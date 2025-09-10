@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function Footer() {
   const currentYear = new Date().getFullYear();
+  const { t } = useTranslation('common');
+  const { t: tNav } = useTranslation('navbar');
   
   return (
     <footer className="bg-accent-light dark:bg-dark-secondary py-8 transition-colors duration-200">
@@ -10,30 +13,30 @@ function Footer() {
         <div className="flex flex-col md:flex-row md:justify-between items-center">
           <div className="flex flex-col items-center md:items-start mb-6 md:mb-0">
             <div className="font-script text-2xl text-primary dark:text-primary-light mb-4">
-              Casey & Yasmim
+              {t('footer.coupleNames')}
             </div>
             <p className="text-gray-600 dark:text-gray-300 text-sm text-center md:text-left">
-              We can't wait to celebrate with you in Punta Cana!
+              {t('footer.celebrationMessage')}
             </p>
           </div>
           
           <div className="flex flex-col items-center md:items-end">
             <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2 mb-4">
               <Link to="/our-story" className="text-primary dark:text-primary-light hover:text-primary-dark dark:hover:text-white transition-colors">
-                Our Story
+                {tNav('ourStory')}
               </Link>
               <Link to="/venue" className="text-primary dark:text-primary-light hover:text-primary-dark dark:hover:text-white transition-colors">
-                Venue
+                {tNav('venue')}
               </Link>
               <Link to="/rsvp" className="text-primary dark:text-primary-light hover:text-primary-dark dark:hover:text-white transition-colors">
-                RSVP
+                {tNav('rsvp')}
               </Link>
               <Link to="/registry" className="text-pink-600 dark:text-pink-400 hover:text-pink-700 dark:hover:text-pink-300 transition-colors">
-                Honeymoon Fund
+                {tNav('registry')}
               </Link>
             </div>
             <div className="text-gray-500 dark:text-gray-400 text-xs">
-              &copy; {currentYear} Casey & Yasmim's Wedding
+              &copy; {currentYear} {t('footer.copyright')}
             </div>
           </div>
         </div>

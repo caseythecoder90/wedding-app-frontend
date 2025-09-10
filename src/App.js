@@ -10,6 +10,7 @@ import Venue from './pages/Venue';
 import RSVP from './pages/RSVP';
 import NotFound from './pages/NotFound';
 import Registry from './pages/Registry';
+import './i18n/config';
 
 import './App.css';
 

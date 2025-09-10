@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const InvitationCodeInput = ({ value, onChange, onSubmit, isLoading = false, error = null }) => {
+  const { t } = useTranslation('rsvp');
   const [touched, setTouched] = useState(false);
   
   // Format the input value (uppercase, remove special chars, limit length)
@@ -39,7 +41,7 @@ const InvitationCodeInput = ({ value, onChange, onSubmit, isLoading = false, err
         htmlFor="invitationCode" 
         className="block text-sm font-medium text-gray-700 dark:text-gray-300 transition-colors duration-200"
       >
-        Invitation Code
+        {t('invitationCode.label')}
       </label>
       
       <div className="relative">
@@ -58,7 +60,7 @@ const InvitationCodeInput = ({ value, onChange, onSubmit, isLoading = false, err
           } ${
             isLoading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
-          placeholder="ABC123DEF456"
+          placeholder={t('invitationCode.placeholder')}
           required
           autoComplete="off"
           spellCheck="false"
@@ -85,8 +87,8 @@ const InvitationCodeInput = ({ value, onChange, onSubmit, isLoading = false, err
       {showError && (
         <p className="text-sm text-red-600 dark:text-red-400 animate-shake">
           {isEmpty 
-            ? 'Please enter your invitation code' 
-            : 'Code must be at least 3 characters'
+            ? t('invitationCode.emptyError')
+            : t('invitationCode.tooShortError')
           }
         </p>
       )}
@@ -94,14 +96,14 @@ const InvitationCodeInput = ({ value, onChange, onSubmit, isLoading = false, err
       {/* Server error */}
       {showServerError && (
         <p className="text-sm text-red-600 dark:text-red-400 animate-shake">
-          {error?.details?.[0]?.reason || error?.errorMessage || 'Invalid invitation code'}
+          {error?.details?.[0]?.reason || error?.errorMessage || t('invitationCode.invalidError')}
         </p>
       )}
       
       {/* Help text */}
       {!showError && !showServerError && (
         <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-200">
-          Enter the code from your wedding invitation
+          {t('invitationCode.helpText')}
         </p>
       )}
     </div>

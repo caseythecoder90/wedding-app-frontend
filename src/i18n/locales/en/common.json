@@ -1,0 +1,21 @@
+{
+  "loading": "Loading...",
+  "error": "Error",
+  "success": "Success",
+  "cancel": "Cancel",
+  "close": "Close",
+  "save": "Save",
+  "edit": "Edit",
+  "delete": "Delete",
+  "yes": "Yes",
+  "no": "No",
+  "required": "This field is required",
+  "weddingTitle": "Casey & Yasmim's Wedding",
+  "weddingDate": "April 10, 2026",
+  "weddingLocation": "Punta Cana, Dominican Republic",
+  "footer": {
+    "coupleNames": "Casey & Yasmim",
+    "celebrationMessage": "We can't wait to celebrate with you in Punta Cana!",
+    "copyright": "Casey & Yasmim's Wedding"
+  }
+}

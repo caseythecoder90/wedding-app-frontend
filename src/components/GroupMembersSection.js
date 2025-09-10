@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import FamilyMemberForm from './FamilyMemberForm';
 
 /**
@@ -23,6 +24,7 @@ function GroupMembersSection({
   onRemoveMember,
   attending
 }) {
+  const { t } = useTranslation('rsvp');
   if (!attending) {
     return null; // Don't show group member section if primary guest is not attending
   }
@@ -41,22 +43,26 @@ function GroupMembersSection({
   const getSectionTitle = () => {
     switch (guestType) {
       case 'SOLO_WITH_PLUS_ONE':
-        return 'Plus One';
+        return t('groupMembers.plusOneTitle');
       case 'FAMILY_PRIMARY':
-        return `Your Group - ${familyGroup?.groupName || 'Additional Guests'}`;
+        return t('groupMembers.familyTitle', { groupName: familyGroup?.groupName || t('groupMembers.additionalGuestsTitle') });
       default:
-        return 'Additional Guests';
+        return t('groupMembers.additionalGuestsTitle');
     }
   };
 
   const getSectionDescription = () => {
     switch (guestType) {
       case 'SOLO_WITH_PLUS_ONE':
-        return 'You can bring one additional guest.';
+        return t('groupMembers.plusOneDescription');
       case 'FAMILY_PRIMARY':
         const maxGuests = familyGroup?.maxAttendees || 1;
         const currentCount = familyMembers.length + 1; // +1 for primary guest
-        return `You can bring up to ${maxGuests - 1} additional guests (${currentCount}/${maxGuests} total).`;
+        return t('groupMembers.familyDescription', { 
+          maxGuests: maxGuests - 1, 
+          currentCount: currentCount, 
+          maxAttendees: maxGuests 
+        });
       default:
         return '';
     }
@@ -65,11 +71,11 @@ function GroupMembersSection({
   const getAddButtonText = () => {
     switch (guestType) {
       case 'SOLO_WITH_PLUS_ONE':
-        return 'Add Plus One';
+        return t('groupMembers.addPlusOneBtn');
       case 'FAMILY_PRIMARY':
-        return 'Add Guest';
+        return t('groupMembers.addGuestBtn');
       default:
-        return 'Add Guest';
+        return t('groupMembers.addGuestBtn');
     }
   };
 
@@ -84,7 +90,7 @@ function GroupMembersSection({
         </p>
         {guestType === 'FAMILY_PRIMARY' && familyMembers.length > 0 && (
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
-            You can edit names, attendance, and details for each member. Remove any you don't need or add new guests up to your limit.
+            {t('groupMembers.editHelpText')}
           </p>
         )}
       </div>
@@ -128,8 +134,11 @@ function GroupMembersSection({
       {guestType === 'FAMILY_PRIMARY' && familyGroup && (
         <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
           {familyMembers.length >= (familyGroup.maxAttendees - 1) 
-            ? 'You have reached the maximum number of guests for your invitation.'
-            : `You can add ${(familyGroup.maxAttendees - 1) - familyMembers.length} more guest${(familyGroup.maxAttendees - 1) - familyMembers.length !== 1 ? 's' : ''}.`
+            ? t('groupMembers.maxGuestsReached')
+            : t('groupMembers.guestsRemaining', { 
+                remaining: (familyGroup.maxAttendees - 1) - familyMembers.length,
+                plural: ((familyGroup.maxAttendees - 1) - familyMembers.length !== 1) ? 's' : ''
+              })
           }
         </p>
       )}

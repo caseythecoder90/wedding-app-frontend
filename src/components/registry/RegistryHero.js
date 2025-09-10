@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const RegistryHero = () => {
+  const { t } = useTranslation('registry');
+  
   return (
     <div className="relative h-96 md:h-[500px] overflow-hidden rounded-2xl mb-12">
       {/* Background Image */}
@@ -18,13 +21,13 @@ const RegistryHero = () => {
       <div className="relative h-full flex items-center justify-center text-center px-6">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-dancing text-white mb-6 leading-tight">
-            Japan Honeymoon Fund
+            {t('hero.title')}
           </h1>
           <p className="text-xl md:text-2xl text-white/90 font-quicksand mb-8 leading-relaxed">
-            Help us create unforgettable memories in the Land of the Rising Sun
+            {t('hero.subtitle')}
           </p>
           <div className="inline-flex items-center bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 text-white">
-            <span className="text-lg font-medium">Experience Japan with us</span>
+            <span className="text-lg font-medium">{t('hero.experienceText')}</span>
           </div>
         </div>
       </div>

@@ -1,0 +1,113 @@
+{
+  "title": "Honeymoon Fund",
+  "loadingMessage": "Loading registry...",
+  "errorTitle": "Registry Temporarily Unavailable",
+  "defaultErrorMessage": "Unable to load the registry. Please try again later.",
+  "tryAgainBtn": "Try Again",
+  "inactiveTitle": "Registry Not Active",
+  "inactiveMessage": "The honeymoon registry is currently not accepting donations. Thank you for your interest!",
+  "hero": {
+    "title": "Japan Honeymoon Fund",
+    "subtitle": "Help us create unforgettable memories in the Land of the Rising Sun",
+    "experienceText": "Experience Japan with us"
+  },
+  "header": {
+    "title": "Our Honeymoon Fund",
+    "description": "Help us create amazing honeymoon memories!",
+    "progressLabel": "Progress toward our goal",
+    "raisedLabel": "Raised",
+    "goalLabel": "Goal", 
+    "donationsLabel": "Donations",
+    "thankYouMessage": "\"Every contribution, no matter the size, helps us create memories that will last a lifetime. Thank you for being part of our journey!\" 💕"
+  },
+  "japanPlans": {
+    "title": "Our Japan Adventure Plans",
+    "mountFuji": {
+      "title": "Mount Fuji",
+      "description": "Witness the iconic symbol of Japan"
+    },
+    "cherryBlossoms": {
+      "title": "Cherry Blossoms", 
+      "description": "Experience magical sakura season"
+    },
+    "temples": {
+      "title": "Ancient Temples",
+      "description": "Explore centuries of tradition"
+    }
+  },
+  "destinationNote": {
+    "title": "A Note About Our Destination Wedding",
+    "paragraph1": "We know that joining us for our destination wedding is a significant commitment, both financially and with your time. Your presence at our celebration is the greatest gift we could ask for.",
+    "paragraph2": "This registry is simply here for those who have asked about contributing to our honeymoon adventure. Please don't feel any obligation – we completely understand the expenses involved in destination travel.",
+    "paragraph3": "We're grateful for your love and support, whether that's through your presence, your well wishes, or any contribution you choose to make. ✈️"
+  },
+  "thankYouFooter": {
+    "title": "Thank You",
+    "message": "Your contribution helps make our Japan dreams come true!"
+  },
+  "paymentHandles": {
+    "title": "Send Your Gift 💝",
+    "venmo": {
+      "title": "Venmo",
+      "description": "Quick & Easy",
+      "copyButton": "Copy Handle",
+      "copied": "✓ Copied!"
+    },
+    "zelle": {
+      "title": "Zelle", 
+      "description": "Bank Transfer",
+      "copyButton": "Copy Phone",
+      "copied": "✓ Copied!"
+    },
+    "instructionsTitle": "How to Send Your Gift:",
+    "instructions": [
+      "Copy the payment handle above",
+      "Open your Venmo or Zelle app", 
+      "Send your gift amount with a sweet message 💕",
+      "Fill out the form below to let us know"
+    ]
+  },
+  "donationForm": {
+    "title": "Let Us Know About Your Gift 🎁",
+    "fields": {
+      "donorName": {
+        "label": "Your Name *",
+        "placeholder": "Your full name"
+      },
+      "donorEmail": {
+        "label": "Email Address *",
+        "placeholder": "your.email@example.com"
+      },
+      "donorPhone": {
+        "label": "Phone Number (Optional)",
+        "placeholder": "(555) 123-4567"
+      },
+      "amount": {
+        "label": "Gift Amount *",
+        "placeholder": "100.00"
+      },
+      "paymentMethod": {
+        "label": "Payment Method *",
+        "placeholder": "Select payment method",
+        "options": {
+          "venmo": "Venmo",
+          "zelle": "Zelle",
+          "other": "Other"
+        }
+      },
+      "paymentReference": {
+        "label": "Transaction ID (Optional)",
+        "placeholder": "Transaction or reference number"
+      },
+      "message": {
+        "label": "Personal Message (Optional)",
+        "placeholder": "Share a sweet message with us! 💕"
+      }
+    },
+    "submitButton": {
+      "idle": "Submit Gift Info",
+      "loading": "Submitting..."
+    },
+    "disclaimer": "This form lets us know about your gift. We'll confirm once we receive your payment and send you a thank you note! 💕"
+  }
+}

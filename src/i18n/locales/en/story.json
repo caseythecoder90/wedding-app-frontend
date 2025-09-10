@@ -1,0 +1,85 @@
+{
+  "title": "Our Story",
+  "subtitle": "How we met, fell in love, and decided to spend our lives together.",
+  "timeline": {
+    "summer2023": {
+      "date": "August 2023",
+      "title": "Summer of 2023",
+      "story": "We met in the summer of 2023 while Casey was interning in Atlanta and finishing his final semester at Texas A&M. With just two weeks left before he returned to Texas, neither of us expected to find something so special.",
+      "quote": "\"The beginning of our forever\""
+    },
+    "anniversary": {
+      "date": "August 17, 2023",
+      "title": "Our Anniversary",
+      "story": "Our first official date in Buckhead at Velvet Taco. Yasmim jokes that Casey made her uncomfortable with how he was looking at her - he just couldn't believe how beautiful she was.",
+      "quote": "\"Love at first sight... at Velvet Taco\""
+    },
+    "official": {
+      "date": "October 2023",
+      "title": "Making It Official",
+      "story": "Casey visited Atlanta in early October, and after amazing few days together, we knew this was something special. Long distance couldn't stop what we had.",
+      "photos": {
+        "atlantaTrip": "Casey's Visit to Atlanta",
+        "texasTrip": "Yasmim Visits Texas",
+        "longDistance": "Long Distance Love",
+        "buildingConnection": "Building Our Connection"
+      }
+    },
+    "lifeTogether": {
+      "date": "January 2024",
+      "title": "Starting Our Life Together",
+      "story": "Casey graduated and moved to Atlanta full-time with Visa. We decided to take the next step and moved in together in Midtown - our first home as a couple.",
+      "photos": {
+        "firstApartment": "Our First Apartment",
+        "dateNight": "Date Night Adventures",
+        "iceSkating": "Ice Skating Together",
+        "friendsWedding": "Friends' Wedding"
+      }
+    },
+    "memories": {
+      "date": "May - July 2024",
+      "title": "Making Memories",
+      "story": "From meeting Casey's parents in Florida to hiking and camping in Rocky Mountain National Park, we discovered we're the perfect adventure team. Yasmim supported Casey's Longs Peak attempt, even with that 2am drop-off!",
+      "photos": {
+        "florida": "Florida Family Visit",
+        "colorado": "Colorado Adventures",
+        "skyPond": "Sky Pond Hike",
+        "romance": "Rocky Mountain Romance",
+        "selfie": "Colorado Selfie",
+        "camping": "Camping in Tennessee"
+      }
+    },
+    "proposal": {
+      "date": "December 2024",
+      "title": "The Perfect Moment",
+      "story": "After a stormy day in Rio, the clouds cleared just as we reached the top of Sugar Loaf Mountain. As the sun set over Copacabana, Casey proposed with the most breathtaking view in the world.",
+      "photos": {
+        "landing": "Landing in Rio",
+        "boatTour": "Ubatuba Boat Tour",
+        "family": "Dinner with Yasmim's Family",
+        "views": "Sugar Loaf Views",
+        "proposal": "The Proposal Moment",
+        "afterProposal": "Yasmim After the Proposal"
+      }
+    },
+    "planning": {
+      "date": "2025 - Present",
+      "title": "Planning Our Forever",
+      "story": "Now engaged and building our future together in our new apartment, planning our Punta Cana wedding where both our families can celebrate with us. From NYC adventures to Atlanta explorations, we're creating memories while planning our big day.",
+      "photos": {
+        "picnic": "Piedmont Park Picnic",
+        "braves": "Yasmim's First Braves Game",
+        "nycOne": "New York City Adventure",
+        "nycTwo": "NYC Memories",
+        "nycThree": "NYC Exploration",
+        "nycFour": "Big Apple Adventures",
+        "brasstown": "Brasstown Bald Adventure",
+        "cruise": "Bahamas Cruise"
+      }
+    }
+  },
+  "continuesTitle": "Our Adventure Continues",
+  "continuesSubtitle": "From a chance meeting in Atlanta to planning our dream wedding in Punta Cana, our love story is just beginning. We can't wait to celebrate with all of you!",
+  "rsvpBtn": "RSVP to Our Wedding",
+  "venueBtn": "Learn About Punta Cana"
+}

@@ -1,10 +1,7 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-const AGE_GROUPS = [
-  { value: 'ADULT', label: 'Adult' },
-  { value: 'CHILD', label: 'Child' },
-  { value: 'INFANT', label: 'Infant' }
-];
+// Age groups will be generated from translations
 
 /**
  * Form component for individual family member/plus-one information
@@ -26,6 +23,7 @@ function FamilyMemberForm({
   isExisting = false,
   isPlusOne = false
 }) {
+  const { t } = useTranslation('rsvp');
   const handleChange = (field, value) => {
     onUpdate(index, { [field]: value });
   };
@@ -39,7 +37,7 @@ function FamilyMemberForm({
   };
 
   const getMemberTitle = () => {
-    if (isPlusOne) return 'Plus One';
+    if (isPlusOne) return t('memberForm.plusOneTitle');
     
     const fullName = `${member.firstName || ''} ${member.lastName || ''}`.trim();
     
@@ -52,13 +50,20 @@ function FamilyMemberForm({
                            /^(guest|member)\s*\d*$/i.test(fullName);
       
       if (isPlaceholder) {
-        return 'Group Member (Please Update Name)';
+        return t('memberForm.groupMemberTitle');
       }
       return fullName;
     }
     
-    return 'Additional Guest';
+    return t('memberForm.additionalGuestTitle');
   };
+
+  // Generate age groups from translations
+  const ageGroups = [
+    { value: 'ADULT', label: t('memberForm.ageGroups.ADULT') },
+    { value: 'CHILD', label: t('memberForm.ageGroups.CHILD') },
+    { value: 'INFANT', label: t('memberForm.ageGroups.INFANT') }
+  ];
   
   const memberTitle = getMemberTitle();
 
@@ -85,7 +90,7 @@ function FamilyMemberForm({
       {/* Attendance Selection */}
       <div className="space-y-3">
         <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">
-          Will this person attend?
+          {t('memberForm.attendanceQuestion')}
         </h4>
         <div className="space-y-2">
           <label className="flex items-center cursor-pointer">
@@ -97,7 +102,7 @@ function FamilyMemberForm({
               className="text-green-600 focus:ring-green-500 h-4 w-4"
             />
             <span className="ml-3 text-gray-700 dark:text-gray-200 font-medium">
-              Yes, will attend ✓
+              {t('memberForm.attendingYes')}
             </span>
           </label>
           <label className="flex items-center cursor-pointer">
@@ -109,7 +114,7 @@ function FamilyMemberForm({
               className="text-red-600 focus:ring-red-500 h-4 w-4"
             />
             <span className="ml-3 text-gray-700 dark:text-gray-200 font-medium">
-              No, will not attend ✗
+              {t('memberForm.attendingNo')}
             </span>
           </label>
         </div>
@@ -123,7 +128,7 @@ function FamilyMemberForm({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor={`firstName-${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  First Name *
+                  {t('memberForm.firstNameLabel')}
                 </label>
                 <input
                   type="text"
@@ -131,13 +136,13 @@ function FamilyMemberForm({
                   value={member.firstName || ''}
                   onChange={(e) => handleChange('firstName', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light bg-white dark:bg-gray-700 dark:text-white"
-                  placeholder="First name"
+                  placeholder={t('memberForm.firstNamePlaceholder')}
                   required
                 />
               </div>
               <div>
                 <label htmlFor={`lastName-${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Last Name *
+                  {t('memberForm.lastNameLabel')}
                 </label>
                 <input
                   type="text"
@@ -145,7 +150,7 @@ function FamilyMemberForm({
                   value={member.lastName || ''}
                   onChange={(e) => handleChange('lastName', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light bg-white dark:bg-gray-700 dark:text-white"
-                  placeholder="Last name"
+                  placeholder={t('memberForm.lastNamePlaceholder')}
                   required
                 />
               </div>
@@ -157,7 +162,7 @@ function FamilyMemberForm({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor={`firstName-${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Plus One First Name *
+                  {t('memberForm.plusOneFirstNameLabel')}
                 </label>
                 <input
                   type="text"
@@ -165,13 +170,13 @@ function FamilyMemberForm({
                   value={member.firstName || ''}
                   onChange={(e) => handleChange('firstName', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light bg-white dark:bg-gray-700 dark:text-white"
-                  placeholder="First name"
+                  placeholder={t('memberForm.firstNamePlaceholder')}
                   required
                 />
               </div>
               <div>
                 <label htmlFor={`lastName-${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Plus One Last Name *
+                  {t('memberForm.plusOneLastNameLabel')}
                 </label>
                 <input
                   type="text"
@@ -179,7 +184,7 @@ function FamilyMemberForm({
                   value={member.lastName || ''}
                   onChange={(e) => handleChange('lastName', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light bg-white dark:bg-gray-700 dark:text-white"
-                  placeholder="Last name"
+                  placeholder={t('memberForm.lastNamePlaceholder')}
                   required
                 />
               </div>
@@ -189,7 +194,7 @@ function FamilyMemberForm({
           {/* Age Group */}
           <div>
             <label htmlFor={`ageGroup-${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Age Group
+              {t('memberForm.ageGroupLabel')}
             </label>
             <select
               id={`ageGroup-${index}`}
@@ -197,7 +202,7 @@ function FamilyMemberForm({
               onChange={(e) => handleChange('ageGroup', e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light bg-white dark:bg-gray-700 dark:text-white"
             >
-              {AGE_GROUPS.map(group => (
+              {ageGroups.map(group => (
                 <option key={group.value} value={group.value}>
                   {group.label}
                 </option>
@@ -208,7 +213,7 @@ function FamilyMemberForm({
           {/* Dietary Restrictions */}
           <div>
             <label htmlFor={`dietary-${index}`} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Dietary Restrictions or Special Accommodations
+              {t('memberForm.dietaryLabel')}
             </label>
             <textarea
               id={`dietary-${index}`}
@@ -216,7 +221,7 @@ function FamilyMemberForm({
               value={member.dietaryRestrictions || ''}
               onChange={(e) => handleChange('dietaryRestrictions', e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light bg-white dark:bg-gray-700 dark:text-white"
-              placeholder="Please let us know of any dietary restrictions, allergies, or special accommodations needed..."
+              placeholder={t('memberForm.dietaryPlaceholder')}
             />
           </div>
         </div>

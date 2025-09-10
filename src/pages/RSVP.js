@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useRSVP } from '../hooks/useRSVP';
 import InvitationCodeInput from '../components/InvitationCodeInput';
 import GroupMembersSection from '../components/GroupMembersSection';
@@ -67,6 +68,7 @@ import './RSVP.css';
  */
 function RSVP() {
   const navigate = useNavigate();
+  const { t } = useTranslation('rsvp');
   const {
     // State
     primaryGuest,
@@ -75,7 +77,6 @@ function RSVP() {
     guestType,
     familyGroup,
     familyMembers,
-    // canBringPlusOne, // Not currently used in UI
     formData,
     error,
     invitationCode,
@@ -135,15 +136,15 @@ function RSVP() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center">
           <h1 className="font-script text-6xl text-primary dark:text-primary-light mb-6 overflow-visible animate-rsvp-fade opacity-0">
-            RSVP
+            {t('title')}
           </h1>
           <p className="text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto animate-rsvp-fade-delayed opacity-0">
-            We would be honored to have you join us for our special day.
+            {t('subtitle')}
           </p>
           <div className="mt-8 animate-rsvp-fade-delayed-2 opacity-0">
             <div className="inline-block bg-white dark:bg-dark-card rounded-lg px-6 py-3 shadow-lg backdrop-blur-sm bg-opacity-90 border border-primary/20">
               <p className="text-sm text-gray-600 dark:text-gray-300">
-                Please respond by February 10, 2026
+                {t('deadline')}
               </p>
             </div>
           </div>
@@ -164,10 +165,10 @@ function RSVP() {
                 <div className="w-full h-full border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
               </div>
               <h2 className="text-xl font-display text-gray-800 dark:text-gray-200 mb-2">
-                Validating Your Invitation
+                {t('loadingValidation')}
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
-                Please wait while we verify your invitation code...
+                {t('loadingMessage')}
               </p>
             </div>
           </div>
@@ -190,17 +191,17 @@ function RSVP() {
                 </svg>
               </div>
               <h2 className="text-xl font-display text-red-600 dark:text-red-400 mb-4">
-                Invalid Invitation Code
+                {t('errorTitle')}
               </h2>
               <p className="text-gray-600 dark:text-gray-400 mb-6">
-                {error?.details?.[0]?.reason || error?.errorMessage || "The invitation code is invalid. Please check your code and try again."}
+                {error?.details?.[0]?.reason || error?.errorMessage || t('errorMessage')}
               </p>
               
               <button
                 onClick={handleTryAgain}
                 className="w-full bg-primary dark:bg-primary-dark hover:bg-primary-dark dark:hover:bg-primary text-white font-medium py-3 rounded-lg shadow-md transition-all duration-200 transform hover:scale-105"
               >
-                Try Again
+                {t('tryAgainBtn')}
               </button>
             </div>
           </div>
@@ -225,17 +226,17 @@ function RSVP() {
                 </div>
               </div>
               <h2 className="text-2xl font-display text-primary dark:text-primary-light mb-4 text-center">
-                Thank You!
+                {t('successTitle')}
               </h2>
               <p className="text-gray-700 dark:text-gray-300 mb-4 text-center">
-                Your RSVP has been successfully submitted.
+                {t('successMessage')}
               </p>
               <p className="text-gray-500 dark:text-gray-400 mb-8 text-center">
                 {hasExistingRsvp && existingRsvp.attending 
-                  ? "We're so happy you'll be joining us!" 
+                  ? t('attendingMessage')
                   : formData.attending
-                  ? "We're so happy you'll be joining us!"
-                  : "We're sorry you won't be able to join us, but we appreciate your response."}
+                  ? t('attendingMessage')
+                  : t('notAttendingMessage')}
               </p>
               
               <div className="text-center">
@@ -243,7 +244,7 @@ function RSVP() {
                   onClick={() => navigate('/')}
                   className="bg-primary dark:bg-primary-dark hover:bg-primary-dark dark:hover:bg-primary text-white font-medium px-8 py-3 rounded-lg shadow-md transition-all duration-200 transform hover:scale-105"
                 >
-                  Return Home
+                  {t('returnHomeBtn')}
                 </button>
               </div>
             </div>
@@ -268,10 +269,10 @@ function RSVP() {
                   </svg>
                 </div>
                 <h2 className="text-2xl font-display text-primary dark:text-primary-light mb-2 transition-colors duration-200">
-                  Enter Your Invitation Code
+                  {t('codeInputTitle')}
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 transition-colors duration-200">
-                  Please enter the unique code from your invitation to access the RSVP form.
+                  {t('codeInputDescription')}
                 </p>
               </div>
               
@@ -289,13 +290,13 @@ function RSVP() {
                   type="submit"
                   className="w-full bg-primary dark:bg-primary-dark hover:bg-primary-dark dark:hover:bg-primary text-white font-medium py-3 rounded-lg shadow-md transition-all duration-200 transform hover:scale-105 animate-button-glow"
                 >
-                  Continue to RSVP
+                  {t('continueBtn')}
                 </button>
               </form>
               
               <div className="mt-6 text-center animate-fade-in-up opacity-0">
                 <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-200">
-                  Don't have your invitation code? Please contact us for assistance.
+                  {t('noCodeHelp')}
                 </p>
               </div>
             </div>
@@ -320,12 +321,12 @@ function RSVP() {
                   </svg>
                 </div>
                 <h2 className="text-2xl font-display text-primary dark:text-primary-light mb-2 transition-colors duration-200">
-                  Hello, {primaryGuest.firstName} {primaryGuest.lastName}!
+                  {t('guestWelcome', { firstName: primaryGuest.firstName, lastName: primaryGuest.lastName })}
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 transition-colors duration-200">
                   {hasExistingRsvp 
-                    ? "You can update your RSVP details below." 
-                    : "Please let us know if you'll be joining us for our special day."
+                    ? t('updateMessage')
+                    : t('joinMessage')
                   }
                 </p>
               </div>
@@ -334,7 +335,7 @@ function RSVP() {
                 {/* Attendance Section */}
                 <div className="bg-primary-light/10 dark:bg-gray-800 p-6 rounded-lg border border-primary/10 dark:border-gray-700 transition-colors duration-200 animate-section-slide opacity-0">
                   <h3 className="text-lg font-display text-primary dark:text-primary-light mb-4 transition-colors duration-200">
-                    Will you be attending?
+                    {t('attendingQuestion')}
                   </h3>
                   <div className="space-y-3">
                     <label className="flex items-center cursor-pointer">
@@ -347,7 +348,7 @@ function RSVP() {
                         className="text-primary dark:text-primary-light focus:ring-primary dark:focus:ring-primary-light h-5 w-5"
                       />
                       <span className="ml-3 text-gray-700 dark:text-gray-200 font-medium">
-                        Yes, I'll be there! 🎉
+                        {t('attendingYes')}
                       </span>
                     </label>
                     <label className="flex items-center cursor-pointer">
@@ -360,7 +361,7 @@ function RSVP() {
                         className="text-primary dark:text-primary-light focus:ring-primary dark:focus:ring-primary-light h-5 w-5"
                       />
                       <span className="ml-3 text-gray-700 dark:text-gray-200 font-medium">
-                        Sorry, I can't make it 😢
+                        {t('attendingNo')}
                       </span>
                     </label>
                   </div>
@@ -385,7 +386,7 @@ function RSVP() {
                 {/* Email Section */}
                 <div className="animate-section-slide-delayed opacity-0">
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Email Address
+                    {t('emailLabel')}
                   </label>
                   <input
                     type="email"
@@ -394,7 +395,7 @@ function RSVP() {
                     value={formData.email}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light bg-white dark:bg-gray-700 dark:text-white transition-all duration-200"
-                    placeholder="your.email@example.com"
+                    placeholder={t('emailPlaceholder')}
                     required
                   />
                 </div>
@@ -403,7 +404,7 @@ function RSVP() {
                 {formData.attending && (
                   <div className="animate-section-slide-delayed opacity-0">
                     <label htmlFor="dietaryRestrictions" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Dietary Restrictions or Special Accommodations
+                      {t('dietaryLabel')}
                     </label>
                     <textarea
                       id="dietaryRestrictions"
@@ -412,7 +413,7 @@ function RSVP() {
                       value={formData.dietaryRestrictions}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light bg-white dark:bg-gray-700 dark:text-white transition-all duration-200"
-                      placeholder="Please let us know of any dietary restrictions, allergies, or special accommodations needed..."
+                      placeholder={t('dietaryPlaceholder')}
                     />
                   </div>
                 )}
@@ -428,7 +429,7 @@ function RSVP() {
                       className="text-primary dark:text-primary-light focus:ring-primary dark:focus:ring-primary-light h-5 w-5 rounded"
                     />
                     <span className="ml-3 text-gray-700 dark:text-gray-200">
-                      Send me a confirmation email
+                      {t('confirmEmailLabel')}
                     </span>
                   </label>
                 </div>
@@ -450,10 +451,10 @@ function RSVP() {
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        Submitting Your RSVP...
+                        {t('submittingBtn')}
                       </span>
                     ) : (
-                      'Submit RSVP'
+                      t('submitBtn')
                     )}
                   </button>
                 </div>
@@ -461,7 +462,7 @@ function RSVP() {
                 {/* Error Message */}
                 {hasSubmissionFailed && (
                   <div className="p-4 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg text-center animate-error-wiggle">
-                    {error?.details?.[0]?.reason || error?.errorMessage || "There was an error submitting your RSVP. Please try again."}
+                    {error?.details?.[0]?.reason || error?.errorMessage || t('submissionError')}
                   </div>
                 )}
               </form>
@@ -480,7 +481,7 @@ function RSVP() {
         <div className="max-w-md mx-auto px-4">
           <div className="bg-white dark:bg-dark-card shadow-lg rounded-xl p-8 text-center">
             <p className="text-gray-600 dark:text-gray-400">
-              Loading...
+              {t('loading')}
             </p>
           </div>
         </div>

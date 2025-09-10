@@ -1,0 +1,113 @@
+{
+  "title": "Fundo para Lua de Mel",
+  "loadingMessage": "Carregando registro...",
+  "errorTitle": "Registro Temporariamente Indisponível",
+  "defaultErrorMessage": "Não foi possível carregar o registro. Por favor, tente novamente mais tarde.",
+  "tryAgainBtn": "Tentar Novamente",
+  "inactiveTitle": "Registro Não Ativo",
+  "inactiveMessage": "O registro da lua de mel atualmente não está aceitando doações. Obrigado pelo seu interesse!",
+  "hero": {
+    "title": "Fundo para Lua de Mel no Japão",
+    "subtitle": "Nos ajudem a criar memórias inesquecíveis na Terra do Sol Nascente",
+    "experienceText": "Vivam o Japão conosco"
+  },
+  "header": {
+    "title": "Nosso Fundo para Lua de Mel",
+    "description": "Nos ajudem a criar memórias incríveis na lua de mel!",
+    "progressLabel": "Progresso em direção à nossa meta",
+    "raisedLabel": "Arrecadado",
+    "goalLabel": "Meta", 
+    "donationsLabel": "Doações",
+    "thankYouMessage": "\"Cada contribuição, não importa o tamanho, nos ajuda a criar memórias que durarão para sempre. Obrigado por fazerem parte da nossa jornada!\" 💕"
+  },
+  "japanPlans": {
+    "title": "Nossos Planos de Aventura no Japão",
+    "mountFuji": {
+      "title": "Monte Fuji",
+      "description": "Testemunhar o símbolo icônico do Japão"
+    },
+    "cherryBlossoms": {
+      "title": "Flores de Cerejeira", 
+      "description": "Vivenciar a mágica temporada de sakura"
+    },
+    "temples": {
+      "title": "Templos Antigos",
+      "description": "Explorar séculos de tradição"
+    }
+  },
+  "destinationNote": {
+    "title": "Uma Nota Sobre Nosso Casamento de Destino",
+    "paragraph1": "Sabemos que se juntar a nós para nosso casamento de destino é um compromisso significativo, tanto financeiramente quanto com seu tempo. Sua presença em nossa celebração é o maior presente que poderíamos pedir.",
+    "paragraph2": "Este registro está simplesmente aqui para aqueles que perguntaram sobre contribuir para nossa aventura de lua de mel. Por favor, não se sintam obrigados – entendemos completamente as despesas envolvidas em viagens de destino.",
+    "paragraph3": "Somos gratos pelo seu amor e apoio, seja através da sua presença, seus votos de felicidade, ou qualquer contribuição que escolham fazer. ✈️"
+  },
+  "thankYouFooter": {
+    "title": "Obrigado",
+    "message": "Sua contribuição nos ajuda a tornar nossos sonhos do Japão realidade!"
+  },
+  "paymentHandles": {
+    "title": "Envie Seu Presente 💝",
+    "venmo": {
+      "title": "Venmo",
+      "description": "Rápido e Fácil",
+      "copyButton": "Copiar Usuário",
+      "copied": "✓ Copiado!"
+    },
+    "zelle": {
+      "title": "Zelle", 
+      "description": "Transferência Bancária",
+      "copyButton": "Copiar Telefone",
+      "copied": "✓ Copiado!"
+    },
+    "instructionsTitle": "Como Enviar Seu Presente:",
+    "instructions": [
+      "Copie as informações de pagamento acima",
+      "Abra seu aplicativo Venmo ou Zelle", 
+      "Envie o valor do seu presente com uma mensagem carinhosa 💕",
+      "Preencha o formulário abaixo para nos avisar"
+    ]
+  },
+  "donationForm": {
+    "title": "Nos Avise Sobre Seu Presente 🎁",
+    "fields": {
+      "donorName": {
+        "label": "Seu Nome *",
+        "placeholder": "Seu nome completo"
+      },
+      "donorEmail": {
+        "label": "Endereço de E-mail *",
+        "placeholder": "seu.email@exemplo.com"
+      },
+      "donorPhone": {
+        "label": "Número de Telefone (Opcional)",
+        "placeholder": "(555) 123-4567"
+      },
+      "amount": {
+        "label": "Valor do Presente *",
+        "placeholder": "100.00"
+      },
+      "paymentMethod": {
+        "label": "Método de Pagamento *",
+        "placeholder": "Selecione o método de pagamento",
+        "options": {
+          "venmo": "Venmo",
+          "zelle": "Zelle",
+          "other": "Outro"
+        }
+      },
+      "paymentReference": {
+        "label": "ID da Transação (Opcional)",
+        "placeholder": "Número da transação ou referência"
+      },
+      "message": {
+        "label": "Mensagem Pessoal (Opcional)",
+        "placeholder": "Compartilhe uma mensagem carinhosa conosco! 💕"
+      }
+    },
+    "submitButton": {
+      "idle": "Enviar Informações do Presente",
+      "loading": "Enviando..."
+    },
+    "disclaimer": "Este formulário nos informa sobre seu presente. Confirmaremos assim que recebermos seu pagamento e enviaremos uma nota de agradecimento! 💕"
+  }
+}

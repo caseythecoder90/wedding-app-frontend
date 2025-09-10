@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import EngagementGallery from '../components/common/EngagementGallery';
 import './Home.css';
 
 function Home() {
+  const { t } = useTranslation('home');
+  
   // Wedding ceremony: April 10, 2026 at 4:30 PM Dominican Republic time (UTC-4)
   // useMemo ensures this date object is only created once, not on every render
   const weddingDateTime = useMemo(() => new Date('2026-04-10T16:30:00-04:00'), []);
@@ -72,19 +75,19 @@ function Home() {
         {/* Content */}
         <div className="relative z-10 text-center px-4 max-w-4xl flex flex-col justify-end hero-content h-full">
           <h1 className="font-script text-4xl sm:text-6xl md:text-8xl text-white mb-4 sm:mb-6 drop-shadow-lg animate-romantic-fade">
-            Casey & Yasmim
+            {t('heroTitle')}
           </h1>
           <p className="text-xl sm:text-2xl md:text-3xl text-white mb-4 sm:mb-6 font-light drop-shadow-md animate-romantic-fade-delayed">
-            We're getting married!
+            {t('heroSubtitle')}
           </p>
           <div className="text-lg sm:text-xl md:text-2xl text-white font-light mb-6 sm:mb-8 drop-shadow-md animate-romantic-fade-delayed-2">
-            April 10, 2026 • Punta Cana, Dominican Republic
+            {t('heroDate')}
           </div>
           <Link 
             to="/rsvp" 
             className="inline-block bg-primary dark:bg-primary-dark hover:bg-primary-dark dark:hover:bg-primary text-white font-medium px-8 py-3 rounded-md shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-romantic-fade-delayed-3"
           >
-            RSVP Now
+            {t('rsvpNowBtn')}
           </Link>
         </div>
         
@@ -103,7 +106,7 @@ function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="font-script text-4xl text-primary-dark dark:text-primary-light mb-12 transition-colors duration-200 animate-section-fade">
-              {timeLeft.isMarried ? 'Happily Married' : 'Counting Down'}
+              {timeLeft.isMarried ? t('marriedTitle') : t('countdownTitle')}
             </h2>
             
             <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl p-6 sm:p-8 shadow-lg border border-gray-200 dark:border-gray-700 max-w-4xl mx-auto transition-colors duration-200 animate-countdown-appear">
@@ -114,7 +117,7 @@ function Home() {
                     {timeLeft.days}
                   </div>
                   <div className="text-sm md:text-base text-gray-600 dark:text-gray-300 transition-colors duration-200">
-                    Days
+                    {t('countdownDays')}
                   </div>
                 </div>
                 <div className="text-center">
@@ -122,7 +125,7 @@ function Home() {
                     {timeLeft.hours}
                   </div>
                   <div className="text-sm md:text-base text-gray-600 dark:text-gray-300 transition-colors duration-200">
-                    Hours
+                    {t('countdownHours')}
                   </div>
                 </div>
                 <div className="text-center">
@@ -130,7 +133,7 @@ function Home() {
                     {timeLeft.minutes}
                   </div>
                   <div className="text-sm md:text-base text-gray-600 dark:text-gray-300 transition-colors duration-200">
-                    Minutes
+                    {t('countdownMinutes')}
                   </div>
                 </div>
                 <div className="text-center">
@@ -138,7 +141,7 @@ function Home() {
                     {timeLeft.seconds}
                   </div>
                   <div className="text-sm md:text-base text-gray-600 dark:text-gray-300 transition-colors duration-200">
-                    Seconds
+                    {t('countdownSeconds')}
                   </div>
                 </div>
               </div>
@@ -146,19 +149,16 @@ function Home() {
               {/* Ceremony Details */}
               <div className="text-center border-t border-gray-200 dark:border-gray-600 pt-4">
                 <div className="text-lg md:text-xl text-gray-700 dark:text-gray-300 font-medium mb-2">
-                  {timeLeft.isMarried ? 'since we said "I do"' : 'until we say "I do"'}
+                  {timeLeft.isMarried ? t('countdownSince') : t('countdownUntil')}
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">
-                  {timeLeft.isMarried 
-                    ? 'Married: April 10, 2026 at 4:30 PM (Dominican Republic time)' 
-                    : 'Ceremony: April 10, 2026 at 4:30 PM (Dominican Republic time)'
-                  }
+                  {timeLeft.isMarried ? t('marriedTime') : t('ceremonyTime')}
                 </div>
               </div>
             </div>
             
             <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mt-12 transition-colors duration-200 animate-section-fade-delayed">
-              Join us for our dream destination wedding in beautiful Punta Cana! Browse our story, check out the venue details, and RSVP today.
+              {t('weddingDescription')}
             </p>
           </div>
         </div>
@@ -171,23 +171,23 @@ function Home() {
      <section className="py-16 bg-primary/10 dark:bg-primary-dark/20 transition-colors duration-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h3 className="font-script text-4xl text-primary-dark dark:text-primary-light mb-6">
-            Join Our Celebration
+            {t('joinCelebrationTitle')}
           </h3>
           <p className="text-xl text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
-            We would be honored to have you share in our joy. Please let us know if you can join us in paradise.
+            {t('joinCelebrationSubtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mobile-button-stack">
             <Link 
               to="/rsvp" 
               className="w-full sm:w-auto inline-block bg-primary dark:bg-primary-dark hover:bg-primary-dark dark:hover:bg-primary text-white font-medium px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 text-center"
             >
-              RSVP Now
+              {t('rsvpNowBtn')}
             </Link>
             <Link 
               to="/venue" 
               className="w-full sm:w-auto inline-block bg-white dark:bg-dark-card border-2 border-primary dark:border-primary-light text-primary dark:text-primary-light hover:bg-primary hover:text-white dark:hover:bg-primary-light dark:hover:text-white font-medium px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 text-center"
             >
-              Learn More
+              {t('learnMoreBtn')}
             </Link>
           </div>
         </div>

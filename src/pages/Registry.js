@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { fetchRegistryOverview } from '../store/slices/registrySlice';
 
 /**
@@ -16,6 +17,7 @@ import DonationSuccessModal from '../components/registry/DonationSuccessModal';
 
 const Registry = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation('registry');
   
   /** @type {{ overview: RegistryOverview | null, overviewStatus: 'idle'|'loading'|'succeeded'|'failed', error: any }} */
   const { overview, overviewStatus, error } = useSelector((state) => state.registry);
@@ -31,7 +33,7 @@ const Registry = () => {
       <div className="min-h-screen bg-gray-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-300">Loading registry...</p>
+          <p className="text-gray-600 dark:text-gray-300">{t('loadingMessage')}</p>
         </div>
       </div>
     );
@@ -43,16 +45,16 @@ const Registry = () => {
       <div className="min-h-screen bg-gray-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-2">
-            Registry Temporarily Unavailable
+            {t('errorTitle')}
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-4">
-            {error?.errorMessage || 'Unable to load the registry. Please try again later.'}
+            {error?.errorMessage || t('defaultErrorMessage')}
           </p>
           <button
             onClick={() => dispatch(fetchRegistryOverview())}
             className="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-lg transition-colors"
           >
-            Try Again
+            {t('tryAgainBtn')}
           </button>
         </div>
       </div>
@@ -65,10 +67,10 @@ const Registry = () => {
       <div className="min-h-screen bg-gray-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-2">
-            Registry Not Active
+            {t('inactiveTitle')}
           </h2>
           <p className="text-gray-600 dark:text-gray-300">
-            The honeymoon registry is currently not accepting donations. Thank you for your interest!
+            {t('inactiveMessage')}
           </p>
         </div>
       </div>
@@ -89,29 +91,29 @@ const Registry = () => {
         {/* Travel Highlights */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-8 border border-gray-200 dark:border-gray-700">
           <h3 className="text-2xl font-display text-gray-800 dark:text-white mb-6 text-center">
-            Our Japan Adventure Plans
+            {t('japanPlans.title')}
           </h3>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center bg-gray-50 dark:bg-gray-700 rounded-xl p-6 border border-gray-200 dark:border-gray-600">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">🏔️</span>
               </div>
-              <h4 className="font-semibold text-gray-800 dark:text-white mb-2">Mount Fuji</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Witness the iconic symbol of Japan</p>
+              <h4 className="font-semibold text-gray-800 dark:text-white mb-2">{t('japanPlans.mountFuji.title')}</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{t('japanPlans.mountFuji.description')}</p>
             </div>
             <div className="text-center bg-gray-50 dark:bg-gray-700 rounded-xl p-6 border border-gray-200 dark:border-gray-600">
               <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">🌸</span>
               </div>
-              <h4 className="font-semibold text-gray-800 dark:text-white mb-2">Cherry Blossoms</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Experience magical sakura season</p>
+              <h4 className="font-semibold text-gray-800 dark:text-white mb-2">{t('japanPlans.cherryBlossoms.title')}</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{t('japanPlans.cherryBlossoms.description')}</p>
             </div>
             <div className="text-center bg-gray-50 dark:bg-gray-700 rounded-xl p-6 border border-gray-200 dark:border-gray-600">
               <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">⛩️</span>
               </div>
-              <h4 className="font-semibold text-gray-800 dark:text-white mb-2">Ancient Temples</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Explore centuries of tradition</p>
+              <h4 className="font-semibold text-gray-800 dark:text-white mb-2">{t('japanPlans.temples.title')}</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{t('japanPlans.temples.description')}</p>
             </div>
           </div>
         </div>
@@ -126,19 +128,17 @@ const Registry = () => {
               <span className="text-3xl">💝</span>
             </div>
             <h3 className="text-xl md:text-2xl font-playfair text-gray-800 dark:text-white mb-4">
-              A Note About Our Destination Wedding
+              {t('destinationNote.title')}
             </h3>
             <div className="max-w-2xl mx-auto text-gray-600 dark:text-gray-300 space-y-3">
               <p className="text-base leading-relaxed">
-                We know that joining us for our destination wedding is a significant commitment, both financially and with your time. 
-                Your presence at our celebration is the greatest gift we could ask for.
+                {t('destinationNote.paragraph1')}
               </p>
               <p className="text-base leading-relaxed">
-                This registry is simply here for those who have asked about contributing to our honeymoon adventure. 
-                Please don't feel any obligation – we completely understand the expenses involved in destination travel.
+                {t('destinationNote.paragraph2')}
               </p>
               <p className="text-base leading-relaxed font-medium text-primary-600 dark:text-primary-400">
-                We're grateful for your love and support, whether that's through your presence, your well wishes, or any contribution you choose to make. ✈️
+                {t('destinationNote.paragraph3')}
               </p>
             </div>
           </div>
@@ -146,9 +146,9 @@ const Registry = () => {
 
         {/* Thank You Footer */}
         <div className="text-center bg-gradient-to-r from-primary to-secondary text-white rounded-2xl p-8 shadow-xl">
-          <h3 className="text-2xl font-display mb-4">Thank You</h3>
+          <h3 className="text-2xl font-display mb-4">{t('thankYouFooter.title')}</h3>
           <p className="text-lg font-sans opacity-90">
-            Your contribution helps make our Japan dreams come true!
+            {t('thankYouFooter.message')}
           </p>
         </div>
       </div>

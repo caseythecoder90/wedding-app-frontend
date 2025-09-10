@@ -1,0 +1,26 @@
+{
+  "heroTitle": "Casey & Yasmim",
+  "heroSubtitle": "Estamos nos casando!",
+  "heroDate": "10 de Abril de 2026 • Punta Cana, República Dominicana",
+  "rsvpNowBtn": "Confirmar Presença",
+  "countdownTitle": "Contagem Regressiva",
+  "marriedTitle": "Felizes e Casados",
+  "countdownDays": "Dias",
+  "countdownHours": "Horas",
+  "countdownMinutes": "Minutos",
+  "countdownSeconds": "Segundos",
+  "countdownUntil": "até dizermos \"Sim\"",
+  "countdownSince": "desde que dissemos \"Sim\"",
+  "ceremonyTime": "Cerimônia: 10 de Abril de 2026 às 16:30 (horário da República Dominicana)",
+  "marriedTime": "Casamento: 10 de Abril de 2026 às 16:30 (horário da República Dominicana)",
+  "weddingDescription": "Junte-se a nós para o nosso casamento dos sonhos na linda Punta Cana! Conheça nossa história, confira os detalhes do local e confirme sua presença hoje.",
+  "joinCelebrationTitle": "Junte-se à Nossa Celebração",
+  "joinCelebrationSubtitle": "Ficaríamos honrados em ter vocês compartilhando nossa alegria. Por favor, nos informe se podem se juntar a nós no paraíso.",
+  "learnMoreBtn": "Saiba Mais",
+  "gallery": {
+    "title": "Nosso Noivado",
+    "subtitle": "Celebrando nossa história de amor através destes momentos especiais",
+    "mobileHintBold": "Toque em qualquer foto",
+    "mobileHintText": "para ver o slideshow em alta qualidade"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "loading": "Carregando...",
+  "error": "Erro",
+  "success": "Sucesso",
+  "cancel": "Cancelar",
+  "close": "Fechar",
+  "save": "Salvar",
+  "edit": "Editar",
+  "delete": "Excluir",
+  "yes": "Sim",
+  "no": "Não",
+  "required": "Este campo é obrigatório",
+  "weddingTitle": "Casamento do Casey & Yasmim",
+  "weddingDate": "10 de Abril de 2026",
+  "weddingLocation": "Punta Cana, República Dominicana",
+  "footer": {
+    "coupleNames": "Casey & Yasmim",
+    "celebrationMessage": "Mal podemos esperar para celebrar com vocês em Punta Cana!",
+    "copyright": "Casamento do Casey & Yasmim"
+  }
+}

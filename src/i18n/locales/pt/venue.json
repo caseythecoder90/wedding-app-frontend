@@ -1,9 +1,9 @@
 {
   "heroTitle": "Nosso Paraíso",
-  "heroSubtitle": "Junte-se a nós na linda Punta Cana, República Dominicana",
+  "heroSubtitle": "Junte-se a nós em Punta Cana, República Dominicana",
   "heroDate": "10 de Abril de 2026",
   "resortTitle": "Grand Bavaro Princess",
-  "resortDescription": "Um resort de luxo com tudo incluído aninhado nas praias pristinas de Bavaro Beach, onde estaremos celebrando nosso dia especial. Nós (Yasmim & Casey) ficaremos de 8 a 13 de abril e ficaríamos emocionados em passar este tempo com vocês!",
+  "resortDescription": "Um resort de luxo com tudo incluído nas praias pristinas de Bavaro Beach, onde estaremos celebrando nosso dia especial. Nós (Yasmim & Casey) ficaremos de 8 a 13 de abril e ficaríamos felizes em passar este tempo com vocês!",
   "aboutResortTitle": "Sobre Nosso Resort",
   "resortDetails": "Localizado na mundialmente famosa Praia de Bavaro, o Grand Bavaro Princess possui {{suites}} suítes espaçosas, {{restaurants}} restaurantes temáticos e {{bars}} bares situados dentro de um complexo ecológico que respeita a vegetação e vida selvagem nativas.",
   "suites": "1.290",
@@ -46,7 +46,7 @@
   },
   "celebrateTitle": "Venham Celebrar Conosco",
   "stayTitle": "Estaremos Lá de 8 a 13 de Abril",
-  "stayDescription": "Embora nosso casamento seja no dia {{weddingDate}}, estamos fazendo desta uma verdadeira celebração ficando no resort por vários dias. Ficaríamos absolutamente emocionados se vocês se juntassem a nós por qualquer parte deste tempo!",
+  "stayDescription": "Embora nosso casamento seja no dia {{weddingDate}}, estamos fazendo desta uma verdadeira celebração ficando no resort por vários dias. Ficaríamos felizes se vocês se juntassem a nós por qualquer parte deste tempo!",
   "weddingDate": "10 de abril",
   "stayFeatures": {
     "timeline": {
@@ -90,7 +90,7 @@
     },
     "documentation": {
       "title": "Documentação",
-      "description": "Cidadãos americanos precisam de passaporte válido. Cartão de turista será fornecido na chegada"
+      "description": "É necessário passaporte válido. Por favor, verifique os requisitos de entrada para seu país"
     },
     "weather": {
       "title": "Clima", 

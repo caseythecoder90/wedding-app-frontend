@@ -12,7 +12,7 @@ const RegistryHeader = ({ overview }) => {
           {t('header.title')}
         </h2>
         <p className="text-gray-600 dark:text-gray-300">
-          {overview.settings.registryDescription || t('header.description')}
+          {t('header.description')}
         </p>
       </div>
 

@@ -132,20 +132,31 @@ function RSVP() {
 
   // Hero section with clean text animations
   const rsvpHero = (
-    <section className="relative py-24 bg-gradient-to-br from-primary-light/30 to-secondary-light/30 dark:from-primary-dark/20 dark:to-secondary-dark/20 overflow-hidden">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center">
-          <h1 className="font-script text-6xl text-primary dark:text-primary-light mb-6 overflow-visible animate-rsvp-fade opacity-0">
-            {t('title')}
-          </h1>
-          <p className="text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto animate-rsvp-fade-delayed opacity-0">
-            {t('subtitle')}
-          </p>
-          <div className="mt-8 animate-rsvp-fade-delayed-2 opacity-0">
-            <div className="inline-block bg-white dark:bg-dark-card rounded-lg px-6 py-3 shadow-lg backdrop-blur-sm bg-opacity-90 border border-primary/20">
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                {t('deadline')}
-              </p>
+    <section className="relative h-[400px] md:h-[600px] overflow-hidden flex items-start">
+      {/* Background Image - No Overlay */}
+      <div 
+        className="absolute inset-0 bg-contain md:bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('https://res.cloudinary.com/dwdaehpml/image/upload/v1757558046/florida-beach_gn2pjz.jpg')`,
+          backgroundPosition: 'center center' // Centers the image to show full bodies
+        }}
+      />
+      
+      <div className="w-full relative z-10 pt-12 sm:pt-10 md:pt-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="font-script text-3xl sm:text-5xl md:text-6xl text-primary-600 dark:text-primary-400 mb-2 sm:mb-3 animate-rsvp-fade opacity-0">
+              {t('title')}
+            </h1>
+            <p className="text-sm sm:text-lg md:text-xl text-primary-700 dark:text-primary-300 max-w-2xl mx-auto animate-rsvp-fade-delayed opacity-0 font-medium">
+              {t('subtitle')}
+            </p>
+            <div className="mt-3 sm:mt-4 md:mt-6 animate-rsvp-fade-delayed-2 opacity-0">
+              <div className="inline-block bg-white/95 dark:bg-white/90 rounded-lg px-4 sm:px-6 py-2 sm:py-3 shadow-2xl backdrop-blur-sm border border-primary-200">
+                <p className="text-xs sm:text-sm font-medium text-gray-700">
+                  {t('deadline')}
+                </p>
+              </div>
             </div>
           </div>
         </div>

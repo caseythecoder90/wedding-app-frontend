@@ -18,7 +18,10 @@ function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex">
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <span className="font-script text-2xl text-primary dark:text-primary-light">Casey & Yasmim</span>
+              <span className="font-script text-xl sm:text-2xl text-primary dark:text-primary-light">
+                <span className="hidden xs:inline">Casey & Yasmim</span>
+                <span className="xs:hidden">C & Y</span>
+              </span>
             </Link>
           </div>
           
@@ -87,7 +90,7 @@ function Navbar() {
           </div>
           
           {/* Mobile menu button */}
-          <div className="flex items-center sm:hidden space-x-2">
+          <div className="flex items-center sm:hidden space-x-1">
             <LanguageSelector />
             <DarkModeToggle />
             <button

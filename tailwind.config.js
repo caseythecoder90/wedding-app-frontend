@@ -4,6 +4,9 @@ module.exports = {
   darkMode: 'class', // Enable dark mode with class strategy
   theme: {
     extend: {
+      screens: {
+        'xs': '475px', // Custom breakpoint for extra small devices
+      },
       colors: {
         primary: {
           50: '#f0f9ff',

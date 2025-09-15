@@ -52,6 +52,7 @@ import './RSVP.css';
  * @property {string} dietaryRestrictions - Dietary restrictions
  * @property {string} email - Guest email
  * @property {boolean} sendConfirmationEmail - Send confirmation
+ * @property {string} preferredLanguage - Language for confirmation emails (e.g., 'en', 'pt-BR')
  */
 
 /**

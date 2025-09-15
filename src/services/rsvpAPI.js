@@ -70,6 +70,7 @@ class RSVPAPIService {
       dietaryRestrictions: rsvpData.dietaryRestrictions?.trim() || undefined,
       email: rsvpData.email?.trim()?.toLowerCase() || '',
       sendConfirmationEmail: Boolean(rsvpData.sendConfirmationEmail),
+      preferredLanguage: rsvpData.preferredLanguage || 'en',
       submittedAt: rsvpData.submittedAt || new Date().toISOString()
     };
 

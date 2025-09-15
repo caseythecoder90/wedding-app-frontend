@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { 
   validateInvitationCode, 
   submitRsvp, 
@@ -16,6 +17,7 @@ export const useRSVP = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { i18n } = useTranslation();
   
   const rsvpState = useSelector((state) => state.rsvp);
   const invitationCode = searchParams.get('code');
@@ -70,9 +72,25 @@ export const useRSVP = () => {
   }, [dispatch]);
 
   const submitForm = useCallback(async (additionalData = {}) => {
+    // Map i18n language codes to backend-expected format
+    const languageMap = {
+      'en': 'en',
+      'pt': 'pt-BR'
+    };
+    
+    const preferredLanguage = languageMap[i18n.language] || 'en';
+    
+    // Debug logging
+    console.log('🌍 Language Debug:', {
+      'i18n.language': i18n.language,
+      'mapped preferredLanguage': preferredLanguage,
+      'typeof i18n.language': typeof i18n.language
+    });
+    
     const rsvpData = {
       ...rsvpState.formData,
       ...additionalData,
+      preferredLanguage: preferredLanguage, // Include mapped language for email localization
       submittedAt: new Date().toISOString()
     };
     
@@ -82,7 +100,7 @@ export const useRSVP = () => {
     } catch (error) {
       return { success: false, error };
     }
-  }, [dispatch, rsvpState.formData]);
+  }, [dispatch, rsvpState.formData, i18n.language]);
 
   // Error handling
   const clearErrors = useCallback(() => {
